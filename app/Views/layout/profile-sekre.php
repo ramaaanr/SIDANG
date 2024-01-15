@@ -41,7 +41,8 @@
   <!-- Source Table -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="<?= base_url(); ?>/assets/js/jquery-3.6.1.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js" type="text/javascript" charset="utf8"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js" type="text/javascript" charset="utf8">
+  </script>
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 
   <script lang="javascript" type="text/javascript">
@@ -171,6 +172,8 @@
         getNamaBidang.forEach(element => {
           element.innerText = res.nama_bidang;
         });
+        document.getElementById('gambarBidang').src =
+          `<?= base_url(); ?>/assets/img/profil-bidang/${res.nama_bidang}.JPG`;
         document.getElementById("deskBidang").innerText = res.deskripsi_bidang;
       });
     });
@@ -212,7 +215,9 @@
           },
           error: function() { // error handling
             $(".tabel_dataPegawaiBidang-error").html("");
-            $("#tabel_dataPegawaiBidang").append('<tbody class="tabel_dataPegawaiBidang-error"><tr><th colspan="3">Data Tidak Ditemukan di Server</th></tr></tbody>');
+            $("#tabel_dataPegawaiBidang").append(
+              '<tbody class="tabel_dataPegawaiBidang-error"><tr><th colspan="3">Data Tidak Ditemukan di Server</th></tr></tbody>'
+            );
             $("#tabel_dataPegawaiBidang_processing").css("display", "none");
           }
         },
@@ -269,7 +274,9 @@
           },
           error: function() { // error handling
             $(".tabel_dataIndikatorBidang-error").html("");
-            $("#tabel_dataIndikatorBidang").append('<tbody class="tabel_dataIndikatorBidang-error"><tr><th colspan="3">Data Tidak Ditemukan di Server</th></tr></tbody>');
+            $("#tabel_dataIndikatorBidang").append(
+              '<tbody class="tabel_dataIndikatorBidang-error"><tr><th colspan="3">Data Tidak Ditemukan di Server</th></tr></tbody>'
+            );
             $("#tabel_dataIndikatorBidang_processing").css("display", "none");
           }
         },
@@ -324,7 +331,8 @@
               realisasi = (tw1 + tw2 + tw3 + tw4)
               capaianKinerja = (realisasi / target) * 100;
               if (capaianKinerja < 100) {
-                return '<div class="text-center text-sm font-weight-bold">' + capaianKinerja.toFixed(2) + '% </div> ';
+                return '<div class="text-center text-sm font-weight-bold">' + capaianKinerja.toFixed(2) +
+                  '% </div> ';
               }
               return '<div class="text-center text-sm font-weight-bold">' + capaianKinerja + '% </div> ';
             }

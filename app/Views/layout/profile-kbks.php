@@ -170,6 +170,9 @@
                 getNamaBidang.forEach(element => {
                     element.innerText = res.nama_bidang;
                 });
+
+                document.getElementById('gambarBidang').src =
+                    `<?= base_url(); ?>/assets/img/profil-bidang/${res.nama_bidang}.JPG`;
                 document.getElementById("deskBidang").innerText = res.deskripsi_bidang;
             });
         });
