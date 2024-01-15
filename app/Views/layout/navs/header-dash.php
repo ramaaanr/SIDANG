@@ -1,5 +1,4 @@
-<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
-    data-scroll="false">
+<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-1 px-3 mt-3 ">
         <nav aria-label="breadcrumb">
             <span class="breadcrumb-item text-lg text-white active font-weight-bold">SISTEM INFORMASI DATA BIDANG</span>
@@ -25,9 +24,18 @@
             </div>
             -->
 
-            <ul class="navbar-nav justify-content-end">
+            <ul class="navbar-nav justify-content-end ">
+                <li class="nav-item me-2 d-xl-none ps-3 d-flex align-items-center ">
+                    <a href="javascript:;" class="nav-link text-white rounded-2 p-2 border border-2 border-light" id="iconNavbarSidenav">
+                        <div class="sidenav-toggler-inner ">
+                            <i class="sidenav-toggler-line bg-white"></i>
+                            <i class="sidenav-toggler-line bg-white"></i>
+                            <i class="sidenav-toggler-line bg-white"></i>
+                        </div>
+                    </a>
+                </li>
                 <li class="nav-item d-flex align-items-center">
-                    <a href="<?= base_url()?>/Login/Logout" class="nav-link text-white font-weight-bold px-0">
+                    <a href="<?= base_url() ?>/Login/Logout" class="nav-link text-white font-weight-bold px-0">
                         <i class="fa fa-user me-sm-1"></i>
                         <span class="d-sm-inline d-none">Logout</span>
                     </a>
