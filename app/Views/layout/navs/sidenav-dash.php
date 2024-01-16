@@ -21,7 +21,7 @@
           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
             <i class="ni ni-single-02 text-dark text-sm "></i>
           </div>
-          <span class="ms-1 d-none d-sm-inline">Profile Bidang</span>
+          <span class="ms-1 ">Profile Bidang</span>
         </a>
         <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
           <li class="w-100">
@@ -66,7 +66,7 @@
           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
             <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
           </div>
-          <span class="ms-1 d-none d-sm-inline">Tabel Master</span>
+          <span class="ms-1 ">Tabel Master</span>
         </a>
         <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
           <li class="w-100">
