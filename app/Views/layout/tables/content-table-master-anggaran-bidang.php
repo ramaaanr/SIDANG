@@ -2,18 +2,14 @@
   <div class="container-fluid py-4">
     <div class="row">
       <div class="col-12">
-
-        <div class="card mb-4 p-3">
-          <h4 class="text text-center">DATA ANGGARAN BIDANG</h1>
-        </div>
         <div class="container-fluid py-4">
           <div class="row">
             <div class="col-12">
               <div class="card mb-4">
                 <div class="card-header pb-0">
                   <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                      <h4>Anggaran Bidang</h4>
+                    <div class="w-100">
+                      <h4 class="text-center text-uppercase font-weight-bolder text-5xl">Anggaran Bidang</h4>
                     </div>
                     <div>
                       <button class="btn btn-success" role="button" data-bs-toggle="modal" data-bs-target="#exampleModalTambah">Tambah</button>
