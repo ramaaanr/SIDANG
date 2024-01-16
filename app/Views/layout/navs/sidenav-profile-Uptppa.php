@@ -64,12 +64,56 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="<?= base_url() ?>TabelMaster">
+                <a href="#submenu2" data-bs-toggle="collapse" class="nav-link">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Tabel Master</span>
+                    <span class="ms-1 ">Tabel Master</span>
                 </a>
+                <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                    <li class="w-100">
+                        <a class="nav-link " href="<?= base_url() ?>AnggaranBidang">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            </div>
+                            <span class="nav-link-text ms-1">Anggaran Bidang</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="<?= base_url() ?>AnggaranDinas">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            </div>
+                            <span class="nav-link-text ms-1">Anggaran Dinas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="<?= base_url() ?>IndikatorDinas">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            </div>
+                            <span class="nav-link-text ms-1">Indikator Dinas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="<?= base_url() ?>KinerjaDinas">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            </div>
+                            <span class="nav-link-text ms-1">Kinerja Dinas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url() ?>DataPegawai">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            </div>
+                            <span class="nav-link-text ms-1">Data Pegawai</span>
+                        </a>
+                    </li>
+                    <li claass="nav-item">
+                        <a class="nav-link" href="<?= base_url() ?>ProfilBidang">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            </div>
+                            <span class="nav-link-text ms-1">Profil Bidang</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
