@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-5 mb-4">
+    <div id="bagan-persentase" class="col-lg-5 mb-4">
         <div class="card">
             <div class="card-header pb-0 p-3">
                 <div class="d-flex justify-content-between">

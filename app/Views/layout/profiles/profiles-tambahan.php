@@ -1,4 +1,4 @@
-<div class="row mt-4">
+<div id="tabel-kinerja" class="row mt-4">
     <div class="col-lg mb-lg-0 mb-4">
         <div class="card p-2">
             <div class="card-header pb-0 p-3">
@@ -12,7 +12,7 @@
                     <thead>
                         <tr>
                             <th>
-                                <div >No</div>
+                                <div>No</div>
                             </th>
                             <th>
                                 <div class="text-center">Nama Indikator</div>
@@ -49,7 +49,7 @@
     </div>
 </div>
 
-<div class="row mt-4">
+<div id="bagan-persentase" class="row mt-4">
     <div class="col-lg mb-lb-0 mb-4">
         <div class="card p-2">
             <div class="card-header pb-0 p-3">

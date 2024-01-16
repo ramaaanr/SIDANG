@@ -15,12 +15,45 @@
                     <div class="card-body flex flex-column justify-content-center align-content-center">
                       <div class="card-title ">
                         <div class="mb-4 text-uppercase text-uppercase  font-weight-bolder h3">Bidang
-                          <h3 id="namaBidang" class="text-center mb-4 text-uppercase font-weight-bolder" style="display: inline;">
+                          <h3 id="namaBidang" class="text-center mb-4 text-uppercase font-weight-bolder"
+                            style="display: inline;">
                           </h3>
                         </div>
                       </div>
-                      <div class="card-text">
+                      <!-- <div class="card-text">
                         <p class="mb-4 mt-3 text-uppercase ">profile bidang</p>
+                      </div> -->
+                      <div class="row">
+                        <div class="col-lg-4 col-6 py-2 px-1">
+                          <a class="h-100 d-block" href="#pejabat-bidang">
+                            <button type="button" class="btn btn-primary w-100 h-100 py-1">Pejabat Bidang</button>
+                          </a>
+                        </div>
+                        <div class="col-lg-4 col-6 py-2 px-1">
+                          <a class="h-100 d-block" href="#pagu-anggaran">
+                            <button type="button" class="btn btn-primary w-100 h-100 py-1">Pagu Anggaran</button>
+                          </a>
+                        </div>
+                        <div class="col-lg-4 col-6 py-2 px-1">
+                          <a class="h-100 d-block" href="#realisasi-anggaran">
+                            <button type="button" class="btn btn-primary w-100 h-100 py-1">Realisasi Anggaran</button>
+                          </a>
+                        </div>
+                        <div class="col-lg-4 col-6 py-2 px-1">
+                          <a class="h-100 d-block" href="#tabel-kinerja">
+                            <button type="button" class="btn btn-primary w-100 h-100 py-1">Table Kinerja</button>
+                          </a>
+                        </div>
+                        <div class="col-lg-4 col-6 py-2 px-1">
+                          <a class="h-100 d-block" href="#bagan-persentase">
+                            <button type="button" class="btn btn-primary w-100 h-100 py-1">Bagan Persentase</button>
+                          </a>
+                        </div>
+                        <div class="col-lg-4 col-6 py-2 px-1">
+                          <a class="h-100 d-block" href="#tabel-kegiatan">
+                            <button type="button" class="btn btn-primary w-100 h-100 py-1">Tabel Kegiatan</button>
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -28,7 +61,8 @@
               </div>
               <div class="text text-justify mt-4">
                 <p id="deskBidang" style="text-indent: 50px;">Deskripsi</p>
-                <h4 class="text-center mb-4 mt-4 text-uppercase font-weight-bold">pejabat bidang</h4>
+                <h4 id="pejabat-bidang" class="text-center mb-4 mt-4 text-uppercase font-weight-bold">pejabat bidang
+                </h4>
                 <hr class="horizontal dark my-3">
                 <table id="tabel_dataPegawaiBidang" style="width: 100%" class="table table-hover align-items-center">
                   <thead>
