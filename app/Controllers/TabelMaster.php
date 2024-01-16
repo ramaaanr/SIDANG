@@ -214,7 +214,7 @@ class TabelMaster extends BaseController
 
         echo json_encode($res);
     }
-    
+
     //////////////////////////////////////// End Of Pegawai Dinas ////////////////////////////////////////
 
     //////////////////////////////////////// Start Of Kinerja DInas ////////////////////////////////////////
@@ -405,28 +405,35 @@ class TabelMaster extends BaseController
     }
     public function ubah_Indikator()
     {
-        $request            = Services::request();
-        $Indikator      = new TabelIndikator($request);
-        $post               = $this->request->getPost();
+        try {
+            //code...
+            $request            = Services::request();
+            $Indikator      = new TabelIndikator($request);
+            $post               = $this->request->getPost();
 
-        $setUpdateIndikator = [
-            'indikator_dinas'        => $post["indikator_dinas"],
-            'divisi_indikator'     => $post["divisi_indikator"],
-            'target_indikator'         => $post["target_indikator"],
-            'triwulan_1'    => $post["triwulan_1"],
-            'triwulan_2'    => $post["triwulan_2"],
-            'triwulan_3'    => $post["triwulan_3"],
-            'triwulan_4'    => $post["triwulan_4"],
-        ];
+            $setUpdateIndikator = [
+                'indikator_dinas'        => $post["indikator_dinas"],
+                'divisi_indikator'     => $post["divisi_indikator"],
+                'target_indikator'         => $post["target_indikator"],
+                'triwulan_1'    => $post["triwulan_1"],
+                'triwulan_2'    => $post["triwulan_2"],
+                'triwulan_3'    => $post["triwulan_3"],
+                'triwulan_4'    => $post["triwulan_4"],
+            ];
 
-        $updateIndikator   = $Indikator->set($setUpdateIndikator)->where('indikator_dinas', $post["id"])->update();
+            $updateIndikator   = $Indikator->set($setUpdateIndikator)->where('indikator_dinas', $post["id"])->update();
 
-        if ($updateIndikator) {
-            $res["status"] = TRUE;
-            $res["res"]    = 'Update Data Berhasil';
-        } else {
+            if ($updateIndikator) {
+                $res["status"] = TRUE;
+                $res["res"]    = 'Update Data Berhasil';
+            } else {
+                $res["status"] = FALSE;
+                $res["res"]    = 'Update Data Berhasil';
+            }
+        } catch (\Exception $e) {
+            http_response_code(400);
             $res["status"] = FALSE;
-            $res["res"]    = 'Update Data Berhasil';
+            $res["res"]    = $e->getMessage();
         }
 
         echo json_encode($res);
