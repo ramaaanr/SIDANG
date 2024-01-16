@@ -10,15 +10,20 @@ class Login extends BaseController
 {
     public function index($pesan = NULL)
     {
-        $session = session();
-        $session->destroy();
+        // $session = session();
+        // $session->destroy();
         $data['pesan_ui'] = $pesan;
+
+        $session = Services::session();
+        if ($session->get('user')) {
+            // Redirect ke halaman login jika tidak ada sesi login
+            return redirect()->to(base_url('DashboardSidang'));
+        }
         return view('layout/sign-in', $data);
     }
+
     public function cek()
     {
-        $session = session();
-        $session->destroy();
         $username   = $this->request->getPost('username');
         $divisi     = $this->request->getPost('divisi');
         $pass       = $this->request->getPost('password');
@@ -28,46 +33,40 @@ class Login extends BaseController
         $user       = new TabelUser($request);
         $dataUser   = $user->find($username);
 
-        if ($dataUser == NULL) {
-            $pesan['pesan_ui'] = ' <div class="alert alert-warning text-black">
-            <strong>Perhatian!</strong> Masukkan Username atau Password Dengan Benar!
-        </div>';
-            
-            return view("layout/sign-in", $pesan);
-        } else {
-            if ($username == $dataUser['username']) {
-                if ($divisi == $dataUser['divisi'] && $pass == $dataUser['password']) {
-                    if (($pass) == $dataUser['password']) {
-                        $session = session();
-                        $session_data = [
-                            "username"      => $dataUser['username'],
-                            "divisi"        => $dataUser['divisi']
-                        ];
-                        $session->set($session_data);
-                        return redirect()->to(base_url('Home'));
-                    } else {
-                        $pesan['pesan_ui'] = ' <div class="alert alert-warning text-black">
-            <strong>Perhatian!</strong> Masukkan Username atau Password Dengan Benar!</div>';
-                        
-                        return view("layout/sign-n", $pesan);
-                    }
-                } else {
-                    $pesan['pesan_ui'] = ' <div class="alert alert-warning text-black">
-            <strong>Perhatian!</strong> Masukkan Username atau Password Dengan Benar!</div>';
-                    
-                    return view("layout/sign-in", $pesan);
-                }
-            } else {
-                $pesan['pesan_ui'] = ' <div class="alert alert-warning text-black">
-                <strong>Perhatian!</strong> Masukkan Username atau Password Dengan Benar!</div>';
-                return view("layout/sign-in", $pesan);
 
+        if ($dataUser) {
+            // Jika sign in berhasil, set session dan kirim respons JSON
+            // $session->set_userdata('username', $dataUser['username']);
+            // $response['status'] = 'success';
+            // $response['message'] = 'Sign in successful.';
+            if ($pass != $dataUser['password'] || $divisi != $dataUser['divisi']) {
+
+                $response['status'] = 'error';
+                $response['message'] = 'Password atau Divisi Tidak Sesuai';
+            } else {
+                $session = Services::session();
+                $session->set('user', [
+                    "username" => $username,
+                    "pass" => $pass,
+                    "pass" => $pass,
+                    "divisi" => $divisi,
+                ]);
+                $response['status'] = 'success';
+                $response['message'] = 'Sign In Berhasil';
             }
+        } else {
+            // Jika sign in gagal, kirim respons JSON dengan pesan error
+            $response['status'] = 'error';
+            $response['message'] = 'Username tidak ditemukan';
         }
+
+        // Mengembalikan respons dalam bentuk JSON
+        header('Content-Type: application/json');
+        echo json_encode($response);
     }
     public function logout()
     {
-        $session = session();
+        $session = Services::session();
         $session->destroy();
         return redirect()->to(base_url('login'));
     }

@@ -15,7 +15,7 @@ class TabelMaster extends BaseController
 {
     public function index()
     {
-        return view('layout/tabel-master');
+        // return view('layout/tabel-master');
     }
 
     //////////////////////////////////////// Start Of Profile Bidang ////////////////////////////////////////

@@ -13,6 +13,11 @@ class BidangPPPA extends BaseController
 {
     public function index()
     {
+        $session = Services::session();
+        if (!$session->get('user')) {
+            // Redirect ke halaman login jika tidak ada sesi login
+            return redirect()->to(base_url('login'));
+        }
         return view('layout/profile-pppa');
     }
 
@@ -66,7 +71,7 @@ class BidangPPPA extends BaseController
         $anggaranBidang         = new TabelAnggaranBidang($request);
 
         $post                   = $this->request->getPost();
-        $array                  = array('tahun_anggaran_bidang' => $post['tahun'], 'triwulan_anggaran_bidang' =>$post['triwulan'], 'divisi_dinas' => $post['id']);
+        $array                  = array('tahun_anggaran_bidang' => $post['tahun'], 'triwulan_anggaran_bidang' => $post['triwulan'], 'divisi_dinas' => $post['id']);
         $paguRealisasi          = $anggaranBidang->where($array)->first();
 
         $hasil["pagu"]      = $paguRealisasi['pagu_anggaran_bidang'];
