@@ -44,12 +44,23 @@ class Login extends BaseController
                 $response['status'] = 'error';
                 $response['message'] = 'Password atau Divisi Tidak Sesuai';
             } else {
+                $divisiName = "SEKRETARIAT";
+                if ($divisi == 'DALDUK') {
+                    $divisiName = 'PENGENDALIAN PENDUDUK';
+                } else if ($divisi == 'KB') {
+                    $divisiName = 'KELUARGA BERENCANA DAN KELUARGA SEJAHTERA';
+                } else if ($divisi == 'PM') {
+                    $divisiName = 'PEMBERDAYAAN MASYARAKAT';
+                } else if ($divisi == 'PPA') {
+                    $divisiName = 'PEMBERDAYAAN PEREMPUAN DAN PERLINDUNGAN ANAK';
+                }
                 $session = Services::session();
                 $session->set('user', [
                     "username" => $username,
                     "pass" => $pass,
                     "pass" => $pass,
                     "divisi" => $divisi,
+                    "divisiName" => $divisiName,
                 ]);
                 $response['status'] = 'success';
                 $response['message'] = 'Sign In Berhasil';
