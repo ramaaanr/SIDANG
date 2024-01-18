@@ -41,7 +41,8 @@
   <!-- Source Table -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="<?= base_url(); ?>/assets/js/jquery-3.6.1.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js" type="text/javascript" charset="utf8"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js" type="text/javascript" charset="utf8">
+  </script>
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 
   <script lang="javascript" type="text/javascript">
@@ -57,6 +58,74 @@
     } else if (quarterly >= 9 && quarterly <= 11) {
       quarterly = 4;
     }
+
+    $(document).ready(function() {
+      tabelDataBidang = $('#tabelDataBidang').DataTable({
+        "ajax": {
+          // json datasource
+          url: "<?= base_url(); ?>/DataBidang/dataDataBidangSpec/PEMBERDAYAAN PEREMPUAN DAN PERLINDUNGAN ANAK",
+          type: "POST", // method  , by default get
+          error: function() { // error handling
+            $(".tabel-error").html("");
+            $("#tabel").append(
+              '<tbody class="tabel-error"><tr><th colspan="3">Data Tidak Ditemukan di Server</th></tr></tbody>'
+            );
+            $("#tabel_processing").css("display", "none");
+          }
+        },
+        "columns": [{
+            data: 0
+          },
+          {
+            data: 1
+          },
+          {
+            data: 2
+          },
+          {
+            data: 3
+          },
+          {
+            data: 4
+          },
+          {
+            data: 5,
+            render: function(data, type, row) {
+              // Menggunakan data dari kolom 5 untuk membuat link unduhan
+              var downloadLink =
+                '<a class="link-success" href="<?= base_url(); ?>/DataBidang/unduhLampiran/' + row[5] +
+                '">Unduh</a>';
+              return downloadLink;
+            }
+          },
+
+        ],
+        "processing": false,
+        "columnDefs": [{
+          "targets": [],
+          "orderable": false
+        }],
+        "ordering": true,
+        "info": true,
+        "serverSide": true,
+        "stateSave": true,
+        "scrollX": true,
+        "lengthChange": false,
+        "oLanguage": {
+          "sLengthMenu": "Tampilkan _MENU_ data per halaman",
+          "sSearch": "Cari: ",
+          "sZeroRecords": "Tidak ada data yang ditemukan",
+          "sInfoFiltered": "(di filter dari _MAX_ total data)",
+          "oPaginate": {
+            "sFirst": "<<",
+            "sLast": ">>",
+            "sPrevious": "<",
+            "sNext": ">"
+          }
+        }
+      });
+    });
+
 
     $(document).ready(function() {
       $.ajax({
@@ -212,7 +281,9 @@
           },
           error: function() { // error handling
             $(".tabel_dataPegawaiBidang-error").html("");
-            $("#tabel_dataPegawaiBidang").append('<tbody class="tabel_dataPegawaiBidang-error"><tr><th colspan="3">Data Tidak Ditemukan di Server</th></tr></tbody>');
+            $("#tabel_dataPegawaiBidang").append(
+              '<tbody class="tabel_dataPegawaiBidang-error"><tr><th colspan="3">Data Tidak Ditemukan di Server</th></tr></tbody>'
+            );
             $("#tabel_dataPegawaiBidang_processing").css("display", "none");
           }
         },
@@ -269,7 +340,9 @@
           },
           error: function() { // error handling
             $(".tabel_dataIndikatorBidang-error").html("");
-            $("#tabel_dataIndikatorBidang").append('<tbody class="tabel_dataIndikatorBidang-error"><tr><th colspan="3">Data Tidak Ditemukan di Server</th></tr></tbody>');
+            $("#tabel_dataIndikatorBidang").append(
+              '<tbody class="tabel_dataIndikatorBidang-error"><tr><th colspan="3">Data Tidak Ditemukan di Server</th></tr></tbody>'
+            );
             $("#tabel_dataIndikatorBidang_processing").css("display", "none");
           }
         },
@@ -324,7 +397,8 @@
               realisasi = (tw1 + tw2 + tw3 + tw4)
               capaianKinerja = (realisasi / target) * 100;
               if (capaianKinerja < 100) {
-                return '<div class="text-center text-sm font-weight-bold">' + capaianKinerja.toFixed(2) + '% </div> ';
+                return '<div class="text-center text-sm font-weight-bold">' + capaianKinerja.toFixed(2) +
+                  '% </div> ';
               }
               return '<div class="text-center text-sm font-weight-bold">' + capaianKinerja + '% </div> ';
             }

@@ -65,6 +65,36 @@ class DataBidang extends BaseController
 
         return json_encode($output);
     }
+    public function dataDataBidangSpec($divisiName)
+    {
+        $request    = Services::request();
+        $datatableRaw  = new TabelDataBidang($request);
+
+        $datatable  = $datatableRaw->where('nm_bidang', $divisiName);
+        $lists      = $datatable->getDatatables();
+        $data       = [];
+        $no         = $request->getPost('start');
+
+        foreach ($lists as $list) {
+            $row    = [];
+            $row[]  = $list->id_bidang;
+            $row[]  = $list->nm_bidang;
+            $row[]  = $list->desk_data;
+            $row[]  = $list->target_bidang;
+            $row[]  = $list->realisasi_bidang;
+            $row[]  = $list->lampiran_bidang;
+            $data[] = $row;
+        }
+
+        $output = [
+            'draw'            => $request->getPost('draw'),
+            'recordsTotal'    => $datatable->countAll(),
+            'recordsFiltered' => $datatable->countFiltered(),
+            'data'            => $data
+        ];
+
+        return json_encode($output);
+    }
     public function setDataInFormUbahDataBidang()
     {
         try {
@@ -113,7 +143,6 @@ class DataBidang extends BaseController
                 $res_had["res"]     = 'Data Gagal dihapus';
             }
         } catch (\Exception $e) {
-
             $res_had["status"]  = FALSE;
             $res_had["res"]     = 'Data Gagal dihapus';
             $res_had["msg"]     = $e->getMessage();
