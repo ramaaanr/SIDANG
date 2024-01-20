@@ -3,13 +3,12 @@
         <div class="container">
             <div class="text-center">
                 <div class="col-md item text">
-                    <h3>DP2KBPMP2A</h3>
+                    <h3>DP3APMP2KB</h3>
                     <small>
-                        <p style="color: black;">Dinas Pengendalian Penduduk,
-                            Keluarga Berencana, Pemberdayaan Masyarakat,
-                            Perempuan dan Perlindungan Anak</p>
-                        <p>Jalan Wijaya Kusuma No.03, Kelurahan Komet, Kecamatan Banjarbaru Utara, Kota
-                            Banjarbaru 70714</p>
+                        <p style="color: black;">Dinas Pemberdayaan Perempuan dan Perlindungan Anak,
+                            Pemberdayaan Masyarakat, Pengendalian Penduduk, dan Keluarga Berencana</p>
+                        <p>Jl. Taman Gembira Selatan, Kel. Guntung Paikat Selatan, Loktabat Selatan., Kec. Banjarbaru
+                            Selatan, Kota Banjar Baru, Kalimantan Selatan 70714</p>
                     </small>
                 </div>
                 <div class="col item social">
@@ -24,7 +23,7 @@
 
                 </div>
             </div>
-            <p class="copyright">DP2KBPMP2A © 2023</p>
+            <p class="copyright">DP3APMP2KB © 2024</p>
         </div>
     </footer>
 </div>

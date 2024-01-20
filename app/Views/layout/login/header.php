@@ -16,9 +16,6 @@
                 <a class="nav-link scrollto" href="#bidang">Bidang</a>
             </li>
             <li>
-                <a class="nav-link scrollto" href="#sekre">Sekretariat</a>
-            </li>
-            <li>
                 <a class="nav-link scrollto" href="#about">About</a>
             </li>
             <li>

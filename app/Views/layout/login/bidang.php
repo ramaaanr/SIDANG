@@ -5,7 +5,19 @@
         </header>
 
         <div class="row">
-            <div class="col-lg-3 mt-3">
+            <div class="col mt-3">
+                <div class="box aos-init" data-aos="fade-down" data-aos-delay="200">
+                    <img src="<?= base_url() ?>/assets/img/DALDUK.gif" class="img-fluid" alt="" />
+                    <h3 class="text-center">Sekretariat</h3>
+                    <small>Pengelolaan surat, pengetikan, penggandaan, kearsipan, administrasi kepegawaian,
+                        pemeliharaan kebersihan, tata ruang kantor, pembukuan, perbendaharaan, laporan keuangan,
+                        pengawasan bendaharawan, program perencanaan anggaran, koordinasi kesekretariatan, serta
+                        penyusunan laporan tahunan.
+                    </small>
+                </div>
+            </div>
+
+            <div class="col mt-3">
                 <div class="box aos-init" data-aos="fade-down" data-aos-delay="200">
                     <img src="<?= base_url() ?>/assets/img/DALDUK.gif" class="img-fluid" alt="" />
                     <h3 class="text-center">Pengendalian Penduduk</h3>
@@ -18,7 +30,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 mt-3">
+            <div class="col mt-3">
                 <div class="box aos-init" data-aos="fade-down" data-aos-delay="400">
                     <img src="<?= base_url() ?>/assets/img/KB - KS.gif" class="img-fluid" alt="" />
                     <h3 style="font-size: 16pt;" class="text-center">
@@ -32,7 +44,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 mt-3">
+            <div class="col mt-3">
                 <div class="box aos-init" data-aos="fade-down" data-aos-delay="600">
                     <img src="<?= base_url() ?>/assets/img/PM.gif" class="img-fluid" alt="" />
                     <h3 style="font-size: 16pt;" class="text-center">Pemberdayaan Masyarakat</h3>
@@ -44,7 +56,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 mt-3">
+            <div class="col mt-3">
                 <div class="box aos-init" data-aos="fade-down" data-aos-delay="400">
                     <img src="<?= base_url() ?>/assets/img/PPA.gif" class="img-fluid" alt="" />
                     <h3 style="font-size: 14pt;" class="text-center">Pemberdayaan Perempuan dan Perlindungan

@@ -1,11 +1,11 @@
 #hero {
   background: url("../img/footer.png") no-repeat bottom;
-  background-size: contain;
+  background-size: 150%;
+  background-origin: content-box;
   width: 100%;
-  height: calc(100vh - 40px);
   position: relative;
-  margin-top: 50px;
-  padding-top: 90px;
+  margin-top: 80px;
+  padding-top: 80px;
 }
 
 @media (min-width: 1025px) {
@@ -18,7 +18,7 @@
   .hero-container {
     position: absolute;
     bottom: 100px !important;
-    top: 100px !important;
+    top: -50px !important;
     left: 0;
     right: 0;
     display: flex;
@@ -29,7 +29,7 @@
   }
 
   #hero img {
-    max-width: 60% !important;
+    max-width: 30% !important;
     margin-bottom: 30px;
   }
 }
@@ -37,7 +37,7 @@
 #hero .hero-container {
   position: relative;
   bottom: 0;
-  top: 0;
+  top: -10%;
   left: 0;
   right: 0;
   display: flex;
@@ -86,7 +86,7 @@
 }
 
 #hero img {
-  max-width: 45%;
+  max-width: 35%;
   margin-bottom: 50px;
 }
 
@@ -131,11 +131,14 @@
 @media (max-width: 575px) {
   #hero .btn-get-started {
     margin: 4px 8px;
-    font-size: 10px;
-
+    font-size: 15x;
   }
 }
 
 #hero .btns a:hover {
   color: #4154f1;
+}
+#hero img {
+  max-width: 50% !important;
+  margin-bottom: 30px;
 }

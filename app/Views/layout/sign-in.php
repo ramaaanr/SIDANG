@@ -12,9 +12,7 @@
   <meta content="" name="keywords" />
 
   <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Roboto:100,300,400,500,700|Philosopher:400,400i,700,700i"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Roboto:100,300,400,500,700|Philosopher:400,400i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
 
@@ -60,42 +58,42 @@
   <link href="<?= base_url() ?>/assets/css/style2.css" rel="stylesheet" />
 
   <style>
-  th,
-  td {
-    font-family: sans-serif;
-  }
+    th,
+    td {
+      font-family: sans-serif;
+    }
 
-  th {
-    font-size: 15pt;
-    color: navy;
-  }
+    th {
+      font-size: 15pt;
+      color: navy;
+    }
 
-  td {
-    font-size: 10pt;
-    text-align: justify;
-  }
+    td {
+      font-size: 10pt;
+      text-align: justify;
+    }
 
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
 
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
 
-  ::-webkit-scrollbar-thumb {
-    background: rgb(24, 24, 118);
-  }
+    ::-webkit-scrollbar-thumb {
+      background: rgb(24, 24, 118);
+    }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
 
-  /* optgroup { font-size:5px; } */
+    /* optgroup { font-size:5px; } */
 
-  .box {
-    text-align: justify !important;
-  }
+    .box {
+      text-align: justify !important;
+    }
   </style>
 </head>
 
@@ -111,18 +109,24 @@
       <h1>Selamat Datang</h1>
       <!--<h2>Sistem Informasi Data Bidang</h2>-->
       <img src="<?= base_url() ?>/assets/img/logo.png" alt="Hero Imgs" data-aos="zoom-out" data-aos-delay="100">
+      <div style="width:50% ;height:60%">
+        <img src="<?= base_url() ?>/assets/img/dpp3.png" alt="Hero Imgs" data-aos="zoom-out" data-aos-delay="100">
+      </div>
       <a href="<?= base_url("Saran") ?>" class="btn-get-started">Data Kami</a>
     </div>
   </section>
 
   <main id="main">
     <!-- ======= visimisi Section ======= -->
-    <?php include("login/vismis.php") ?>
+    <?php include("login/vm-kota.php") ?>
+    <!-- End About Section -->
+
+    <!-- ======= visimisi Section ======= -->
+    <?php include("login/desk-sidang.php") ?>
     <!-- End About Section -->
 
     <!-- ======= Fitur Section ======= -->
     <?php include("login/bidang.php") ?>
-    <?php include("login/sekre.php") ?>
     <!-- End Values Section -->
     <!-- ======= F.A.Q Section ======= -->
   </main>
@@ -157,8 +161,7 @@
 
 
   <!-- Modal -->
-  <div class="modal fade" id="login" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="loginLabel" aria-hidden="true">
+  <div class="modal fade" id="login" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="loginLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body d-flex justify-content-between">
@@ -172,9 +175,6 @@
         <div class="modal-body">
           <div class="row featurette">
             <div class="col-md-5 order-md-2">
-
-
-
               <form id="formLogin">
                 <label style="font-size: 12px;"><?= $pesan_ui ?></label>
                 <div class="mb-2">
@@ -188,8 +188,7 @@
                 </div>
 
                 <div class="form-floating mb-4">
-                  <select class="form-select" size="1" id="divisi" aria-label="Floating label select example"
-                    required="" name="divisi">
+                  <select class="form-select" size="1" id="divisi" aria-label="Floating label select example" required="" name="divisi">
                     <optgroup>
                       <option selected="">DALDUK</option>
                       <option selected="">KB & KS</option>
@@ -208,24 +207,20 @@
                   Masuk
                 </button>
               </form>
-
-
-
             </div>
             <div class="col-md-6 order-md-1 d-flex">
-              <img src="<?= base_url() ?>/assets/img/kb.png" alt="" class="mx-auto d-block"
-                style="max-height: 250px;" />
+              <img src="<?= base_url() ?>/assets/img/kb.png" alt="" class="mx-auto d-block" style="max-height: 250px;" />
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <script>
+</body>
+<script>
   $(document).ready(function() {
     $('#formLogin').submit(function(e) {
       e.preventDefault();
-
       $.ajax({
         type: 'POST',
         url: '<?= base_url("login/cek") ?>',
@@ -257,7 +252,6 @@
       });
     });
   });
-  </script>
-</body>
+</script>
 
 </html>
