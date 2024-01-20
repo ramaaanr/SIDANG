@@ -121,22 +121,8 @@
               <span class="nav-link-text ms-1">Data Pegawai</span>
             </a>
           </li>
-          <li claass="nav-item">
-            <a class="nav-link" href="<?= base_url() ?>ProfilBidang">
-              <div
-                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              </div>
-              <span class="nav-link-text ms-1">Profil Bidang</span>
-            </a>
-          </li>
-          <li claass="nav-item">
-            <a class="nav-link" href="<?= base_url() ?>DataBidang">
-              <div
-                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              </div>
-              <span class="nav-link-text ms-1">Data Bidang</span>
-            </a>
-          </li>
+
+
         </ul>
       </li>
     </ul>
