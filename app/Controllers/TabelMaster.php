@@ -30,8 +30,10 @@ class TabelMaster extends BaseController
 
         foreach ($lists as $list) {
             $row    = [];
+            $row[]  = $list->id_bidang;
             $row[]  = $list->nama_bidang;
             $row[]  = $list->deskripsi_bidang;
+            $row[]  = $list->foto;
             $data[] = $row;
         }
 
@@ -44,70 +46,80 @@ class TabelMaster extends BaseController
 
         return json_encode($output);
     }
-    public function simpan_Profile()
-    {
-        $request            = Services::request();
-        $tambahprofile = new Tabelprofile($request);
-        $post               = $this->request->getPost();
-        if ($post["nama_bidang"] == NULL || $post["deskripsi_bidang"] == NULL) {
-            $res["status"]  = FALSE;
-            $res["res"]     = 'Isi Kolom Kosong';
-            return json_encode($res);
-        } else {
-            $simpan = $tambahprofile->insert($post);
-            $res["status"] = TRUE;
-            echo json_encode($res);
-        }
-    }
-    public function hapus_Profile()
-    {
-        $request    = Services::request();
-        $aggDinas   = new TabelProfile($request);
 
-        $getDel     = $this->request->getPost('id');
-        $deletedata = $aggDinas->where('nama_bidang', $getDel)->delete();
-
-        if ($deletedata) {
-            $res_had["status"]  = TRUE;
-            $res_had["res"]     = 'Data Berhasil dihapus';
-        } else {
-            $res_had["status"]  = FALSE;
-            $res_had["res"]     = 'Data Gagal dihapus';
-        }
-        echo json_encode($res_had);
-    }
     public function setDataInFormUbahProfile()
     {
         $request            = Services::request();
         $inidkator      = new TabelProfile($request);
         $post               = $this->request->getPost();
 
-        $dataUbahProfile       = $inidkator->where('nama_bidang', $post["id"])->first();
+        $dataUbahProfile       = $inidkator->where('id_bidang', $post["id"])->first();
 
+        $res["id_bidang"] = $post["id"];
         $res["nama_bidang"]      = $dataUbahProfile['nama_bidang'];
         $res["deskripsi_bidang"]   = $dataUbahProfile['deskripsi_bidang'];
+        $res["foto"]   = $dataUbahProfile['foto'];
 
         return json_encode($res);
     }
+
     public function ubah_Profile()
     {
-        $request            = Services::request();
-        $Profile      = new TabelProfile($request);
-        $post               = $this->request->getPost();
+        try {
+            $request            = Services::request();
+            $Profile      = new TabelProfile($request);
+            $post               = $this->request->getPost();
 
-        $setUpdateProfile = [
-            'nama_bidang'        => $post["nama_bidang"],
-            'deskripsi_bidang'     => $post["deskripsi_bidang"],
-        ];
+            $file = $this->request->getFile('new_foto');
+            if ($file->isValid()) {
+                $extAllowed   = ['jpg', 'jpeg', 'png'];
+                $maxSize      = 2 * 1024 * 1024; // 2MB
 
-        $updateProfile   = $Profile->set($setUpdateProfile)->where('nama_bidang', $post["id"])->update();
+                $ext = $file->getClientExtension();
+                $size = $file->getSize();
 
-        if ($updateProfile) {
-            $res["status"] = TRUE;
-            $res["res"]    = 'Update Data Berhasil';
-        } else {
+                // Validasi ekstensi
+                if (!in_array($ext, $extAllowed)) {
+                    throw new \Exception('Format Foto Salah, Harus jpg, jpeg, png.');
+                }
+
+                // Validasi ukuran file
+                if ($size > $maxSize) {
+                    throw new \Exception('Ukuran foto harus maksimal 2MB.');
+                }
+
+                $fileName  = $post["id_bidang"] . '.' . $ext;
+
+                unlink(FCPATH . "assets/img/profil-bidang/" . $post['old_foto']);
+                $file->move(FCPATH . 'assets/img/profil-bidang/', $fileName);
+
+                // Hapus file lama
+            } else {
+                $fileName = $post['old_foto'];
+            }
+
+            $setUpdateProfile = [
+                'nama_bidang'        => $post["nama_bidang"],
+                'deskripsi_bidang'     => $post["deskripsi_bidang"],
+                'foto' => $fileName,
+            ];
+
+
+            $updateProfile   = $Profile->set($setUpdateProfile)->where('id_bidang', $post["id_bidang"])->update();
+
+            if ($updateProfile) {
+                $res["status"] = TRUE;
+                $res["res"]    = 'Update Data Berhasil';
+            } else {
+                $res["status"] = FALSE;
+                $res["res"]    = 'Update Data Gagal';
+                $res["msg"] = "";
+            }
+        } catch (\Throwable $th) {
+
             $res["status"] = FALSE;
-            $res["res"]    = 'Update Data Berhasil';
+            $res["res"]    = 'Update Data Gagal';
+            $res["msg"] = $th->getMessage();
         }
 
         echo json_encode($res);
@@ -181,7 +193,6 @@ class TabelMaster extends BaseController
         $post               = $this->request->getPost();
 
         $dataUbahProfilePegawai       = $inidkator->where('nip', $post["id"])->first();
-
         $res["nama"]      = $dataUbahProfilePegawai['nama'];
         $res["nip"]   = $dataUbahProfilePegawai['nip'];
         $res["jabatan"]       = $dataUbahProfilePegawai['jabatan'];

@@ -7,9 +7,9 @@ use CodeIgniter\Model;
 
 class TabelProfile extends Model
 {
-    protected $table         = 'profil_dinas';
-    protected $primaryKey    = 'nama_bidang';
-    protected $allowedFields = ['nama_bidang', 'deskripsi_bidang'];
+    protected $table         = 'profil_bidang';
+    protected $primaryKey    = 'id_bidang';
+    protected $allowedFields = ['nama_bidang', 'deskripsi_bidang', 'foto'];
     protected $column_order  = ['nama_bidang', 'deskripsi_bidang'];
     protected $column_search = ['nama_bidang', 'deskripsi_bidang'];
     protected $order         = ['nama_bidang' => 'ASC'];

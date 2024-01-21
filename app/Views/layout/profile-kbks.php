@@ -46,7 +46,7 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 
   <script lang="javascript" type="text/javascript">
-  let bidang = "Keluarga Berencana dan Keluarga Sejahtera";
+  let bidang = 1;
   let year = new Date().getFullYear();
   let quarterly = new Date().getMonth();
   if (quarterly >= 0 && quarterly <= 2) {
@@ -240,7 +240,7 @@
       });
 
       document.getElementById('gambarBidang').src =
-        `<?= base_url(); ?>/assets/img/profil-bidang/${res.nama_bidang}.JPG`;
+        `<?= base_url(); ?>/assets/img/profil-bidang/${res.foto}`;
       document.getElementById("deskBidang").innerText = res.deskripsi_bidang;
     });
   });

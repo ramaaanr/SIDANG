@@ -47,7 +47,7 @@
 
   <script lang="javascript" type="text/javascript">
   //variabel bidang, tahun, triwulan  
-  let bidang = "sekretariat";
+  let bidang = 5;
   let year = new Date().getFullYear();
   let quarterly = new Date().getMonth();
   if (quarterly >= 0 && quarterly <= 2) {
@@ -240,7 +240,7 @@
         element.innerText = res.nama_bidang;
       });
       document.getElementById('gambarBidang').src =
-        `<?= base_url(); ?>/assets/img/profil-bidang/${res.nama_bidang}.JPG`;
+        `<?= base_url(); ?>/assets/img/profil-bidang/${res.foto}`;
       document.getElementById("deskBidang").innerText = res.deskripsi_bidang;
     });
   });

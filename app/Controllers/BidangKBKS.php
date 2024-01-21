@@ -31,6 +31,8 @@ class BidangKBKS extends BaseController
 
         $res["nama_bidang"]      = $dataUser['nama_bidang'];
         $res["deskripsi_bidang"] = $dataUser['deskripsi_bidang'];
+        $res["foto"] = $dataUser['foto'];
+
 
         return json_encode($res);
     }

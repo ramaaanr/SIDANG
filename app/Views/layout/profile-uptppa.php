@@ -78,7 +78,7 @@
         });
 
         document.getElementById('gambarBidang').src =
-          `<?= base_url(); ?>/assets/img/profil-bidang/${res.nama_bidang}.JPG`;
+          `<?= base_url(); ?>/assets/img/profil-bidang/${res.foto}`;
         document.getElementById("deskBidang").innerText = res.deskripsi_bidang;
       });
     });

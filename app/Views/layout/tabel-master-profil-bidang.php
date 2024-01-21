@@ -77,12 +77,18 @@
           }
         },
         "columns": [{
-            data: 0
+            data: 1
           },
           {
-            data: 1,
+            data: 2,
             render: function(data, type, row) {
               return '<div class="text text-justify" style="white-space:normal">' + data + '</div>'
+            }
+          },
+          {
+            data: 3,
+            render: function(data, type, row) {
+              return `<img src="/assets/img/profil-bidang/${data}" class="img-fluid rounded" />`
             }
           },
           {
@@ -140,8 +146,8 @@
         } else {
           Swal.fire(
             'Gagal!',
-            res.res,
-
+            res.msg,
+            'error',
           );
         }
         tabelProfile.ajax.reload(null, false);
@@ -206,37 +212,42 @@
         },
         dataType: "json"
       }).done(function(res) {
-        document.getElementById("nama_bid").value = res.nama_bid;
-        document.getElementById("desk").value = res.desk;
+        $("#nama_bid").val(res.nama_bidang);
+        $("#id_bidang").val(res.id_bidang);
+        $("#desk").val(res.deskripsi_bidang);
+        $("#gambarProfile").attr('src', `<?= base_url(); ?>/assets/img/profil-bidang/${res.foto}`);
+        $("#oldFoto").val(res.foto);
       });
     }
 
     // ubah
     function js_ubahProfile() {
-      var data_post = $('#ubah_Profile').serialize();
+      var formData = new FormData($("#ubah_Profile")[0]);
       $.ajax({
         method: "POST",
         url: "<?= base_url(); ?>/TabelMaster/ubah_Profile",
-        data: 'id=' + id_ubahProfile + '&' + data_post,
-        dataType: "json"
+        data: formData,
+        processData: false,
+        contentType: false,
       }).done(function(res) {
-        if (res.status) {
+        resData = JSON.parse(res);
+        if (resData.status) {
           Swal.fire(
             'Perhatian',
-            res.res,
+            resData.res,
             'success'
           );
+          location.reload();
         } else {
           Swal.fire(
             'Gagal!',
-            res.res,
+            resData.msg,
             'error'
           );
         }
         tabelProfile.ajax.reload(null, false);
       })
       $('#ubah_Profile')[0].reset();
-      location.reload();
     };
   </script>
 
