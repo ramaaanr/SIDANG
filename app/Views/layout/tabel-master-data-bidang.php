@@ -45,237 +45,237 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 
   <script lang="javascript" type="text/javascript">
-    let tabelAnggaranDinas;
-    let tabelDataBidang;
-    let tabelIndikator;
-    let tabelKinerja;
-    let tabelProfilePegawai;
-    let tabelProfile;
-    let id_ubahAnggaranDinas;
-    let id_ubahDataBidang;
-    let id_ubahIndikator;
-    let id_ubahKinerja;
-    let id_ubahProfilePegawai;
-    let id_ubahProfile;
+  let tabelAnggaranDinas;
+  let tabelDataBidang;
+  let tabelIndikator;
+  let tabelKinerja;
+  let tabelProfilePegawai;
+  let tabelProfile;
+  let id_ubahAnggaranDinas;
+  let id_ubahDataBidang;
+  let id_ubahIndikator;
+  let id_ubahKinerja;
+  let id_ubahProfilePegawai;
+  let id_ubahProfile;
 
-    //////////////////////////////////////// Start Of Anggaran Bidang ////////////////////////////////////////
+  //////////////////////////////////////// Start Of Anggaran Bidang ////////////////////////////////////////
 
-    // data anggaran bidang
-    $(document).ready(function() {
-      tabelDataBidang = $('#master_dataBidang').DataTable({
-        "ajax": {
-          // json datasource
-          url: "<?= base_url(); ?>/DataBidang/dataDataBidang",
-          type: "POST", // method  , by default get
-          error: function() { // error handling
-            $(".tabel-error").html("");
-            $("#tabel").append(
-              '<tbody class="tabel-error"><tr><th colspan="3">Data Tidak Ditemukan di Server</th></tr></tbody>'
-            );
-            $("#tabel_processing").css("display", "none");
+  // data anggaran bidang
+  $(document).ready(function() {
+    tabelDataBidang = $('#master_dataBidang').DataTable({
+      "ajax": {
+        // json datasource
+        url: "<?= base_url(); ?>/DataBidang/dataDataBidang",
+        type: "POST", // method  , by default get
+        error: function() { // error handling
+          $(".tabel-error").html("");
+          $("#tabel").append(
+            '<tbody class="tabel-error"><tr><th colspan="3">Data Tidak Ditemukan di Server</th></tr></tbody>'
+          );
+          $("#tabel_processing").css("display", "none");
+        }
+      },
+      "columns": [{
+          data: 0
+        },
+        {
+          data: 1
+        },
+        {
+          data: 2
+        },
+        {
+          data: 3
+        },
+        {
+          data: 4
+        },
+        {
+          data: 5,
+          render: function(data, type, row) {
+            // Menggunakan data dari kolom 5 untuk membuat link unduhan
+            var downloadLink =
+              '<a class="link-success" href="<?= base_url(); ?>/DataBidang/unduhLampiran/' + row[5] +
+              '">Unduh</a>';
+            return downloadLink;
           }
         },
-        "columns": [{
-            data: 0
-          },
-          {
-            data: 1
-          },
-          {
-            data: 2
-          },
-          {
-            data: 3
-          },
-          {
-            data: 4
-          },
-          {
-            data: 5,
-            render: function(data, type, row) {
-              // Menggunakan data dari kolom 5 untuk membuat link unduhan
-              var downloadLink =
-                '<a class="link-success" href="<?= base_url(); ?>/DataBidang/unduhLampiran/' + row[5] +
-                '">Unduh</a>';
-              return downloadLink;
-            }
-          },
-          {
-            data: 0,
-            render: function(data, type, row) {
-              return '<a href="#" id="tombolUbah" class="btn btn-outline-info btn-sm" data-id="' +
-                data +
-                '" onclick="js_getIdUbahDataBidang($(this))" role="button" data-bs-toggle="modal" data-bs-target="#modalUbahDataBidang">Edit</a><a href="#" class="btn btn-outline-danger btn-sm" data-id="' +
-                data + '" onclick="js_hapusDataBidang($(this))">Hapus</a>';
-            }
-          },
-
-        ],
-        "processing": false,
-        "columnDefs": [{
-          "targets": [],
-          "orderable": false
-        }],
-        "ordering": true,
-        "info": true,
-        "serverSide": true,
-        "stateSave": true,
-        "scrollX": true,
-        "lengthChange": false,
-        "oLanguage": {
-          "sLengthMenu": "Tampilkan _MENU_ data per halaman",
-          "sSearch": "Cari: ",
-          "sZeroRecords": "Tidak ada data yang ditemukan",
-          "sInfo": "Menampilkan _START_ s/d _END_ dari _TOTAL_ data",
-          "sInfoEmpty": "Menampilkan 0 s/d 0 dari 0 data",
-          "sInfoFiltered": "(di filter dari _MAX_ total data)",
-          "oPaginate": {
-            "sFirst": "<<",
-            "sLast": ">>",
-            "sPrevious": "<",
-            "sNext": ">"
+        {
+          data: 0,
+          render: function(data, type, row) {
+            return '<a href="#" id="tombolUbah" class="btn btn-outline-info btn-sm" data-id="' +
+              data +
+              '" onclick="js_getIdUbahDataBidang($(this))" role="button" data-bs-toggle="modal" data-bs-target="#modalUbahDataBidang">Edit</a><a href="#" class="btn btn-outline-danger btn-sm" data-id="' +
+              data + '" onclick="js_hapusDataBidang($(this))">Hapus</a>';
           }
+        },
+
+      ],
+      "processing": false,
+      "columnDefs": [{
+        "targets": [],
+        "orderable": false
+      }],
+      "ordering": true,
+      "info": true,
+      "serverSide": true,
+      "stateSave": true,
+      "scrollX": true,
+      "lengthChange": false,
+      "oLanguage": {
+        "sLengthMenu": "Tampilkan _MENU_ data per halaman",
+        "sSearch": "Cari: ",
+        "sZeroRecords": "Tidak ada data yang ditemukan",
+        "sInfo": "Menampilkan _START_ s/d _END_ dari _TOTAL_ data",
+        "sInfoEmpty": "Menampilkan 0 s/d 0 dari 0 data",
+        "sInfoFiltered": "(di filter dari _MAX_ total data)",
+        "oPaginate": {
+          "sFirst": "<<",
+          "sLast": ">>",
+          "sPrevious": "<",
+          "sNext": ">"
         }
-      });
+      }
     });
+  });
 
-    // simpan anggaran bidang
-    function simpan_dataDataBidang() {
+  // simpan anggaran bidang
+  function simpan_dataDataBidang() {
 
-      var formData = new FormData($("#simpan_dataBidang")[0]);
-      $.ajax({
-        method: "POST",
-        url: "<?= base_url(); ?>/DataBidang/simpan_dataBidang",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(res) {
-          let resJson = JSON.parse(res);
-          if (resJson.status) {
-            Swal.fire(
-              'Sukses',
-              resJson.res,
-              'success'
-            );
-          } else {
-            Swal.fire(
-              'Gagal!',
-              resJson.res,
+    var formData = new FormData($("#simpan_dataBidang")[0]);
+    $.ajax({
+      method: "POST",
+      url: "<?= base_url(); ?>/DataBidang/simpan_dataBidang",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(res) {
+        let resJson = JSON.parse(res);
+        if (resJson.status) {
+          Swal.fire(
+            'Sukses',
+            resJson.res,
+            'success'
+          );
+        } else {
+          Swal.fire(
+            'Gagal!',
+            resJson.res,
 
-            );
-          }
+          );
+        }
+        tabelDataBidang.ajax.reload(null, false);
+      }
+    })
+    $('#simpan_dataBidang')[0].reset();
+  }
+  //ambil id
+  function js_getIdUbahDataBidang(id) {
+    id_ubahDataBidang = id.data('id');
+    $.ajax({
+      method: "POST",
+      url: "<?= base_url(); ?>/DataBidang/setDataInFormUbahDataBidang",
+      data: {
+        id: id_ubahDataBidang
+      },
+      dataType: "json"
+    }).done(function(res) {
+      document.getElementById("ubahIdBidang").value = res.id_bidang;
+      document.getElementById("ubahDeskData").value = res.desk_data;
+      document.getElementById("ubahTargetBidang").value = res.target_bidang;
+      document.getElementById("ubahRealisasiBidang").value = res.realisasi_bidang;
+      document.getElementById("oldUbahLampiranBidang").value = res.lampiran_bidang;
+      document.getElementById('urlLampiran').href =
+        `<?= base_url(); ?>/DataBidang/unduhLampiran/${res.lampiran_bidang}`;
+      // document.getElementById("divisi_dinas").value = res.divisi_dinas;
+    });
+  }
+
+  // hapus anggaran bidang
+  function js_hapusDataBidang(id) {
+    var id_delete = id.data('id');
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
+      title: 'Yakin menghapus ?',
+      text: "Data akan dihapus!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Lanjut',
+      cancelButtonText: 'Batal',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          method: "POST",
+          url: "<?= base_url(); ?>/DataBidang/hapus_dataBidang",
+          data: {
+            id: id_delete
+          },
+          dataType: "json"
+        }).done(function(res) {
+          Swal.fire(
+            'Perhatian',
+            res.res,
+            'info'
+          );
           tabelDataBidang.ajax.reload(null, false);
-        }
-      })
-      $('#simpan_dataBidang')[0].reset();
-    }
-    //ambil id
-    function js_getIdUbahDataBidang(id) {
-      id_ubahDataBidang = id.data('id');
-      $.ajax({
-        method: "POST",
-        url: "<?= base_url(); ?>/DataBidang/setDataInFormUbahDataBidang",
-        data: {
-          id: id_ubahDataBidang
-        },
-        dataType: "json"
-      }).done(function(res) {
-        document.getElementById("ubahIdBidang").value = res.id_bidang;
-        document.getElementById("ubahDeskData").value = res.desk_data;
-        document.getElementById("ubahTargetBidang").value = res.target_bidang;
-        document.getElementById("ubahRealisasiBidang").value = res.realisasi_bidang;
-        document.getElementById("oldUbahLampiranBidang").value = res.lampiran_bidang;
-        document.getElementById('urlLampiran').href =
-          `<?= base_url(); ?>/DataBidang/unduhLampiran/${res.lampiran_bidang}`;
-        // document.getElementById("divisi_dinas").value = res.divisi_dinas;
-      });
-    }
+        })
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Dibatalkan',
+          'Batal dihapus',
+          'error'
+        )
+      }
+    })
+  };
+  // ubah data anggaran bidang
+  function js_ubahDataBidang() {
+    var formData = new FormData($("#ubah_dataBidang")[0]);
+    $.ajax({
+      method: "POST",
+      url: "<?= base_url(); ?>/DataBidang/ubah_dataBidang",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(res) {
+        let resJson = JSON.parse(res);
+        if (resJson.status) {
+          Swal.fire(
+            'Sukses',
+            resJson.res,
+            'success'
+          );
+        } else {
+          Swal.fire(
+            'Gagal!',
+            resJson.res,
 
-    // hapus anggaran bidang
-    function js_hapusDataBidang(id) {
-      var id_delete = id.data('id');
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-      })
-      swalWithBootstrapButtons.fire({
-        title: 'Yakin menghapus ?',
-        text: "Data akan dihapus!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Lanjut',
-        cancelButtonText: 'Batal',
-        reverseButtons: true
-      }).then((result) => {
-        if (result.isConfirmed) {
-          $.ajax({
-            method: "POST",
-            url: "<?= base_url(); ?>/DataBidang/hapus_dataBidang",
-            data: {
-              id: id_delete
-            },
-            dataType: "json"
-          }).done(function(res) {
-            Swal.fire(
-              'Perhatian',
-              res.res,
-              'info'
-            );
-            tabelDataBidang.ajax.reload(null, false);
-          })
-        } else if (
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire(
-            'Dibatalkan',
-            'Batal dihapus',
-            'error'
-          )
+          );
         }
-      })
-    };
-    // ubah data anggaran bidang
-    function js_ubahDataBidang() {
-      var formData = new FormData($("#ubah_dataBidang")[0]);
-      $.ajax({
-        method: "POST",
-        url: "<?= base_url(); ?>/DataBidang/ubah_dataBidang",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(res) {
-          let resJson = JSON.parse(res);
-          if (resJson.status) {
-            Swal.fire(
-              'Sukses',
-              resJson.res,
-              'success'
-            );
-          } else {
-            Swal.fire(
-              'Gagal!',
-              resJson.res,
-
-            );
-          }
-          tabelDataBidang.ajax.reload(null, false);
-        }
-      })
-      $('#ubah_dataBidang')[0].reset();
-    };
+        tabelDataBidang.ajax.reload(null, false);
+      }
+    })
+    $('#ubah_dataBidang')[0].reset();
+  };
   </script>
 
   <script>
-    var win = navigator.platform.indexOf("Win") > -1;
-    if (win && document.querySelector("#sidenav-scrollbar")) {
-      var options = {
-        damping: "0.5",
-      };
-      Scrollbar.init(document.querySelector("#sidenav-scrollbar"), options);
-    }
+  var win = navigator.platform.indexOf("Win") > -1;
+  if (win && document.querySelector("#sidenav-scrollbar")) {
+    var options = {
+      damping: "0.5",
+    };
+    Scrollbar.init(document.querySelector("#sidenav-scrollbar"), options);
+  }
   </script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>

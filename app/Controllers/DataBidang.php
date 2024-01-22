@@ -156,7 +156,7 @@ class DataBidang extends BaseController
             $request            = Services::request();
             $tambahDataBidang = new TabelDataBidang($request);
             $post               = $this->request->getPost();
-            if ($post["desk_data"] == NULL || $post["target_bidang"] == NULL || $post["realisasi_bidang"] == NULL) {
+            if ($post["desk_data"] == NULL) {
                 $res["status"]  = FALSE;
                 $res["res"]     = 'Isi Kolom Kosong';
             } else {
@@ -201,7 +201,7 @@ class DataBidang extends BaseController
             $post               = $this->request->getPost();
 
 
-            if ($post["desk_data"] == NULL || $post["target_bidang"] == NULL || $post["realisasi_bidang"] == NULL) {
+            if ($post["desk_data"] == NULL) {
                 $res["status"]  = FALSE;
                 $res["res"]     = 'Isi Kolom Kosong';
                 return json_encode($res);

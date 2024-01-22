@@ -66,20 +66,37 @@ class BidangKBKS extends BaseController
 
         return json_encode($outputIndikator);
     }
+
     public function dataAnggaran()
     {
         $request                = Services::request();
         $anggaranBidang         = new TabelAnggaranBidang($request);
 
         $post                   = $this->request->getPost();
-        $array                  = array('tahun_anggaran_bidang' => $post['tahun'], 'triwulan_anggaran_bidang' => $post['triwulan'], 'divisi_dinas' => $post['id']);
-        $paguRealisasi          = $anggaranBidang->where($array)->first();
+        $dataAnggaran          = $anggaranBidang->where([
+            'tahun' => $post['tahun'],
+            'id_bidang' => $post['id_bidang'],
+        ])->first();
 
-        $hasil["pagu"]      = $paguRealisasi['pagu_anggaran_bidang'];
-        $hasil["realisasi"] = $paguRealisasi['realisasi_anggaran_bidang'];
+        $hasil["pagu"]      = $dataAnggaran['pagu_bidang'];
+        switch ($post['triwulan']) {
+            case 1:
+                $hasil['realisasi_triwulan'] = $dataAnggaran['realisasi_tw1'];
+                break;
+            case 2:
+                $hasil['realisasi_triwulan'] = $dataAnggaran['realisasi_tw2'];
+                break;
+            case 3:
+                $hasil['realisasi_triwulan'] = $dataAnggaran['realisasi_tw3'];
+                break;
+            case 4:
+                $hasil['realisasi_triwulan'] = $dataAnggaran['realisasi_tw4'];
+                break;
+        }
 
         return json_encode($hasil);
     }
+
     public function dataChartBar()
     { {
             $request        = Services::request();

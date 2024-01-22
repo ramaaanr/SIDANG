@@ -62,6 +62,45 @@ class TabelMaster extends BaseController
 
         return json_encode($res);
     }
+    public function getNamaBidang($id)
+    {
+        $request            = Services::request();
+        $inidkator      = new TabelProfile($request);
+
+        $dataUbahProfile       = $inidkator->where('id_bidang', $id)->first();
+
+        $res["nama_bidang"]      = $dataUbahProfile['nama_bidang'];
+
+        return json_encode($res);
+    }
+    public function getSemuaNamaBidang()
+    {
+        $data = [];
+        try {
+            $request            = Services::request();
+            $inidkator      = new TabelProfile($request);
+
+            $bidangs       = $inidkator->findAll();
+            foreach ($bidangs as $bidang) {
+
+                $data[] = [
+                    "id_bidang" => $bidang['id_bidang'],
+                    "nama_bidang" => $bidang['nama_bidang'],
+                ];
+            }
+            $status = 'TRUE';
+            $message = "Berhasil";
+        } catch (\Throwable $th) {
+            //throw
+            $status = "FALSE";
+            $message = $th->getMessage();
+        }
+        return json_encode([
+            "status" => $status,
+            "data" => $data,
+            "message" => $message,
+        ]);
+    }
 
     public function ubah_Profile()
     {
@@ -583,44 +622,59 @@ class TabelMaster extends BaseController
 
     public function dataAnggaranBidang()
     {
-        $request    = Services::request();
-        $datatable  = new TabelAnggaranBidang($request);
-        $lists      = $datatable->getDatatables();
-        $data       = [];
-        $no         = $request->getPost('start');
+        try {
+            $request    = Services::request();
+            $datatable  = new TabelAnggaranBidang($request);
+            $lists      = $datatable->getDatatables();
+            $data       = [];
+            // // $no         = $request->getPost('start');
 
-        foreach ($lists as $list) {
-            $row    = [];
-            $row[]  = $list->tahun_anggaran_bidang;
-            $row[]  = $list->triwulan_anggaran_bidang;
-            $row[]  = $list->pagu_anggaran_bidang;
-            $row[]  = $list->realisasi_anggaran_bidang;
-            $row[]  = $list->divisi_dinas;
-            $data[] = $row;
+            foreach ($lists as $list) {
+                $row    = [];
+                $row[]  = $list->id_ag;
+                $row[]  = $list->id_bidang;
+                $row[]  = $list->tahun;
+                $row[]  = $list->pagu_bidang;
+                $row[]  = $list->realisasi_tw1;
+                $row[]  = $list->realisasi_tw2;
+                $row[]  = $list->realisasi_tw3;
+                $row[]  = $list->realisasi_tw4;
+                $data[] = $row;
+            }
+
+            $output = [
+                'draw'            => $request->getPost('draw'),
+                'recordsTotal'    => $datatable->countAll(),
+                'recordsFiltered' => $datatable->countFiltered(),
+                'data'            => $data
+            ];
+        } catch (\Throwable $th) {
+            //throw $th;
+            $output = [
+                'status' => 'error',
+                'message' => $th->getMessage(),
+            ];
         }
-
-        $output = [
-            'draw'            => $request->getPost('draw'),
-            'recordsTotal'    => $datatable->countAll(),
-            'recordsFiltered' => $datatable->countFiltered(),
-            'data'            => $data
-        ];
 
         return json_encode($output);
     }
+
     public function setDataInFormUbahAnggaranBidang()
     {
         $request            = Services::request();
         $anggaranDinas      = new TabelAnggaranBidang($request);
         $post               = $this->request->getPost();
 
-        $dataUbahAnggaran       = $anggaranDinas->where('realisasi_anggaran_bidang', $post["id"])->first();
+        $dataUbahAnggaran       = $anggaranDinas->where('id_ag', $post["id"])->first();
 
-        $res["tahun_anggaran_bidang"]      = $dataUbahAnggaran['tahun_anggaran_bidang'];
-        $res["triwulan_anggaran_bidang"]   = $dataUbahAnggaran['triwulan_anggaran_bidang'];
-        $res["pagu_anggaran_bidang"]       = $dataUbahAnggaran['pagu_anggaran_bidang'];
-        $res["realisasi_anggaran_bidang"]  = $dataUbahAnggaran['realisasi_anggaran_bidang'];
-        $res["divisi_dinas"]               = $dataUbahAnggaran['divisi_dinas'];
+        $res["id_ag"]      = $dataUbahAnggaran['id_ag'];
+        $res["tahun"]   = $dataUbahAnggaran['tahun'];
+        $res["id_bidang"]       = $dataUbahAnggaran['id_bidang'];
+        $res["pagu_bidang"]       = $dataUbahAnggaran['pagu_bidang'];
+        $res["realisasi_tw1"]  = $dataUbahAnggaran['realisasi_tw1'];
+        $res["realisasi_tw2"]  = $dataUbahAnggaran['realisasi_tw2'];
+        $res["realisasi_tw3"]  = $dataUbahAnggaran['realisasi_tw3'];
+        $res["realisasi_tw4"]  = $dataUbahAnggaran['realisasi_tw4'];
 
         return json_encode($res);
     }
@@ -631,7 +685,7 @@ class TabelMaster extends BaseController
         $aggDinas   = new TabelAnggaranBidang($request);
 
         $getDel     = $this->request->getPost('id');
-        $deletedata = $aggDinas->where('realisasi_anggaran_bidang', $getDel)->delete();
+        $deletedata = $aggDinas->where('id_ag', $getDel)->delete();
 
         if ($deletedata) {
             $res_had["status"]  = TRUE;
@@ -648,58 +702,66 @@ class TabelMaster extends BaseController
         $request            = Services::request();
         $tambahAnggaranBidang = new TabelAnggaranBidang($request);
         $post               = $this->request->getPost();
-        if ($post["tahun_anggaran_bidang"] == NULL || $post["triwulan_anggaran_bidang"] == NULL || $post["pagu_anggaran_bidang"] == NULL || $post["realisasi_anggaran_bidang"] == NULL || $post["divisi_dinas"] == NULL) {
+        if ($post["tahun"] == NULL || $post["id_bidang"] == NULL || $post["pagu_bidang"] == NULL) {
             $res["status"]  = FALSE;
             $res["res"]     = 'Isi Kolom Kosong';
             return json_encode($res);
         } else {
+            $cekBidang = $tambahAnggaranBidang->where('id_bidang', $post["id_bidang"])->first();
+            $cekTahun = $tambahAnggaranBidang->where('tahun', $post["tahun"])->first();
+            if ($cekTahun != null && $cekBidang != null) {
+                $res["status"] = FALSE;
+                $res["res"] = "Anggaran Bidang Tahunan sudah diinput";
+                return json_encode($res);
+            }
             $simpan = $tambahAnggaranBidang->insert($post);
             $res["status"] = TRUE;
-            echo json_encode($res);
+            return json_encode($res);
         }
     }
     public function ubah_anggaranBidang()
     {
-        $request            = Services::request();
-        $anggaranBidang      = new TabelAnggaranBidang($request);
-        $post               = $this->request->getPost();
+        try {
+            $request            = Services::request();
+            $anggaranBidang      = new TabelAnggaranBidang($request);
+            $post               = $this->request->getPost();
 
-        $ubahAnggaranBidang  = $anggaranBidang->where('realisasi_anggaran_bidang', $post["id"])->first();
 
-        if ($post["tahun_anggaran_bidang"] == $ubahAnggaranBidang["tahun_anggaran_bidang"] && $post["triwulan_anggaran_bidang"] == $ubahAnggaranBidang["triwulan_anggaran_bidang"] && $post["pagu_anggaran_bidang"] == $ubahAnggaranBidang["pagu_anggaran_bidang"] && $post["realisasi_anggaran_bidang"] == $ubahAnggaranBidang["realisasi_anggaran_bidang"] && $post["divisi_dinas"] == $ubahAnggaranBidang["divisi_dinas"]) {
-            $res["status"]  = FALSE;
-            $res["res"]     = 'Isi Dari Kolom Sama Dengan Sebelumnya';
-            return json_encode($res);
-        }
+            if ($post["pagu_bidang"] < $post["realisasi_tw1"] || $post["pagu_bidang"] < $post["realisasi_tw2"] || $post["pagu_bidang"] < $post["realisasi_tw3"] || $post["pagu_bidang"] < $post["realisasi_tw4"]) {
+                $res["status"]  = FALSE;
+                $res["res"]     = 'Realisasi Melebihi Pagu Anggaran';
+                return json_encode($res);
+            }
 
-        if ($post["pagu_anggaran_bidang"] < $post["realisasi_anggaran_bidang"]) {
-            $res["status"]  = FALSE;
-            $res["res"]     = 'Realisasi Melebihi Pagu Anggaran';
-            return json_encode($res);
-        }
+            if ($post["tahun"] == NULL || $post["id_bidang"] == NULL || $post["pagu_bidang"] == NULL) {
+                $res["status"]  = FALSE;
+                $res["res"]     = 'Isi Kolom Kosong';
+                return json_encode($res);
+            }
 
-        if ($post["tahun_anggaran_bidang"] == NULL || $post["triwulan_anggaran_bidang"] == NULL || $post["pagu_anggaran_bidang"] == NULL || $post["realisasi_anggaran_bidang"] == NULL || $post["divisi_dinas"] == NULL) {
-            $res["status"]  = FALSE;
-            $res["res"]     = 'Isi Kolom Kosong';
-            return json_encode($res);
-        }
+            $setUpdateAnggaranBidang = [
+                'id_bidang'        => $post["id_bidang"],
+                'tahun'         => $post["tahun"],
+                'pagu_bidang'    => $post["pagu_bidang"],
+                'realisasi_tw1'    => $post["realisasi_tw1"],
+                'realisasi_tw2'                 => $post["realisasi_tw2"],
+                'realisasi_tw3'                 => $post["realisasi_tw3"],
+                'realisasi_tw4'                 => $post["realisasi_tw4"],
+            ];
 
-        $setUpdateAnggaranBidang = [
-            'tahun_anggaran_bidang'        => $post["tahun_anggaran_bidang"],
-            'triwulan_anggaran_bidang'     => $post["triwulan_anggaran_bidang"],
-            'pagu_anggaran_bidang'         => $post["pagu_anggaran_bidang"],
-            'realisasi_anggaran_bidang'    => $post["realisasi_anggaran_bidang"],
-            'divisi_dinas'                 => $post["divisi_dinas"],
-        ];
+            $updateAnggaranBidang   = $anggaranBidang->set($setUpdateAnggaranBidang)->where('id_ag', $post["id"])->update();
 
-        $updateAnggaranBidang   = $anggaranBidang->set($setUpdateAnggaranBidang)->where('realisasi_anggaran_bidang', $post["id"])->update();
-
-        if ($updateAnggaranBidang) {
-            $res["status"] = TRUE;
-            $res["res"]    = 'Update Data Berhasil';
-        } else {
+            if ($updateAnggaranBidang) {
+                $res["status"] = TRUE;
+                $res["res"]    = 'Update Data Berhasil';
+                $res["data"] = $setUpdateAnggaranBidang;
+            } else {
+                $res["status"] = FALSE;
+                $res["res"]    = 'Update Data Berhasil';
+            }
+        } catch (\Throwable $th) {
             $res["status"] = FALSE;
-            $res["res"]    = 'Update Data Berhasil';
+            $res["res"]    = $th->getMessage();
         }
 
         echo json_encode($res);

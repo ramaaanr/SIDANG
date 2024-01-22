@@ -69,32 +69,32 @@ class DashboardSidang extends BaseController
 
         $post                   = $this->request->getPost();
 
-        $arraySekre             = array('tahun_anggaran_bidang' => $post['tahun'], 'triwulan_anggaran_bidang' => $post['triwulan'], 'divisi_dinas' => 'SEKRETARIAT');
+        $arraySekre             = array('tahun' => $post['tahun'], 'id_bidang' => '5');
         $paguRealisasiSekre     = $anggaranBidang->where($arraySekre)->first();
 
-        $arrayDalduk            = array('tahun_anggaran_bidang' => $post['tahun'], 'triwulan_anggaran_bidang' => $post['triwulan'], 'divisi_dinas' => 'PENGENDALIAN PENDUDUK');
+        $arrayDalduk            = array('tahun' => $post['tahun'], 'id_bidang' => '4');
         $paguRealisasiDalduk    = $anggaranBidang->where($arrayDalduk)->first();
 
-        $arrayKBKS              = array('tahun_anggaran_bidang' => $post['tahun'], 'triwulan_anggaran_bidang' => $post['triwulan'], 'divisi_dinas' => 'KELUARGA BERENCANA DAN KELUARGA SEJAHTERA');
+        $arrayKBKS              = array('tahun' => $post['tahun'], 'id_bidang' => '1');
         $paguRealisasiKBKS      = $anggaranBidang->where($arrayKBKS)->first();
 
-        $arrayPM                = array('tahun_anggaran_bidang' => $post['tahun'], 'triwulan_anggaran_bidang' => $post['triwulan'], 'divisi_dinas' => 'PEMBERDAYAAN MASYARAKAT');
+        $arrayPM                = array('tahun' => $post['tahun'], 'id_bidang' => '2');
         $paguRealisasiPM        = $anggaranBidang->where($arrayPM)->first();
 
-        $arrayPPPA              = array('tahun_anggaran_bidang' => $post['tahun'], 'triwulan_anggaran_bidang' => $post['triwulan'], 'divisi_dinas' => 'PEMBERDAYAAN PEREMPUAN DAN PERLINDUNGAN ANAK');
+        $arrayPPPA              = array('tahun' => $post['tahun'], 'id_bidang' => '3');
         $paguRealisasiPPPA      = $anggaranBidang->where($arrayPPPA)->first();
 
-        $anggaran["paguSekre"]    = $paguRealisasiSekre['pagu_anggaran_bidang'];
-        $anggaran["paguDalduk"]   = $paguRealisasiDalduk['pagu_anggaran_bidang'];
-        $anggaran["paguKBKS"]     = $paguRealisasiKBKS['pagu_anggaran_bidang'];
-        $anggaran["paguPM"]       = $paguRealisasiPM['pagu_anggaran_bidang'];
-        $anggaran["paguPPPA"]     = $paguRealisasiPPPA['pagu_anggaran_bidang'];
+        $anggaran["paguSekre"]    = $paguRealisasiSekre['pagu_bidang'];
+        $anggaran["paguDalduk"]   = $paguRealisasiDalduk['pagu_bidang'];
+        $anggaran["paguKBKS"]     = $paguRealisasiKBKS['pagu_bidang'];
+        $anggaran["paguPM"]       = $paguRealisasiPM['pagu_bidang'];
+        $anggaran["paguPPPA"]     = $paguRealisasiPPPA['pagu_bidang'];
 
-        $anggaran["realiSekre"]    = $paguRealisasiSekre['realisasi_anggaran_bidang'];
-        $anggaran["realiDalduk"]   = $paguRealisasiDalduk['realisasi_anggaran_bidang'];
-        $anggaran["realiKBKS"]     = $paguRealisasiKBKS['realisasi_anggaran_bidang'];
-        $anggaran["realiPM"]       = $paguRealisasiPM['realisasi_anggaran_bidang'];
-        $anggaran["realiPPPA"]     = $paguRealisasiPPPA['realisasi_anggaran_bidang'];
+        $anggaran["realiSekre"]    = $paguRealisasiSekre['realisasi_tw' . $post['triwulan']];
+        $anggaran["realiDalduk"]   = $paguRealisasiDalduk['realisasi_tw' . $post['triwulan']];
+        $anggaran["realiKBKS"]     = $paguRealisasiKBKS['realisasi_tw' . $post['triwulan']];
+        $anggaran["realiPM"]       = $paguRealisasiPM['realisasi_tw' . $post['triwulan']];
+        $anggaran["realiPPPA"]     = $paguRealisasiPPPA['realisasi_tw' . $post['triwulan']];
 
         return json_encode($anggaran);
     }
@@ -150,11 +150,11 @@ class DashboardSidang extends BaseController
         $indikator      = new TabelIndikator($request);
         $nilai = [];
 
-        $query1 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', 'sekretariat ')->findAll();
-        $query2 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', 'Pengendalian Penduduk ')->findAll();
-        $query3 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', 'KELUARGA BERENCANA DAN KELUARGA SEJAHTERA ')->findAll();
-        $query4 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', 'PEMBERDAYAAN MASYARAKAT ')->findAll();
-        $query5 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', 'PEMBERDAYAAN PEREMPUAN DAN PERLINDUNGAN ANAK')->findAll();
+        $query1 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '5')->findAll();
+        $query2 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '4')->findAll();
+        $query3 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '1')->findAll();
+        $query4 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '2')->findAll();
+        $query5 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '3')->findAll();
 
         $nilai1['t4B1'] = $nilai1['t3B1'] = $nilai1['t2B1'] = $nilai1['t1B1'] = 0;
         $count1 = 0;

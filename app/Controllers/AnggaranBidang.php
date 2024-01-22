@@ -27,28 +27,40 @@ class AnggaranBidang extends BaseController
 
     public function dataAnggaranBidang()
     {
-        $request    = Services::request();
-        $datatable  = new TabelAnggaranBidang($request);
-        $lists      = $datatable->getDatatables();
-        $data       = [];
-        $no         = $request->getPost('start');
+        try {
+            $request    = Services::request();
+            $datatable  = new TabelAnggaranBidang($request);
+            $lists      = $datatable->getDatatables();
+            $data       = [];
+            // // $no         = $request->getPost('start');
 
-        foreach ($lists as $list) {
-            $row    = [];
-            $row[]  = $list->tahun_anggaran_bidang;
-            $row[]  = $list->triwulan_anggaran_bidang;
-            $row[]  = $list->pagu_anggaran_bidang;
-            $row[]  = $list->realisasi_anggaran_bidang;
-            $row[]  = $list->divisi_dinas;
-            $data[] = $row;
+            // foreach ($lists as $list) {
+            //     $row    = [];
+            //     $row[]  = $list->id_ag;
+            //     $row[]  = $list->id_bidang;
+            //     $row[]  = $list->tahun;
+            //     $row[]  = $list->pagu_bidang;
+            //     $row[]  = $list->realisasi_tw1;
+            //     $row[]  = $list->realisasi_tw2;
+            //     $row[]  = $list->realisasi_tw3;
+            //     $row[]  = $list->realisasi_tw4;
+            //     $data[] = $row;
+            // }
+
+            $output = [
+                // 'draw'            => $request->getPost('draw'),
+                // 'recordsTotal'    => $datatable->countAll(),
+                // 'recordsFiltered' => $datatable->countFiltered(),
+                'data'            => $data
+                // 'tst' => 'test'
+            ];
+        } catch (\Throwable $th) {
+            //throw $th;
+            $output = [
+                'status' => 'error',
+                'message' => $th->getMessage(),
+            ];
         }
-
-        $output = [
-            'draw'            => $request->getPost('draw'),
-            'recordsTotal'    => $datatable->countAll(),
-            'recordsFiltered' => $datatable->countFiltered(),
-            'data'            => $data
-        ];
 
         return json_encode($output);
     }

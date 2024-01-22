@@ -252,7 +252,7 @@
       method: "POST",
       url: "<?= base_url(); ?>/BidangPM/dataAnggaran",
       data: {
-        id: bidang,
+        id_bidang: bidang,
         tahun: year,
         triwulan: quarterly
       },
@@ -264,7 +264,7 @@
         currency: 'IDR'
       });
       let pagu = postAngka.pagu;
-      let realisasiPagu = postAngka.realisasi;
+      let realisasiPagu = postAngka.realisasi_triwulan;
 
       document.getElementById("paguBidangAngka").innerText = uang.format(pagu);
       document.getElementById("realisasiPaguBidangAngka").innerText = uang.format(realisasiPagu);
