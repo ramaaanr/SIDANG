@@ -8,7 +8,7 @@ use App\Models\TabelIndikator;
 use App\Models\TabelProfilePegawai;
 use App\Models\TabelAnggaranBidang;
 use App\Models\TabelAnggaranDinas;
-
+use CodeIgniter\Database\Exceptions\DatabaseException;
 use Config\Services;
 
 class TabelMaster extends BaseController
@@ -503,10 +503,12 @@ class TabelMaster extends BaseController
 
         foreach ($lists as $list) {
             $row    = [];
-            $row[]  = $list->tahun_anggaran;
-            $row[]  = $list->triwulan_anggaran;
-            $row[]  = $list->pagu_anggaran;
-            $row[]  = $list->realisasi_anggaran;
+            $row[]  = $list->tahun_ag_dinas;
+            $row[]  = $list->pagu_dinas;
+            $row[]  = $list->realisasi_dinas_tw1;
+            $row[]  = $list->realisasi_dinas_tw2;
+            $row[]  = $list->realisasi_dinas_tw3;
+            $row[]  = $list->realisasi_dinas_tw4;
             $data[] = $row;
         }
 
@@ -525,8 +527,8 @@ class TabelMaster extends BaseController
         $request    = Services::request();
         $aggDinas   = new TabelAnggaranDinas($request);
 
-        $getDel     = $this->request->getPost('id');
-        $deletedata = $aggDinas->where('realisasi_anggaran', $getDel)->delete();
+        $getDel     = $this->request->getPost('tahun_ag_dinas');
+        $deletedata = $aggDinas->where('tahun_ag_dinas', $getDel)->delete();
 
         if ($deletedata) {
             $res_had["status"]  = TRUE;
@@ -543,13 +545,23 @@ class TabelMaster extends BaseController
         $request            = Services::request();
         $tambahAnggaranDinas = new TabelAnggaranDinas($request);
         $post               = $this->request->getPost();
-        if ($post["tahun_anggaran"] == NULL || $post["triwulan_anggaran"] == NULL || $post["pagu_anggaran"] == NULL || $post["realisasi_anggaran"] == NULL) {
-            $res["status"]  = FALSE;
-            $res["res"]     = 'Isi Kolom Kosong';
-            return json_encode($res);
-        } else {
-            $simpan = $tambahAnggaranDinas->insert($post);
-            $res["status"] = TRUE;
+        try {
+            if ($post["tahun_ag_dinas"] == NULL || $post["pagu_dinas"] == NULL) {
+                $res["status"]  = FALSE;
+                $res["res"]     = 'Isi Kolom Kosong';
+                return json_encode($res);
+            } else {
+                $simpan = $tambahAnggaranDinas->insert($post);
+                $res["status"] = TRUE;
+                echo json_encode($res);
+            }
+        } catch (DatabaseException $e) {
+            $res["status"] = FALSE;
+            $res["res"] = "Tahun Anggaran " . $post["tahun_ag_dinas"] . " Sudah Diinput";
+            echo json_encode($res);
+        } catch (\Throwable $th) {
+            $res["status"] = FALSE;
+            $res["res"] = $th->getMessage();
             echo json_encode($res);
         }
     }
@@ -560,60 +572,66 @@ class TabelMaster extends BaseController
         $anggaranDinas      = new TabelAnggaranDinas($request);
         $post               = $this->request->getPost();
 
-        $dataUbahAnggaran       = $anggaranDinas->where('realisasi_anggaran', $post["id"])->first();
+        $dataUbahAnggaran       = $anggaranDinas->where('tahun_ag_dinas', $post["tahu_ag_dinas"])->first();
 
-        $res["tahun_anggaran"]      = $dataUbahAnggaran['tahun_anggaran'];
-        $res["triwulan_anggaran"]   = $dataUbahAnggaran['triwulan_anggaran'];
-        $res["pagu_anggaran"]       = $dataUbahAnggaran['pagu_anggaran'];
-        $res["realisasi_anggaran"]  = $dataUbahAnggaran['realisasi_anggaran'];
+        $res["tahun_ag_dinas"]      = $dataUbahAnggaran['tahun_ag_dinas'];
+        $res["pagu_dinas"]   = $dataUbahAnggaran['pagu_dinas'];
+        $res["realisasi_dinas_tw1"]       = $dataUbahAnggaran['realisasi_dinas_tw1'];
+        $res["realisasi_dinas_tw2"]       = $dataUbahAnggaran['realisasi_dinas_tw2'];
+        $res["realisasi_dinas_tw3"]       = $dataUbahAnggaran['realisasi_dinas_tw3'];
+        $res["realisasi_dinas_tw4"]       = $dataUbahAnggaran['realisasi_dinas_tw4'];
 
         return json_encode($res);
     }
 
     public function ubah_anggaranDinas()
     {
-        $request            = Services::request();
-        $anggaranDinas      = new TabelAnggaranDinas($request);
-        $post               = $this->request->getPost();
+        try {
+            $request            = Services::request();
+            $anggaranDinas      = new TabelAnggaranDinas($request);
+            $post               = $this->request->getPost();
 
-        $ubahAnggaranDinas  = $anggaranDinas->where('realisasi_anggaran', $post["id"])->first();
 
-        if ($post["tahun_anggaran"] == $ubahAnggaranDinas["tahun_anggaran"] && $post["triwulan_anggaran"] == $ubahAnggaranDinas["triwulan_anggaran"] && $post["pagu_anggaran"] == $ubahAnggaranDinas["pagu_anggaran"] && $post["realisasi_anggaran"] == $ubahAnggaranDinas["realisasi_anggaran"]) {
-            $res["status"]  = FALSE;
-            $res["res"]     = 'Isi Dari Kolom Sama Dengan Sebelumnya';
-            return json_encode($res);
-        }
 
-        if ($post["pagu_anggaran"] < $post["realisasi_anggaran"]) {
-            $res["status"]  = FALSE;
-            $res["res"]     = 'Realisasi Melebihi Pagu Anggaran';
-            return json_encode($res);
-        }
+            if ($post["pagu_dinas"] < $post["realisasi_dinas_tw1"] || $post["pagu_dinas"] < $post["realisasi_dinas_tw2"] || $post["pagu_dinas"] < $post["realisasi_dinas_tw3"] || $post["pagu_dinas"] < $post["realisasi_dinas_tw4"]) {
+                $res["status"]  = FALSE;
+                $res["res"]     = 'Realisasi Melebihi Pagu Anggaran';
+                return json_encode($res);
+            }
 
-        if ($post["tahun_anggaran"] == NULL || $post["triwulan_anggaran"] == NULL || $post["pagu_anggaran"] == NULL || $post["realisasi_anggaran"] == NULL) {
-            $res["status"]  = FALSE;
-            $res["res"]     = 'Isi Kolom Kosong';
-            return json_encode($res);
-        }
+            if ($post["tahun_ag_dinas"] == NULL || $post["pagu_dinas"] == NULL) {
+                $res["status"]  = FALSE;
+                $res["res"]     = 'Isi Kolom Kosong';
+                return json_encode($res);
+            }
 
-        $setUpdateAnggaranDinas = [
-            'tahun_anggaran'        => $post["tahun_anggaran"],
-            'triwulan_anggaran'     => $post["triwulan_anggaran"],
-            'pagu_anggaran'         => $post["pagu_anggaran"],
-            'realisasi_anggaran'    => $post["realisasi_anggaran"],
-        ];
+            $setUpdateAnggaranDinas = [
+                'tahun_ag_dinas'        => $post["tahun_ag_dinas"],
+                'pagu_dinas'     => $post["pagu_dinas"],
+                'realisasi_dinas_tw1'         => $post["realisasi_dinas_tw1"],
+                'realisasi_dinas_tw2'         => $post["realisasi_dinas_tw2"],
+                'realisasi_dinas_tw3'         => $post["realisasi_dinas_tw3"],
+                'realisasi_dinas_tw4'         => $post["realisasi_dinas_tw4"],
+            ];
 
-        $updateAnggaranDinas   = $anggaranDinas->set($setUpdateAnggaranDinas)->where('realisasi_anggaran', $post["id"])->update();
+            $updateAnggaranDinas   = $anggaranDinas->set($setUpdateAnggaranDinas)->where('tahun_ag_dinas', $post["tahun_ag_dinas"])->update();
 
-        if ($updateAnggaranDinas) {
-            $res["status"] = TRUE;
-            $res["res"]    = 'Update Data Berhasil';
-        } else {
+            if ($updateAnggaranDinas) {
+                $res["status"] = TRUE;
+                $res["res"]    = 'Update Data Berhasil';
+            } else {
+                $res["status"] = FALSE;
+                $res["res"]    = 'Update Data Berhasil';
+            }
+
+            echo json_encode($res);
+        } catch (DatabaseException $e) {
             $res["status"] = FALSE;
-            $res["res"]    = 'Update Data Berhasil';
+            $res["res"]    = 'Tahun Sudah Diinput';
+        } catch (\Throwable $th) {
+            $res["status"] = FALSE;
+            $res["res"]    = $th->getMessage();
         }
-
-        echo json_encode($res);
     }
 
     //////////////////////////////////////// End Of Anggaran Dinas ////////////////////////////////////////

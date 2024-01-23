@@ -81,18 +81,56 @@
           },
           {
             data: 1,
-
+            render: function(data, type, row) {
+              let uang = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+              });
+              return uang.format(data);
+            }
           },
           {
             data: 2,
-
+            render: function(data, type, row) {
+              let uang = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+              });
+              return uang.format(data);
+            }
           },
           {
             data: 3,
-
+            render: function(data, type, row) {
+              let uang = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+              });
+              return uang.format(data);
+            }
           },
           {
-            data: 3,
+            data: 4,
+            render: function(data, type, row) {
+              let uang = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+              });
+              return uang.format(data);
+            }
+          },
+          {
+            data: 5,
+            render: function(data, type, row) {
+              let uang = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+              });
+              return uang.format(data);
+            }
+          },
+          {
+            data: 0,
             render: function(data, type, row) {
               return '<a href="#" id="tombolUbah" class="btn btn-outline-info btn-sm" data-id="' +
                 data +
@@ -153,7 +191,7 @@
             method: "POST",
             url: "<?= base_url(); ?>/TabelMaster/hapus_anggaranDinas",
             data: {
-              id: id_delete
+              tahun_ag_dinas: id_delete
             },
             dataType: "json"
           }).done(function(res) {
@@ -182,14 +220,17 @@
         method: "POST",
         url: "<?= base_url(); ?>/TabelMaster/setDataInFormUbahAnggaran",
         data: {
-          id: id_ubahAnggaranDinas
+          tahu_ag_dinas: id_ubahAnggaranDinas
         },
         dataType: "json"
       }).done(function(res) {
-        document.getElementById("ubahTahunAnggaranDinas").value = res.tahun_anggaran;
-        document.getElementById("ubahTriwulanAnggaranDinas").value = res.triwulan_anggaran;
-        document.getElementById("ubahPaguAnggaranDinas").value = res.pagu_anggaran;
-        document.getElementById("ubahRealisasiAnggaranDinas").value = res.realisasi_anggaran;
+        const data = res
+        $('#ubah_tahun_ag_dinas').val(data.tahun_ag_dinas);
+        $('#ubah_pagu_dinas').val(data.pagu_dinas);
+        $('#ubah_realisasi_dinas_tw1').val(data.realisasi_dinas_tw1);
+        $('#ubah_realisasi_dinas_tw2').val(data.realisasi_dinas_tw2);
+        $('#ubah_realisasi_dinas_tw3').val(data.realisasi_dinas_tw3);
+        $('#ubah_realisasi_dinas_tw4').val(data.realisasi_dinas_tw4);
       });
     }
 

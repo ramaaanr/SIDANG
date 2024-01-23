@@ -8,11 +8,11 @@ use CodeIgniter\Model;
 class TabelAnggaranDinas extends Model
 {
     protected $table         = 'anggaran_dinas';
-    protected $primaryKey    = '';
-    protected $allowedFields = ['tahun_anggaran', 'triwulan_anggaran', 'pagu_anggaran', 'realisasi_anggaran'];
-    protected $column_order  = ['tahun_anggaran', 'triwulan_anggaran', 'pagu_anggaran', 'realisasi_anggaran',''];
-    protected $column_search = ['tahun_anggaran', 'triwulan_anggaran', 'pagu_anggaran', 'realisasi_anggaran'];
-    protected $order         = ['tahun_anggaran' => 'ASC'];
+    protected $primaryKey    = 'tahun_ag_dinas';
+    protected $allowedFields = ['tahun_ag_dinas', 'pagu_dinas', 'realisasi_dinas_tw1', 'realisasi_dinas_tw2', 'realisasi_dinas_tw3', 'realisasi_dinas_tw4'];
+    protected $column_order  = ['tahun_ag_dinas', 'pagu_dinas', 'realisasi_dinas_tw1', 'realisasi_dinas_tw2', 'realisasi_dinas_tw3', 'realisasi_dinas_tw4', ''];
+    protected $column_search = ['tahun_ag_dinas', 'pagu_dinas', 'realisasi_dinas_tw1', 'realisasi_dinas_tw2', 'realisasi_dinas_tw3', 'realisasi_dinas_tw4'];
+    protected $order         = ['tahun_ag_dinas' => 'ASC'];
     protected $returnType    = 'array';
     protected $request;
     protected $db;

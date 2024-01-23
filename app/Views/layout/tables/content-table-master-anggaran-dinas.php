@@ -16,19 +16,35 @@
                       <h4>Anggaran Dinas</h4>
                     </div>
                     <div>
-                      <button class="btn btn-success" role="button" data-bs-toggle="modal" data-bs-target="#exampleModalTambah2">Tambah</button>
+                      <button class="btn btn-success" role="button" data-bs-toggle="modal"
+                        data-bs-target="#exampleModalTambah2">Tambah</button>
                     </div>
                   </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                   <div class="table-responsive p-4">
-                    <table id="master_anggaranDinas" style="width: 100%" class="table table-hover table-striped align-items-center mb-">
+                    <table id="master_anggaranDinas" style="width: 100%"
+                      class="table table-hover table-striped align-items-center mb-">
                       <thead>
                         <tr>
                           <th width="%">Tahun Anggaran</th>
-                          <th width="25%">Triwulan Anggaran</th>
-                          <th width="22%">Pagu Anggaran</th>
-                          <th width="32%">Realisasi Anggaran</th>
+                          <th width="15%">Pagu Anggaran</th>
+                          <th width="15%">
+                            <p class="text-xs p-0 m-0 font-weight-bolder">Realisasi</p>
+                            <p class="text-xs p-0 m-0 font-weight-bolder">Triwulan 1</p>
+                          </th>
+                          <th width="15%">
+                            <p class="text-xs p-0 m-0 font-weight-bolder">Realisasi</p>
+                            <p class="text-xs p-0 m-0 font-weight-bolder">Triwulan 2</p>
+                          </th>
+                          <th width="15%">
+                            <p class="text-xs p-0 m-0 font-weight-bolder">Realisasi</p>
+                            <p class="text-xs p-0 m-0 font-weight-bolder">Triwulan 3</p>
+                          </th>
+                          <th width="15%">
+                            <p class="text-xs p-0 m-0 font-weight-bolder">Realisasi</p>
+                            <p class="text-xs p-0 m-0 font-weight-bolder">Triwulan 4</p>
+                          </th>
                           <th width="20%">Aksi</th>
                         </tr>
                       </thead>
@@ -46,7 +62,8 @@
 
         <!-- modal simpan / tambah anggaran Dinas -->
         <div class="col-md-4">
-          <div class="modal fade" id="exampleModalTambah2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="exampleModalTambah2" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered " role="document">
               <div class="modal-content">
                 <div class="modal-body p-0">
@@ -63,37 +80,56 @@
                           <Label>
                             Tahun Anggaran
                           </Label>
-                          <input type="number" min="2020" max="2099" name="tahun_anggaran" class="form-control" placeholder="Tahun Anggaran" aria-label="Tahun">
+                          <input type="number" min="2020" id="tahun_ag_dinas" max="2099" name="tahun_ag_dinas"
+                            class="form-control" placeholder="Tahun Anggaran" aria-label="Tahun">
                         </div>
                         <div class="mb-3">
                           <Label>
-                            Triwulan Anggaran
+                            Pagu Dinas
                           </Label>
-                          <select class="form-select" name="triwulan_anggaran" aria-label="Triwulan Anggaran">
-                            <option value="1" selected>1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                          </select>
+                          <input type="number" name="pagu_dinas" id="pagu_dinas" class="form-control"
+                            placeholder="Pagu Anggaran" aria-label="pagu">
                         </div>
                         <div class="mb-3">
                           <Label>
-                            Pagu Anggaran
+                            Realisasi Triwulan 1
                           </Label>
-                          <input type="text" name="pagu_anggaran" class="form-control" placeholder="Pagu Anggaran" aria-label="pagu">
+                          <input value="0" type="number" name="realisasi_dinas_tw1" id="realisasi_dinas_tw1"
+                            class="form-control" placeholder="Realisasi Triwulan 1"
+                            aria-label="realisasi_dinas-triwulan">
                         </div>
                         <div class="mb-3">
                           <Label>
-                            Realisasi Anggaran
+                            Realisasi Triwulan 2
                           </Label>
-                          <input type="text" name="realisasi_anggaran" class="form-control" placeholder="Realisasi Anggaran" aria-label="realisasi">
+                          <input value="0" type="number" name="realisasi_dinas_tw2" id="realisasi_dinas_tw2"
+                            class="form-control" placeholder="Realisasi Triwulan 2"
+                            aria-label="realisasi_dinas-triwulan">
+                        </div>
+                        <div class="mb-3">
+                          <Label>
+                            Realisasi Triwulan 3
+                          </Label>
+                          <input value="0" type="number" name="realisasi_dinas_tw3" id="realisasi_dinas_tw3"
+                            class="form-control" placeholder="Realisasi Triwulan 3"
+                            aria-label="realisasi_dinas-triwulan">
+                        </div>
+                        <div class="mb-3">
+                          <Label>
+                            Realisasi Triwulan 4
+                          </Label>
+                          <input value="0" type="number" name="realisasi_dinas_tw4" id="realisasi_dinas_tw4"
+                            class="form-control" placeholder="Realisasi Triwulan 4"
+                            aria-label="realisasi_dinas-triwulan">
                         </div>
                       </form>
                     </div>
                     <div class="card-footer">
                       <div class="d-flex align-items-center justify-content-between">
-                        <button type="submit" class="btn bg-gradient-success w-25 my-4 mb-2" onclick="simpan_dataAnggaranDinas()" data-bs-dismiss="modal">Buat</button>
-                        <button type="button" class="btn bg-gradient-warning w-25 my-4 mb-2" onclick="$('#simpan_anggaranDinas')[0].reset();" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn bg-gradient-success w-25 my-4 mb-2"
+                          onclick="simpan_dataAnggaranDinas()" data-bs-dismiss="modal">Buat</button>
+                        <button type="button" class="btn bg-gradient-warning w-25 my-4 mb-2"
+                          onclick="$('#simpan_anggaranDinas')[0].reset();" data-bs-dismiss="modal">Cancel</button>
                       </div>
                     </div>
                   </div>
@@ -105,7 +141,8 @@
 
         <!-- modal ubah / tambah anggaran dinas-->
         <div class="col-md-4">
-          <div class="modal fade" id="modalUbahAnggaranDinas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="modalUbahAnggaranDinas" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered " role="document">
               <div class="modal-content">
                 <div class="modal-body p-0">
@@ -122,31 +159,56 @@
                           <Label>
                             Tahun Anggaran
                           </Label>
-                          <input type="number" min="2020" max="2099" id="ubahTahunAnggaranDinas" name="tahun_anggaran" class="form-control" placeholder="Tahun Anggaran" aria-label="Tahun">
+                          <input type="number" min="2020" id="ubah_tahun_ag_dinas" max="2099" name="tahun_ag_dinas"
+                            class="form-control" placeholder="Tahun Anggaran" aria-label="Tahun">
                         </div>
                         <div class="mb-3">
-                          <Label> Triwulan Anggaran </Label>
-                          <select class="form-select" id="ubahTriwulanAnggaranDinas" name="triwulan_anggaran" aria-label="Triwulan Anggaran">
-                            <option value="1" selected>1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                          </select>
+                          <Label>
+                            Pagu Dinas
+                          </Label>
+                          <input type="number" name="pagu_dinas" id="ubah_pagu_dinas" class="form-control"
+                            placeholder="Pagu Anggaran" aria-label="pagu">
                         </div>
                         <div class="mb-3">
-                          <Label> Pagu Anggaran </Label>
-                          <input type="number" id="ubahPaguAnggaranDinas" name="pagu_anggaran" class="form-control" placeholder="Pagu Anggaran" aria-label="pagu">
+                          <Label>
+                            Realisasi Triwulan 1
+                          </Label>
+                          <input value="0" type="number" name="realisasi_dinas_tw1" id="ubah_realisasi_dinas_tw1"
+                            class="form-control" placeholder="Realisasi Triwulan 1"
+                            aria-label="realisasi_dinas-triwulan">
                         </div>
                         <div class="mb-3">
-                          <Label> Realisasi Anggaran </Label>
-                          <input type="number" id="ubahRealisasiAnggaranDinas" name="realisasi_anggaran" class="form-control" placeholder="Realisasi Anggaran" aria-label="realisasi">
+                          <Label>
+                            Realisasi Triwulan 2
+                          </Label>
+                          <input value="0" type="number" name="realisasi_dinas_tw2" id="ubah_realisasi_dinas_tw2"
+                            class="form-control" placeholder="Realisasi Triwulan 2"
+                            aria-label="realisasi_dinas-triwulan">
+                        </div>
+                        <div class="mb-3">
+                          <Label>
+                            Realisasi Triwulan 3
+                          </Label>
+                          <input value="0" type="number" name="realisasi_dinas_tw3" id="ubah_realisasi_dinas_tw3"
+                            class="form-control" placeholder="Realisasi Triwulan 3"
+                            aria-label="realisasi_dinas-triwulan">
+                        </div>
+                        <div class="mb-3">
+                          <Label>
+                            Realisasi Triwulan 4
+                          </Label>
+                          <input value="0" type="number" name="realisasi_dinas_tw4" id="ubah_realisasi_dinas_tw4"
+                            class="form-control" placeholder="Realisasi Triwulan 4"
+                            aria-label="realisasi_dinas-triwulan">
                         </div>
                       </form>
                     </div>
                     <div class="card-footer">
                       <div class="d-flex align-items-center justify-content-between">
-                        <button type="submit" class="btn bg-gradient-success w-25 my-4 mb-2" onclick="js_ubahAnggaranDinas()" data-bs-dismiss="modal">Ubah</button>
-                        <button type="button" class="btn bg-gradient-warning w-25 my-4 mb-2" onclick="$('#ubah_anggaranDinas')[0].reset();" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn bg-gradient-success w-25 my-4 mb-2"
+                          onclick="js_ubahAnggaranDinas()" data-bs-dismiss="modal">Ubah</button>
+                        <button type="button" class="btn bg-gradient-warning w-25 my-4 mb-2"
+                          onclick="$('#ubah_anggaranDinas')[0].reset();" data-bs-dismiss="modal">Cancel</button>
                       </div>
                     </div>
                   </div>
