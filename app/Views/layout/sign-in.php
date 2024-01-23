@@ -12,7 +12,9 @@
   <meta content="" name="keywords" />
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Roboto:100,300,400,500,700|Philosopher:400,400i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Roboto:100,300,400,500,700|Philosopher:400,400i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
 
@@ -58,42 +60,42 @@
   <link href="<?= base_url() ?>/assets/css/style2.css" rel="stylesheet" />
 
   <style>
-    th,
-    td {
-      font-family: sans-serif;
-    }
+  th,
+  td {
+    font-family: sans-serif;
+  }
 
-    th {
-      font-size: 15pt;
-      color: navy;
-    }
+  th {
+    font-size: 15pt;
+    color: navy;
+  }
 
-    td {
-      font-size: 10pt;
-      text-align: justify;
-    }
+  td {
+    font-size: 10pt;
+    text-align: justify;
+  }
 
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
 
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-    }
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
 
-    ::-webkit-scrollbar-thumb {
-      background: rgb(24, 24, 118);
-    }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(24, 24, 118);
+  }
 
-    ::-webkit-scrollbar-thumb:hover {
-      background: #555;
-    }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 
-    /* optgroup { font-size:5px; } */
+  /* optgroup { font-size:5px; } */
 
-    .box {
-      text-align: justify !important;
-    }
+  .box {
+    text-align: justify !important;
+  }
   </style>
 </head>
 
@@ -161,7 +163,8 @@
 
 
   <!-- Modal -->
-  <div class="modal fade" id="login" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="loginLabel" aria-hidden="true">
+  <div class="modal fade" id="login" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="loginLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body d-flex justify-content-between">
@@ -188,14 +191,13 @@
                 </div>
 
                 <div class="form-floating mb-4">
-                  <select class="form-select" size="1" id="divisi" aria-label="Floating label select example" required="" name="divisi">
-                    <optgroup>
-                      <option selected="">DALDUK</option>
-                      <option selected="">KB & KS</option>
-                      <option selected="">PM</option>
-                      <option selected="">PPA</option>
-                      <option selected="">SEKRETARIAT</option>
-                    </optgroup>
+                  <select class="form-select" size="1" id="divisi" aria-label="Floating label select example"
+                    required="" name="divisi">
+                    <option value="4">DALDUK</option>
+                    <option value="1">KB & KS</option>
+                    <option value="2">PM</option>
+                    <option value="3">PPA</option>
+                    <option value="5">SEKRETARIAT</option>
                   </select>
                   <label for="divisi">Pilih Bidang</label>
                 </div>
@@ -209,7 +211,8 @@
               </form>
             </div>
             <div class="col-md-6 order-md-1 d-flex">
-              <img src="<?= base_url() ?>/assets/img/kb.png" alt="" class="mx-auto d-block" style="max-height: 250px;" />
+              <img src="<?= base_url() ?>/assets/img/kb.png" alt="" class="mx-auto d-block"
+                style="max-height: 250px;" />
             </div>
           </div>
         </div>
@@ -218,40 +221,40 @@
   </div>
 </body>
 <script>
-  $(document).ready(function() {
-    $('#formLogin').submit(function(e) {
-      e.preventDefault();
-      $.ajax({
-        type: 'POST',
-        url: '<?= base_url("login/cek") ?>',
-        data: $(this).serialize(),
-        success: function(response) {
-          let responseData = JSON.parse(response)
-          if (responseData.status === 'success') {
-            // Jika sign in berhasil, tampilkan pesan sukses dengan SweetAlert
-            Swal.fire({
-              icon: 'success',
-              title: 'Success',
-              text: responseData.message,
-              showConfirmButton: false,
-              timer: 2000, // Tampilkan pesan sukses selama 2 detik
-              onClose: function() {
-                window.location.href = '<?php echo base_url('DashboardSidang'); ?>';
-              }
-            });
-          } else {
-            // Jika sign in gagal, tampilkan pesan error dengan SweetAlert
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: responseData.message,
-              showConfirmButton: true
-            });
-          }
+$(document).ready(function() {
+  $('#formLogin').submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: '<?= base_url("login/cek") ?>',
+      data: $(this).serialize(),
+      success: function(response) {
+        let responseData = JSON.parse(response)
+        if (responseData.status === 'success') {
+          // Jika sign in berhasil, tampilkan pesan sukses dengan SweetAlert
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: responseData.message,
+            showConfirmButton: false,
+            timer: 2000, // Tampilkan pesan sukses selama 2 detik
+            onClose: function() {
+              window.location.href = '<?php echo base_url('DashboardSidang'); ?>';
+            }
+          });
+        } else {
+          // Jika sign in gagal, tampilkan pesan error dengan SweetAlert
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: responseData.message,
+            showConfirmButton: true
+          });
         }
-      });
+      }
     });
   });
+});
 </script>
 
 </html>
