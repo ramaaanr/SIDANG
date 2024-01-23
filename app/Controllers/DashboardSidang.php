@@ -53,11 +53,11 @@ class DashboardSidang extends BaseController
         $anggaranDinas          = new TabelAnggaranDinas($request);
 
         $post                   = $this->request->getPost();
-        $array                  = array('tahun_anggaran' => $post['tahun'], 'triwulan_anggaran' => $post['triwulan']);
-        $paguRealisasiDinas     = $anggaranDinas->where($array)->first();
+        // $array                  = array('tahun_ag_dinas' => $post['tahun'], 'triwulan_anggaran' => $post['triwulan']);
+        $paguRealisasiDinas     = $anggaranDinas->where("tahun_ag_dinas", $post['tahun'])->first();
 
-        $hasil["paguDinas"]          = $paguRealisasiDinas['pagu_anggaran'];
-        $hasil["realisasiDinas"]     = $paguRealisasiDinas['realisasi_anggaran'];
+        $hasil["paguDinas"]          = $paguRealisasiDinas['pagu_dinas'];
+        $hasil["realisasiDinas"]     = $paguRealisasiDinas['realisasi_dinas_tw' . $post['triwulan']];
 
         return json_encode($hasil);
     }
@@ -135,11 +135,15 @@ class DashboardSidang extends BaseController
         $request        = Services::request();
         $anggaranDinas  = new TabelAnggaranDinas($request);
 
-        $query = $anggaranDinas->orderby("tahun_anggaran asc, triwulan_anggaran asc")->get();
+        $post                   = $this->request->getPost();
 
-        foreach ($query->getResult() as $row) {
-            $data[] = $row->realisasi_anggaran;
-        }
+        $query = $anggaranDinas->where('tahun_ag_dinas', $post['tahun'])->first();
+        $data = [
+            $query['realisasi_dinas_tw1'],
+            $query['realisasi_dinas_tw2'],
+            $query['realisasi_dinas_tw3'],
+            $query['realisasi_dinas_tw4'],
+        ];
 
         return json_encode($data);
     }
