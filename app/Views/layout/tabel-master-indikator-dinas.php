@@ -82,7 +82,26 @@
           data: 1
         },
         {
-          data: 2
+          data: 2,
+          render: function(data, type, row) {
+            var nama_bidang = 'not_found'; // Default value jika ada kesalahan
+
+            $.ajax({
+              method: 'GET',
+              url: '<?= base_url(); ?>/TabelMaster/getNamaBidang/' + data,
+              success: function(response) {
+                try {
+                  var resJson = JSON.parse(response);
+                  nama_bidang = resJson.nama_bidang;
+                } catch (error) {
+                  console.error(error);
+                }
+              },
+              async: false, // Set async menjadi false agar dapat mengembalikan hasil dari ajax langsung
+            });
+
+            return nama_bidang;
+          }
         },
         {
           data: 3
