@@ -62,6 +62,7 @@ class TabelMaster extends BaseController
 
         return json_encode($res);
     }
+
     public function getNamaBidang($id)
     {
         $request            = Services::request();
@@ -70,6 +71,23 @@ class TabelMaster extends BaseController
         $dataUbahProfile       = $inidkator->where('id_bidang', $id)->first();
 
         $res["nama_bidang"]      = $dataUbahProfile['nama_bidang'];
+
+        return json_encode($res);
+    }
+    public function getProfileBidang()
+    {
+        $request            = Services::request();
+        $inidkator      = new TabelProfile($request);
+
+        $profiles     = $inidkator->findAll();
+        $res = [];
+
+        foreach ($profiles as $profile) {
+            $res[] = [
+                "id_bidang" => $profile['id_bidang'],
+                "nama_bidang" => $profile['nama_bidang'],
+            ];
+        }
 
         return json_encode($res);
     }

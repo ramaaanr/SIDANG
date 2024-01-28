@@ -57,11 +57,22 @@
   let id_ubahKinerja;
   let id_ubahProfilePegawai;
   let id_ubahProfile;
+  let getNamaBidang;
+
 
   //////////////////////////////////////// Start Of Anggaran Bidang ////////////////////////////////////////
 
   // data anggaran bidang
   $(document).ready(function() {
+    let dataProfileBidang = []
+    $.ajax({
+      url: "<?= base_url(); ?>/TabelMaster/getProfileBidang",
+      type: "POST",
+      success: function(res) {
+        dataProfileBidang = JSON.parse(res);
+      },
+    });
+
     tabelDataBidang = $('#master_dataBidang').DataTable({
       "ajax": {
         // json datasource
@@ -79,7 +90,22 @@
           data: 0
         },
         {
-          data: 1
+          data: 1,
+          render: function(data, type, row) {
+            let namaBidang = "";
+            dataProfileBidang.forEach((bidang) => {
+              const {
+                id_bidang,
+                nama_bidang
+              } = bidang;
+
+              if (id_bidang == data) {
+                namaBidang = nama_bidang;
+                return;
+              }
+            });
+            return namaBidang; // Tambahkan pernyataan return di sini
+          }
         },
         {
           data: 2

@@ -62,6 +62,14 @@
 
   // data pegawai
   $(document).ready(function() {
+    let dataProfileBidang = []
+    $.ajax({
+      url: "<?= base_url(); ?>/TabelMaster/getProfileBidang",
+      type: "POST",
+      success: function(res) {
+        dataProfileBidang = JSON.parse(res);
+      },
+    });
     tabelProfilePegawai = $('#master_pegawaiDinas').DataTable({
       "ajax": {
         // json datasource
@@ -87,23 +95,19 @@
         {
           data: 3,
           render: function(data, type, row) {
-            var nama_bidang = 'not_found'; // Default value jika ada kesalahan
+            let namaBidang = "";
+            dataProfileBidang.forEach((bidang) => {
+              const {
+                id_bidang,
+                nama_bidang
+              } = bidang;
 
-            $.ajax({
-              method: 'GET',
-              url: '<?= base_url(); ?>/TabelMaster/getNamaBidang/' + data,
-              success: function(response) {
-                try {
-                  var resJson = JSON.parse(response);
-                  nama_bidang = resJson.nama_bidang;
-                } catch (error) {
-                  console.error(error);
-                }
-              },
-              async: false, // Set async menjadi false agar dapat mengembalikan hasil dari ajax langsung
+              if (id_bidang == data) {
+                namaBidang = nama_bidang;
+                return;
+              }
             });
-
-            return nama_bidang;
+            return namaBidang; // Tambahkan pernyataan return di sini
           }
         },
         {

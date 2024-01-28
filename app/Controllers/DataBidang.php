@@ -39,7 +39,7 @@ class DataBidang extends BaseController
         $datatableRaw  = new TabelDataBidang($request);
         $session = Services::session();
 
-        $divisiName     = $session->get('user')['divisiName'];
+        $divisiName     = $session->get('user')['divisi'];
         $datatable  = $datatableRaw->where('nm_bidang', $divisiName);
         $lists      = $datatable->getDatatables();
         $data       = [];
@@ -161,7 +161,7 @@ class DataBidang extends BaseController
                 $res["res"]     = 'Isi Kolom Kosong';
             } else {
                 $session = Services::session();
-                $divisiName     = $session->get('user')['divisiName'];
+                $divisiName     = $session->get('user')['divisi'];
                 $file = $this->request->getFile('lampiran_bidang');
                 $hash = md5(uniqid() . time());
                 $ext = $file->getClientExtension();
@@ -210,7 +210,7 @@ class DataBidang extends BaseController
             $file = $this->request->getFile('new_lampiran_bidang');
             if ($file->isValid()) {
                 $session = Services::session();
-                $divisiName     = $session->get('user')['divisiName'];
+                $divisiName     = $session->get('user')['divisi'];
                 $hash = md5(uniqid() . time());
                 $ext = $file->getClientExtension();
                 $fileName = $hash . '_' . $divisiName . '.' . $ext;
