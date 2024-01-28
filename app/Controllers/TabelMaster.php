@@ -399,9 +399,20 @@ class TabelMaster extends BaseController
     {
         $request    = Services::request();
         $datatable  = new TabelIndikator($request);
-        $lists      = $datatable->getDatatables();
+
+        $post               = $this->request->getPost();
+        if (isset($post['data_bidang'])) {
+            $session = Services::session();
+            $user = $session->get('user');
+            $divisi = ($user["divisi"]);
+            $lists      = $datatable->where('divisi_indikator', $divisi)->get()->getResult();
+        } else {
+            $lists      = $datatable->getDatatables();
+        }
         $data       = [];
         $no         = $request->getPost('start');
+
+
 
         foreach ($lists as $list) {
             $no++;
@@ -667,7 +678,16 @@ class TabelMaster extends BaseController
         try {
             $request    = Services::request();
             $datatable  = new TabelAnggaranBidang($request);
-            $lists      = $datatable->getDatatables();
+
+            $post               = $this->request->getPost();
+            if (isset($post['data_bidang'])) {
+                $session = Services::session();
+                $user = $session->get('user');
+                $divisi = ($user["divisi"]);
+                $lists      = $datatable->where('id_bidang', $divisi)->get()->getResult();
+            } else {
+                $lists      = $datatable->getDatatables();
+            }
             $data       = [];
             // // $no         = $request->getPost('start');
 
@@ -695,6 +715,7 @@ class TabelMaster extends BaseController
             $output = [
                 'status' => 'error',
                 'message' => $th->getMessage(),
+                'res' => $divisi,
             ];
         }
 
