@@ -36,12 +36,7 @@
             </div>
           </a>
         </li>
-        <li class="nav-item d-flex align-items-center">
-          <a href="<?= base_url() ?>/Login/Logout" class="nav-link text-white font-weight-bold px-0">
-            <i class="fa fa-user me-sm-1"></i>
-            <span class="d-sm-inline d-none">Logout</span>
-          </a>
-        </li>
+
 
       </ul>
     </div>

@@ -1,5 +1,5 @@
 <aside style="background-color: #ffffff;"
-  class="sidenav bg-white z-index-3 navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4"
+  class="sidenav d-flex bg-white z-index-3 navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4"
   id="sidenav-main" data-color="dark">
   <div class="sidenav-header">
     <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
@@ -10,7 +10,7 @@
     </a>
   </div>
   <hr class="horizontal dark mt-0" />
-  <div class="collapse navbar-collapse w-auto h-100 overflow-auto" id="sidenav-collapse-main">
+  <div class="collapse navbar-collapse w-auto h-75 overflow-auto" id="sidenav-collapse-main">
     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link active" href="<?= base_url() ?>Home">
@@ -142,5 +142,12 @@
         </a>
       </li>
     </ul>
+  </div>
+
+  <div class="nav-item d-flex align-items-end justify-content-center  w-100">
+    <a href="<?= base_url() ?>/Login/Logout" class="nav-link text-black font-weight-bold px-0">
+      <i class="fa fa-user me-sm-1"></i>
+      <span class="d-sm-inline d-none">Logout</span>
+    </a>
   </div>
 </aside>
