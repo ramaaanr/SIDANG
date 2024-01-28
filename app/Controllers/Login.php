@@ -35,11 +35,7 @@ class Login extends BaseController
 
 
         if ($dataUser) {
-            // Jika sign in berhasil, set session dan kirim respons JSON
-            // $session->set_userdata('username', $dataUser['username']);
-            // $response['status'] = 'success';
-            // $response['message'] = 'Sign in successful.';
-            if ($pass != $dataUser['password'] || $divisi != $dataUser['divisi']) {
+            if (!password_verify($pass, $dataUser['password']) || $divisi != $dataUser['divisi']) {
                 $response['status'] = 'error';
                 $response['message'] = 'Password atau Divisi Tidak Sesuai';
                 $response['req'] = [
