@@ -301,16 +301,16 @@
                 capaianKinerja.toFixed(2) + '% </div> ';
             }
             return '<div class="text-center text-sm font-weight-bold">' +
-              capaianKinerja + '% </div> ';
+              capaianKinerja.toFixed(2) + '% </div> ';
           }
         },
         {
           data: 3,
           render: function(data, type, row) {
-            if (realisasi == target) {
+            if (realisasi >= target) {
               return '<div class="text-center text-sm font-weight-bold"><span class="badge badge-sm bg-gradient-success">Tercapai</span></div>';
             } else if (capaianKinerja >= 1) {
-              return '<div class="text-center text-sm font-weight-bold"><span class="badge badge-sm bg-gradient-warning">Belum Tercapai</span></div>';
+              return '<div class="text-center text-sm font-weight-bold"><span class="badge badge-sm bg-gradient-danger">Belum Tercapai</span></div>';
             } else {
               return '<div class="text-center text-sm font-weight-bold"><span class="badge badge-sm bg-gradient-danger">Belum Tercapai</span></div>';
             }
