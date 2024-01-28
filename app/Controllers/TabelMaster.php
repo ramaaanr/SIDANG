@@ -18,6 +18,12 @@ class TabelMaster extends BaseController
         // return view('layout/tabel-master');
     }
 
+    public function getUserDivisi()
+    {
+        $session = Services::session();
+        $user = $session->get('user');
+        return json_encode($user["divisi"]);
+    }
     //////////////////////////////////////// Start Of Profile Bidang ////////////////////////////////////////
 
     public function dataProfileBidang()

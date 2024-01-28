@@ -64,6 +64,18 @@
     }
 
     $(document).ready(function() {
+
+      $.ajax({
+        method: "GET",
+        url: "<?= base_url(); ?>/TabelMaster/getUserDivisi",
+        success: function(data) {
+          divisi = JSON.parse(data);
+          console.info(divisi);
+          if (divisi != 5) {
+            $('#nav-tabel-master').remove();
+          }
+        },
+      });
       tabelDataBidang = $('#tabelDataBidang').DataTable({
         "ajax": {
           // json datasource

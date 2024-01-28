@@ -20,6 +20,9 @@ class AnggaranBidang extends BaseController
             // Redirect ke halaman login jika tidak ada sesi login
             return redirect()->to(base_url('login'));
         }
+        if ($session->get('user')['divisi'] != 5) {
+            return redirect()->to(base_url(''));
+        }
         return view('layout/tabel-master-anggaran-bidang');
     }
 
