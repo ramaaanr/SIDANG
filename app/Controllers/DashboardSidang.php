@@ -154,7 +154,7 @@ class DashboardSidang extends BaseController
         $indikator      = new TabelIndikator($request);
         $nilai = [];
 
-        // $query1 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '5')->findAll();
+        $query1 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '5')->findAll();
         $query2 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '4')->findAll();
         $query3 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '1')->findAll();
         $query4 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '2')->findAll();
@@ -162,13 +162,20 @@ class DashboardSidang extends BaseController
 
         $nilai1['t4B1'] = $nilai1['t3B1'] = $nilai1['t2B1'] = $nilai1['t1B1'] = 0;
         $count1 = 0;
-        // if (query1=>length === 0) {
-        //     // Data kosong, lakukan sesuatu
-        //     console . log('Data kosong');
-        // } else {
-        //     // Data tidak kosong, lanjutkan dengan data yang diterima
-        //     console . log('Data tidak kosong');
-        // }
+
+        if (count($query1) != 0) {
+            foreach ($query1 as $qr) {
+                $count1++;
+                $nilai1['t1B1'] = $nilai1['t1B1'] + (($qr['triwulan_1'] / $qr['target_indikator']) * 100);
+                $nilai1['t2B1'] = $nilai1['t2B1'] + (($qr['triwulan_2'] / $qr['target_indikator']) * 100);
+                $nilai1['t3B1'] = $nilai1['t3B1'] + (($qr['triwulan_3'] / $qr['target_indikator']) * 100);
+                $nilai1['t4B1'] = $nilai1['t4B1'] + (($qr['triwulan_4'] / $qr['target_indikator']) * 100);
+            }
+            $nilai1['t1B1'] = round(($nilai1['t1B1'] / $count1), 2);
+            $nilai1['t2B1'] = round(($nilai1['t2B1'] / $count1 + $nilai1['t1B1']), 2);
+            $nilai1['t3B1'] = round(($nilai1['t3B1'] / $count1 + $nilai1['t2B1']), 2);
+            $nilai1['t4B1'] = round(($nilai1['t4B1'] / $count1 + $nilai1['t3B1']), 2);
+        }
 
         $nilai2['t4B2'] = $nilai2['t3B2'] = $nilai2['t2B2'] = $nilai2['t1B2'] = 0;
         $count2 = 0;
