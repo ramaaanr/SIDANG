@@ -57,6 +57,10 @@
   let id_ubahKinerja;
   let id_ubahProfilePegawai;
   let id_ubahProfile;
+  let uang = new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR'
+  });
 
   //////////////////////////////////////// Start Of Anggaran Bidang ////////////////////////////////////////
 
@@ -124,19 +128,33 @@
         },
         {
           data: 3,
-
+          render: function(data, type, row) {
+            return uang.format(data);
+          }
         },
         {
-          data: 4
+          data: 4,
+          render: function(data, type, row) {
+            return uang.format(data);
+          }
         },
         {
-          data: 5
+          data: 5,
+          render: function(data, type, row) {
+            return uang.format(data);
+          }
         },
         {
-          data: 6
+          data: 6,
+          render: function(data, type, row) {
+            return uang.format(data);
+          }
         },
         {
-          data: 7
+          data: 7,
+          render: function(data, type, row) {
+            return uang.format(data);
+          }
         },
         {
           data: 0,
