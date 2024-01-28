@@ -104,6 +104,16 @@ class BidangSEKRE extends BaseController
 
             $query = $indikator->select('indikator_dinas, target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', $post['id'])->findAll();
             $sum = $indikator->select('indikator_dinas, target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', $post['id'])->countAllResults();
+            if (
+                $sum === 0
+            ) {
+                // Data kosong, kembalikan response data kosong
+                $emptyResponse = [
+                    'message' => 'Data tidak ditemukan',
+                    'data' => [],
+                ];
+                return json_encode($emptyResponse);
+            }
 
             $res['t4i1'] = $res['t3i1'] = $res['t2i1'] = $res['t1i1'] = 0;
             foreach ($query as $qr) {

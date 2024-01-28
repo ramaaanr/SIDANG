@@ -7,7 +7,7 @@
           <hr class="horizontal dark my-1">
         </div>
       </div>
-      <div class="table-responsive p-3">
+      <div id="tabel-indikator-container" class="table-responsive p-3">
         <table id="tabel_dataIndikatorBidang" style="width: 100%" class="table tabel-hover align-items-center ">
           <thead>
             <tr>
@@ -58,7 +58,7 @@
           <hr class="horizontal dark my-1">
         </div>
       </div>
-      <div class="card-body p-3">
+      <div id="chart-indikator-body" class="card-body p-3">
         <div class="chart">
           <canvas id="chart-line" class="chart-canvas" height="250"></canvas>
         </div>
