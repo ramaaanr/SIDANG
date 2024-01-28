@@ -163,6 +163,50 @@ class DataBidang extends BaseController
                 $session = Services::session();
                 $divisiName     = $session->get('user')['divisi'];
                 $file = $this->request->getFile('lampiran_bidang');
+
+                if ($file->isValid()) {
+                    $extAllowedImages   = ['jpg', 'jpeg', 'png'];
+                    $extAllowedVideos   = ['mp4', 'mkv'];
+                    $extAllowedDocs   = ['docx', 'doc', 'pdf', 'rar', 'zip', 'txt'];
+
+                    $ext = $file->getClientExtension();
+                    $size = $file->getSize();
+
+                    // Validasi ekstensi
+                    if (in_array($ext, $extAllowedImages)) {
+                        // Validasi ukuran file
+                        $maxSize      = 2 * 1024 * 1024; // 2MB
+                        if ($size > $maxSize) {
+                            throw new \Exception('Ukuran foto harus maksimal 2MB.');
+                        }
+                    }
+                    if (in_array($ext, $extAllowedVideos)) {
+                        // Validasi ukuran file
+                        $maxSize      = 50 * 1024 * 1024; // 2MB
+                        if ($size > $maxSize) {
+                            throw new \Exception('Ukuran video harus maksimal 50MB.');
+                        }
+                    }
+                    if (in_array($ext, $extAllowedDocs)) {
+                        // Validasi ukuran file
+                        $maxSize      = 50 * 1024 * 1024; // 2MB
+                        if ($size > $maxSize) {
+                            throw new \Exception('Ukuran berkas harus maksimal 50MB.');
+                        }
+                    } else {
+                        throw new \Exception('Berkas Salah, tidak sesuai ketentuan format');
+                    }
+
+                    $hash = md5(uniqid() . time());
+                    $ext = $file->getClientExtension();
+                    $fileName = $hash . '_' . $divisiName . '.' . $ext;
+                    $file->move(WRITEPATH . 'uploads', $fileName);
+
+                    // unlink(FCPATH . "assets/img/profil-bidang/" . $post['old_foto']);
+                    // $file->move(FCPATH . 'assets/img/profil-bidang/', $fileName);
+
+                    // Hapus file lama
+                }
                 $hash = md5(uniqid() . time());
                 $ext = $file->getClientExtension();
                 $fileName = $hash . '_' . $divisiName . '.' . $ext;
@@ -207,10 +251,40 @@ class DataBidang extends BaseController
                 return json_encode($res);
             }
 
+            $session = Services::session();
+            $divisiName     = $session->get('user')['divisi'];
             $file = $this->request->getFile('new_lampiran_bidang');
             if ($file->isValid()) {
-                $session = Services::session();
-                $divisiName     = $session->get('user')['divisi'];
+                $extAllowedImages   = ['jpg', 'jpeg', 'png'];
+                $extAllowedVideos   = ['mp4', 'mkv'];
+                $extAllowedDocs   = ['docx', 'doc', 'pdf', 'rar', 'zip', 'txt'];
+
+                $ext = $file->getClientExtension();
+                $size = $file->getSize();
+
+                // Validasi ekstensi
+                if (in_array($ext, $extAllowedImages)) {
+                    // Validasi ukuran file
+                    $maxSize      = 2 * 1024 * 1024; // 2MB
+                    if ($size > $maxSize) {
+                        throw new \Exception('Ukuran foto harus maksimal 2MB.');
+                    }
+                } else if (in_array($ext, $extAllowedVideos)) {
+                    // Validasi ukuran file
+                    $maxSize      = 50 * 1024 * 1024; // 2MB
+                    if ($size > $maxSize) {
+                        throw new \Exception('Ukuran video harus maksimal 50MB.');
+                    }
+                } else if (in_array($ext, $extAllowedDocs)) {
+                    // Validasi ukuran file
+                    $maxSize      = 50 * 1024 * 1024; // 2MB
+                    if ($size > $maxSize) {
+                        throw new \Exception('Ukuran berkas harus maksimal 50MB.');
+                    }
+                } else {
+                    throw new \Exception('Berkas Salah, tidak sesuai ketentuan format');
+                }
+
                 $hash = md5(uniqid() . time());
                 $ext = $file->getClientExtension();
                 $fileName = $hash . '_' . $divisiName . '.' . $ext;
