@@ -65,12 +65,12 @@ class DataBidang extends BaseController
 
         return json_encode($output);
     }
-    public function dataDataBidangSpec($divisiName)
+    public function dataDataBidangSpec($divisiId)
     {
         $request    = Services::request();
         $datatableRaw  = new TabelDataBidang($request);
 
-        $datatable  = $datatableRaw->where('nm_bidang', $divisiName);
+        $datatable  = $datatableRaw->where('nm_bidang', $divisiId);
         $lists      = $datatable->getDatatables();
         $data       = [];
         $no         = $request->getPost('start');

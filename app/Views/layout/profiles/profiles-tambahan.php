@@ -1,3 +1,36 @@
+<div id="tabel-kegiatan" class="row mt-4">
+  <div class="col-lg mb-lb-0 mb-4">
+    <div class="card p-2">
+      <div class="card-header pb-0 p-3">
+        <div class="text text-center">
+          <h6 class="text-uppercase text-lg mb-3">Tabel Data Bidang</h6>
+          <hr class="horizontal dark my-1">
+        </div>
+      </div>
+      <div class="card-body p-3">
+        <div class="table-responsive p-4">
+          <table id="tabelDataBidang" style="width: 100%"
+            class="table table-hover table-striped align-items-center mb-">
+            <thead>
+              <tr>
+                <th width="20%">Desk Data</th>
+                <th width="20%">Target</th>
+                <th width="20%">Realisasi</th>
+                <th width="20%">Lampiran</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <!--json datasource's consumed here-->
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
 <div id="tabel-kinerja" class="row mt-4">
   <div class="col-lg mb-lg-0 mb-4">
     <div class="card p-2">
@@ -65,37 +98,4 @@
       </div>
     </div>
   </div>
-</div>
-<div id="tabel-kegiatan" class="row mt-4">
-  <div class="col-lg mb-lb-0 mb-4">
-    <div class="card p-2">
-      <div class="card-header pb-0 p-3">
-        <div class="text text-center">
-          <h6 class="text-uppercase text-lg mb-3">Tabel Data Bidang</h6>
-          <hr class="horizontal dark my-1">
-        </div>
-      </div>
-      <div class="card-body p-3">
-        <div class="table-responsive p-4">
-          <table id="tabelDataBidang" style="width: 100%"
-            class="table table-hover table-striped align-items-center mb-">
-            <thead>
-              <tr>
-                <th width="10%">ID Data Bidang</th>
-                <th width="10%">Nama Bidang</th>
-                <th width="20%">Desk Data</th>
-                <th width="20%">Target</th>
-                <th width="20%">Realisasi</th>
-                <th width="20%">Lampiran</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            <!--json datasource's consumed here-->
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-
 </div>

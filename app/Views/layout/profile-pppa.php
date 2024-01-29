@@ -75,7 +75,7 @@
     tabelDataBidang = $('#tabelDataBidang').DataTable({
       "ajax": {
         // json datasource
-        url: "<?= base_url(); ?>/DataBidang/dataDataBidangSpec/PEMBERDAYAAN PEREMPUAN DAN PERLINDUNGAN ANAK",
+        url: "<?= base_url(); ?>/DataBidang/dataDataBidangSpec/3",
         type: "POST", // method  , by default get
         error: function() { // error handling
           $(".tabel-error").html("");
@@ -86,12 +86,6 @@
         }
       },
       "columns": [{
-          data: 0
-        },
-        {
-          data: 1
-        },
-        {
           data: 2
         },
         {
