@@ -6,6 +6,6 @@ class Tabel extends BaseController
 {
     public function index()
     {
-        return view('layout/tabel');
+        return redirect()->to(base_url('/'));
     }
 }

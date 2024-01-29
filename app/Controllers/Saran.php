@@ -10,7 +10,7 @@ class Saran extends BaseController
     public function index()
     {
 
-        return view('layout/kritik-saran');
+        return redirect()->to(base_url('/'));
     }
     public function listdata()
     {
@@ -57,15 +57,15 @@ class Saran extends BaseController
     {
         $request    = Services::request();
         $user       = new TabelSaran($request);
-        
+
         $rata       = $user->selectAvg('skor')->findAll();
 
-        $angka =0 ;
-        foreach($rata as $rt){
+        $angka = 0;
+        foreach ($rata as $rt) {
             $angka = $angka + $rt['skor'];
         }
 
-        $hasil['rata']= $angka;
+        $hasil['rata'] = $angka;
 
         return json_encode($hasil);
     }
