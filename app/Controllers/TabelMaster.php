@@ -92,6 +92,9 @@ class TabelMaster extends BaseController
             $res[] = [
                 "id_bidang" => $profile['id_bidang'],
                 "nama_bidang" => $profile['nama_bidang'],
+                "deskripsi_bidang" => $profile['deskripsi_bidang'],
+                "deskripsi_bidang" => $profile['deskripsi_bidang'],
+                "foto" => $profile['foto'],
             ];
         }
 

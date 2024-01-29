@@ -1,11 +1,11 @@
 <section id="bidang" class="values">
-    <div class="container aos-init" data-aos="fade-up">
-        <header class="section-header">
-            <h2 style="font-size: 17pt">Bidang - Bidang</h2>
-        </header>
+  <div class="container aos-init" data-aos="fade-up">
+    <header class="section-header">
+      <h2 style="font-size: 17pt">Bidang - Bidang</h2>
+    </header>
 
-        <div class="row">
-            <div class="col mt-3">
+    <div id="list-bidang" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <!-- <div class="col mt-3">
                 <div class="box aos-init" data-aos="fade-down" data-aos-delay="200">
                     <img src="<?= base_url() ?>/assets/img/DALDUK.gif" class="img-fluid" alt="" />
                     <h3 class="text-center">Sekretariat</h3>
@@ -69,7 +69,7 @@
                         Mengelola Penyediaan dan Pemanfaatan Data Terpilah
                     </small>
                 </div>
-            </div>
-        </div>
+            </div> -->
     </div>
+  </div>
 </section>
