@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 22, 2024 at 03:28 AM
+-- Generation Time: Jan 29, 2024 at 04:04 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -43,11 +43,11 @@ CREATE TABLE `anggaran_bidang` (
 --
 
 INSERT INTO `anggaran_bidang` (`id_ag`, `id_bidang`, `tahun`, `pagu_bidang`, `realisasi_tw1`, `realisasi_tw2`, `realisasi_tw3`, `realisasi_tw4`) VALUES
-(8, 1, '2024', 100003, 12, 0, 0, 0),
-(10, 2, '2024', 1000, 8, 0, 0, 0),
+(8, 1, '2024', 100003, 12, 500, 0, 0),
+(10, 2, '2024', 1000, 8, 223, 0, 0),
 (11, 3, '2024', 2000000, 5, 0, 0, 0),
 (12, 4, '2024', 123123123, 11, 5, 0, 0),
-(13, 5, '2024', 121212121, 0, 10, 0, 0);
+(13, 5, '2024', 121212121, 12, 10, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -121,6 +121,28 @@ INSERT INTO `anggaran_bidang_bef` (`tahun_anggaran_bidang`, `triwulan_anggaran_b
 --
 
 CREATE TABLE `anggaran_dinas` (
+  `tahun_ag_dinas` varchar(4) NOT NULL,
+  `pagu_dinas` bigint(20) NOT NULL,
+  `realisasi_dinas_tw1` bigint(20) NOT NULL,
+  `realisasi_dinas_tw2` bigint(20) NOT NULL,
+  `realisasi_dinas_tw3` bigint(20) NOT NULL,
+  `realisasi_dinas_tw4` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `anggaran_dinas`
+--
+
+INSERT INTO `anggaran_dinas` (`tahun_ag_dinas`, `pagu_dinas`, `realisasi_dinas_tw1`, `realisasi_dinas_tw2`, `realisasi_dinas_tw3`, `realisasi_dinas_tw4`) VALUES
+('2024', 15, 1, 2, 3, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `anggaran_dinas_bef`
+--
+
+CREATE TABLE `anggaran_dinas_bef` (
   `tahun_anggaran` int(4) NOT NULL,
   `triwulan_anggaran` int(2) NOT NULL,
   `pagu_anggaran` bigint(15) NOT NULL,
@@ -128,10 +150,10 @@ CREATE TABLE `anggaran_dinas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `anggaran_dinas`
+-- Dumping data for table `anggaran_dinas_bef`
 --
 
-INSERT INTO `anggaran_dinas` (`tahun_anggaran`, `triwulan_anggaran`, `pagu_anggaran`, `realisasi_anggaran`) VALUES
+INSERT INTO `anggaran_dinas_bef` (`tahun_anggaran`, `triwulan_anggaran`, `pagu_anggaran`, `realisasi_anggaran`) VALUES
 (2023, 1, 15852123756, 1454658769),
 (2023, 2, 15852123755, 4358000000),
 (2023, 3, 18051745310, 9776201716),
@@ -149,7 +171,7 @@ INSERT INTO `anggaran_dinas` (`tahun_anggaran`, `triwulan_anggaran`, `pagu_angga
 
 CREATE TABLE `data_bidang` (
   `id_bidang` int(11) NOT NULL,
-  `nm_bidang` varchar(50) NOT NULL,
+  `nm_bidang` int(5) NOT NULL,
   `desk_data` varchar(250) NOT NULL,
   `target_bidang` int(10) NOT NULL,
   `realisasi_bidang` float NOT NULL,
@@ -161,13 +183,14 @@ CREATE TABLE `data_bidang` (
 --
 
 INSERT INTO `data_bidang` (`id_bidang`, `nm_bidang`, `desk_data`, `target_bidang`, `realisasi_bidang`, `lampiran_bidang`) VALUES
-(2, 'KELUARGA BERENCANA DAN KELUARGA SEJAHTERA', 'Sosialisasi keluarga berencana', 100, 21, '????\0JFIF\0\0\0\0\0\0??\0C\0	'),
-(3, 'PEMBERDAYAAN PEREMPUAN DAN PERLINDUNGAN ANAK', 'Perlindungan anak di suatu desa', 70, 50, '-- phpMyAdmin SQL Dump\n-- version 5.2.1\n-- https:/'),
-(4, 'PEMBERDAYAAN MASYARAKAT', 'Sosialisasi di kecamatan Guntung Paikat', 70, 60, '%PDF-1.7\r\n%????\r\n1 0 obj\r\n<</Type/Catalog/Pages 2 '),
-(5, 'SEKRETARIAT', 'progress pencegahan stunting', 100, 97, '????\0JFIF\0\0\0\0\0\0??\0C\0	'),
-(20, 'SEKRETARIAT', 'Sunatan Angi', 100, 0, 'ddc7c675b9544179d87fb4f1859c941d_SEKRETARIAT.png'),
-(21, 'SEKRETARIAT', 'Alfi Beheraaan ????', 100, 10, '65c1b596a4f318beaac5f78040537cd3_SEKRETARIAT.png'),
-(22, 'SEKRETARIAT', '12', 0, 0, 'dfb67a4d3470d7d07f7525d48a0ac9f2_SEKRETARIAT.png');
+(2, 1, 'Sosialisasi keluarga berencana', 100, 21, '????\0JFIF\0\0\0\0\0\0??\0C\0	'),
+(3, 3, 'Perlindungan anak di suatu desa', 70, 50, '-- phpMyAdmin SQL Dump\n-- version 5.2.1\n-- https:/'),
+(4, 2, 'Sosialisasi di kecamatan Guntung Paikat', 70, 60, '%PDF-1.7\r\n%????\r\n1 0 obj\r\n<</Type/Catalog/Pages 2 '),
+(5, 5, 'progress pencegahan stunting', 100, 97, '????\0JFIF\0\0\0\0\0\0??\0C\0	'),
+(20, 5, 'Sunatan Angi', 100, 0, 'ddc7c675b9544179d87fb4f1859c941d_SEKRETARIAT.png'),
+(21, 5, 'Alfi Beheraaan ????', 100, 10, '65c1b596a4f318beaac5f78040537cd3_SEKRETARIAT.png'),
+(22, 5, '12', 0, 0, 'dfb67a4d3470d7d07f7525d48a0ac9f2_SEKRETARIAT.png'),
+(23, 4, 'Test Dalduk', 100, 1, '4b429d92aedc3d7a454f186d10abb99f_4.mp4');
 
 -- --------------------------------------------------------
 
@@ -190,20 +213,17 @@ CREATE TABLE `indikator_dinas` (
 --
 
 INSERT INTO `indikator_dinas` (`indikator_dinas`, `divisi_indikator`, `target_indikator`, `triwulan_1`, `triwulan_2`, `triwulan_3`, `triwulan_4`) VALUES
-('No1Pelayanan Bidang dalduk', 5, 341, 30, 40, 51, 60),
 ('No1Pelayanan Bidang KBKS', 1, 20, 3, 1, 10, 15),
 ('No1Pelayanan Bidang PM', 2, 200, 20, 40, 80, 60),
 ('No1Pelayanan Bidang PPPA', 3, 13, 3, 4, 2, 0),
-('No2Pelayanan Bidang dalduk', 4, 340, 30, 50, 70, 180),
+('No2Pelayanan Bidang dalduk', 4, 340, 30, 50, 70, 100),
 ('No2Pelayanan Bidang KBKS', 1, 99, 33, 13, 18, 30),
 ('No2Pelayanan Bidang PM', 2, 200, 0, 0, 0, 1),
 ('No2Pelayanan Bidang PPPA', 3, 13, 0, 0, 0, 0),
-('No2Pelayanan Bidang sekretariat', 5, 4, 1, 1, 1, 0),
 ('No3Pelayanan Bidang dalduk', 4, 120, 10, 20, 0, 50),
-('No3Pelayanan Bidang sekretariat', 5, 12, 4, 3, 2, 0),
 ('No4Pelayanan Bidang dalduk', 4, 45, 5, 10, 15, 10),
 ('No5Pelayanan Bidang dalduk', 4, 50, 14, 13, 12, 11),
-('test', 4, 12, 13, 14, 15, 16);
+('test', 1, 1, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -318,10 +338,10 @@ CREATE TABLE `profil_bidang` (
 --
 
 INSERT INTO `profil_bidang` (`id_bidang`, `nama_bidang`, `deskripsi_bidang`, `foto`) VALUES
-(1, 'KELUARGA BERENCANA DAN KELUARGA SEJAHTERA', ' Tidak Melaksanakan Pemberian Fasilitasi dan Pelaksanaan Kebijakan Teknis di Bidang KB, Kesehatan Reproduksi (Kespro) dan Keluarga Sejahtera, Menyiapkan Bahan Pemberian Fasilitasi Pelaksanaan NSPK, Melaksanakan Pemantauan dan Evaluasi di Bidang KB, Kespro dan KS', '1.png'),
+(1, 'KELUARGA SEJAHTERA', ' Tidak Melaksanakan Pemberian Fasilitasi dan Pelaksanaan Kebijakan Teknis di Bidang KB, Kesehatan Reproduksi (Kespro) dan Keluarga Sejahtera, Menyiapkan Bahan Pemberian Fasilitasi Pelaksanaan NSPK, Melaksanakan Pemantauan dan Evaluasi di Bidang KB, Kespro dan KS', '1.png'),
 (2, 'PEMBERDAYAAN MASYARAKAT', 'Menyusun Rencana dan Program Kerja, Mengkoordinasi dan Memfasilitasi Penguatan dan Pengembangan Kelembagaan Masyarakat, Mengevaluasi Pelaksanaan Tugas dan Menginventarisasi Permasalahan, Menyampaikan Laporan Kegiatan di Bidang PM', '2.png'),
 (3, 'PEMBERDAYAAN PEREMPUAN DAN PERLINDUNGAN ANAK', 'Mengkoordinasikan Penetapan Kebijakan (Perwali/SK/SE) Pelaksanaan PUG Tingkat Kota Banjarbaru, Memonitoring dan Evaluasi Pelaksanaan PUG, Pembentukan Forum Koordinasi PUG, Mengelola Penyediaan dan Pemanfaatan Data Terpilah\')', 'PEMBERDAYAAN PEREMPUAN DAN PERLINDUNGAN ANAK.jpg'),
-(4, 'PENGENDALIAN PENDUDUK', 'Memfasilitasi dan Melaksanakan Kebijakan Teknis, Menyiapkan Bahan Pemberian Fasilitasi Pelaksanaan Norma, Standar, Prosedur, dan Kriteria (NSPK), Melakukan Pemantauan dan Evaluasi pada Bidang Pengendalian Penduduk', 'PENGENDALIAN PENDUDUK.jpg'),
+(4, 'PENGENDALIAN PENDUDUK DAN KELUARGA BERENCANA', 'Memfasilitasi dan Melaksanakan Kebijakan Teknis, Menyiapkan Bahan Pemberian Fasilitasi Pelaksanaan Norma, Standar, Prosedur, dan Kriteria (NSPK), Melakukan Pemantauan dan Evaluasi pada Bidang Pengendalian Penduduk', 'PENGENDALIAN PENDUDUK.jpg'),
 (5, 'SEKRETARIAT', 'Sekretariat Dinas Pengendalian Penduduk Keluarga Berencana Pemberdayaan Masyarakat ,Perempuan dan Perlindungan Anak dipimpin oleh Sekretaris yang mempunyai tugas Pokok Menyelenggarakan urusan Penyusunan Program Perencanaan ,Keuangan ,Umum dan Kepegawaian Dinas Pengendalian Penduduk Keluarga Berencana Pemberdayaan Masyarakat ,Perempuan dan Perlindungan Anak Kota Banjarbaru.', 'SEKRETARIAT.jpg');
 
 -- --------------------------------------------------------
@@ -332,8 +352,8 @@ INSERT INTO `profil_bidang` (`id_bidang`, `nama_bidang`, `deskripsi_bidang`, `fo
 
 CREATE TABLE `user_dinas` (
   `username` varchar(50) NOT NULL,
-  `divisi` varchar(11) NOT NULL,
-  `password` varchar(33) NOT NULL
+  `divisi` int(5) NOT NULL,
+  `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -341,11 +361,11 @@ CREATE TABLE `user_dinas` (
 --
 
 INSERT INTO `user_dinas` (`username`, `divisi`, `password`) VALUES
-('dalduk', 'DALDUK', 'admin'),
-('kb', 'KB & KS', 'admin'),
-('pm', 'PM', 'admin'),
-('ppa', 'PPA', 'admin'),
-('sekretariat', 'SEKRETARIAT', 'admin');
+('dalduk', 4, '$2a$12$UQ7rzXETZOmidE.Z.bsyEOWCB7.eu6CRzyxTgeltT6uC/dYRNPEMW'),
+('kb', 1, '$2a$12$Jn0qK8fNxEKGjfeUwpmVze8Qu15tatfJPv9uUt1KannewdNyF2yCa'),
+('pm', 2, '$2a$12$sM8IXxw8lTXH/Zc4oFHpxOoGsCGljzW1kNKKkKKkpnSsmD1P3TDm.'),
+('ppa', 3, '$2a$12$4S.7JCykph2UzDK/0f.DH.GhjT1U7vZwQHtwyHrJVTyqQ2VxoCzgq'),
+('sekretariat', 5, '$2a$12$IQmrCpMTVFi3gaUTxBCi2uviJaV8ksfa.Nh0DzkOhtXuQGM6EB6jm');
 
 --
 -- Indexes for dumped tables
@@ -358,6 +378,12 @@ ALTER TABLE `anggaran_bidang`
   ADD PRIMARY KEY (`id_ag`),
   ADD KEY `tahun_ag_bidang` (`tahun`),
   ADD KEY `anggaran_bidang_id_bidang` (`id_bidang`);
+
+--
+-- Indexes for table `anggaran_dinas`
+--
+ALTER TABLE `anggaran_dinas`
+  ADD PRIMARY KEY (`tahun_ag_dinas`);
 
 --
 -- Indexes for table `data_bidang`
@@ -396,7 +422,8 @@ ALTER TABLE `profil_bidang`
 -- Indexes for table `user_dinas`
 --
 ALTER TABLE `user_dinas`
-  ADD PRIMARY KEY (`username`);
+  ADD PRIMARY KEY (`username`),
+  ADD KEY `user_dinas_divisi_fk` (`divisi`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -412,7 +439,7 @@ ALTER TABLE `anggaran_bidang`
 -- AUTO_INCREMENT for table `data_bidang`
 --
 ALTER TABLE `data_bidang`
-  MODIFY `id_bidang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_bidang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `profil_bidang`
@@ -431,6 +458,12 @@ ALTER TABLE `anggaran_bidang`
   ADD CONSTRAINT `anggaran_bidang_id_bidang` FOREIGN KEY (`id_bidang`) REFERENCES `profil_bidang` (`id_bidang`);
 
 --
+-- Constraints for table `data_bidang`
+--
+ALTER TABLE `data_bidang`
+  ADD CONSTRAINT `data_bidang_nm_bidanga_fk` FOREIGN KEY (`nm_bidang`) REFERENCES `profil_bidang` (`id_bidang`);
+
+--
 -- Constraints for table `indikator_dinas`
 --
 ALTER TABLE `indikator_dinas`
@@ -441,6 +474,12 @@ ALTER TABLE `indikator_dinas`
 --
 ALTER TABLE `pegawai_dinas`
   ADD CONSTRAINT `pegawai_dinas_divisi_fk` FOREIGN KEY (`divisi`) REFERENCES `profil_bidang` (`id_bidang`);
+
+--
+-- Constraints for table `user_dinas`
+--
+ALTER TABLE `user_dinas`
+  ADD CONSTRAINT `user_dinas_divisi_fk` FOREIGN KEY (`divisi`) REFERENCES `profil_bidang` (`id_bidang`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
