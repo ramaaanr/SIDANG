@@ -192,11 +192,7 @@
                 <div class="form-floating mb-4">
                   <select class="form-select" size="1" id="divisi" aria-label="Floating label select example"
                     required="" name="divisi">
-                    <option value="4">DALDUK</option>
-                    <option value="1">KB & KS</option>
-                    <option value="2">PM</option>
-                    <option value="3">PPA</option>
-                    <option value="5">SEKRETARIAT</option>
+
                   </select>
                   <label for="divisi">Pilih Bidang</label>
                 </div>
@@ -218,7 +214,22 @@
 </body>
 <script>
 $(document).ready(function() {
+  $.ajax({
+    method: "GET",
+    url: "<?= base_url(); ?>/TabelMaster/getSemuaNamaBidang",
+    success: function(res) {
+      const input_divisi = $('#divisi');
+      const {
+        data: bidangs
+      } = JSON.parse(res);
+      console.info(bidangs);
+      $.each(bidangs, function(index, obj) {
+        // Buat elemen <option> dan tambahkan ke dalam elemen <select>
+        $('<option>').val(obj.id_bidang).text(obj.nama_bidang).appendTo(input_divisi);
+      });
 
+    },
+  })
   $.ajax({
     type: 'GET',
     url: "<?= base_url(); ?>/TabelMaster/getProfileBidang",
