@@ -176,7 +176,7 @@
         </div>
         <div class="modal-body">
           <div class="row featurette">
-            <div class="col-md-5 order-md-2">
+            <div class="">
               <form id="formLogin">
                 <label style="font-size: 12px;"><?= $pesan_ui ?></label>
                 <div class="mb-2">
@@ -209,10 +209,7 @@
                 </button>
               </form>
             </div>
-            <div class="col-md-6 order-md-1 d-flex">
-              <img src="<?= base_url() ?>/assets/img/kb.png" alt="" class="mx-auto d-block"
-                style="max-height: 250px;" />
-            </div>
+
           </div>
         </div>
       </div>

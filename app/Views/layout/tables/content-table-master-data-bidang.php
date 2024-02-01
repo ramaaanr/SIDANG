@@ -1,13 +1,13 @@
-<div class="container-fluid">
-  <div class="container-fluid py-1">
+<div class="container-fluid px-md-2 px-lg-4">
+  <div class="container-fluid py-1 px-0 px-md-2 px-lg-4">
     <div class="row">
       <div class="col-12">
-        <div class="container-fluid py-1">
+        <div class="container-fluid py-1 px-0 px-md-2 px-lg-4">
           <div class="row">
             <div class="col-12">
               <div class="card mb-4">
                 <div class="card-header pb-0">
-                  <div class="d-flex align-items-center justify-content-between">
+                  <div class="d-flex flex-column justify-content-end align-items-end">
                     <div class="w-100">
                       <h4 class="text-center text-uppercase font-weight-bolder text-5xl">Data Bidang</h4>
                     </div>
@@ -183,11 +183,11 @@
   </div>
 </div>
 
-<div class="container-fluid">
-  <div class="container-fluid py-1">
+<div class="container-fluid px-2 px-md-2 px-lg-4">
+  <div class="container-fluid px-2 px-md-2 px-lg-4">
     <div class="row">
       <div class="col-12">
-        <div class="container-fluid py-1">
+        <div class="container-fluid py-1 px-2 px-md-2 px-lg-4">
           <div class="row">
             <div class="col-12">
               <div class="card mb-4">
@@ -326,13 +326,13 @@
   </div>
 </div>
 
-<div class="container-fluid">
-  <div class="container-fluid py-1">
+<div class="container-fluid px-0 px-md-2 px-lg-4">
+  <div class="container-fluid py-1 px-md-2 px-lg-4">
     <div class="row">
       <div class="col-12">
 
 
-        <div class="container-fluid py-1">
+        <div class="container-fluid py-1 px-1 px-md-2 px-lg-4">
           <div class="row">
             <div class="col-12">
               <div class="card mb-4">
