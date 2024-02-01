@@ -374,22 +374,29 @@ class TabelMaster extends BaseController
         $request            = Services::request();
         $Kinerja      = new TabelKinerja($request);
         $post               = $this->request->getPost();
+        $nilai_pencapaian = $post["nilai_pencapaian"];
 
-        $setUpdateKinerja = [
-            'nama_pencapaian'        => $post["nama_pencapaian"],
-            'deskripsi_pencapaian'     => $post["deskripsi_pencapaian"],
-            'nilai_pencapaian'         => $post["nilai_pencapaian"],
-            'tahun_pencapaian'    => $post["tahun_pencapaian"],
-        ];
+        if ($nilai_pencapaian >= 0 && $nilai_pencapaian <= 100) {
 
-        $updateKinerja   = $Kinerja->set($setUpdateKinerja)->where('nama_pencapaian', $post["id"])->update();
+            $setUpdateKinerja = [
+                'nama_pencapaian'        => $post["nama_pencapaian"],
+                'deskripsi_pencapaian'     => $post["deskripsi_pencapaian"],
+                'nilai_pencapaian'         => $post["nilai_pencapaian"],
+                'tahun_pencapaian'    => $post["tahun_pencapaian"],
+            ];
 
-        if ($updateKinerja) {
-            $res["status"] = TRUE;
-            $res["res"]    = 'Update Data Berhasil';
+            $updateKinerja   = $Kinerja->set($setUpdateKinerja)->where('nama_pencapaian', $post["id"])->update();
+
+            if ($updateKinerja) {
+                $res["status"] = TRUE;
+                $res["res"]    = 'Update Data Berhasil';
+            } else {
+                $res["status"] = FALSE;
+                $res["res"]    = 'Update Data Gagal';
+            }
         } else {
             $res["status"] = FALSE;
-            $res["res"]    = 'Update Data Berhasil';
+            $res["res"]    = 'Nilai pencapaian tidak boleh kurang dari 0 atau lebih dari 100';
         }
 
         echo json_encode($res);
