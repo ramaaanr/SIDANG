@@ -1,7 +1,7 @@
 <aside style="background-color: #ffffff;" class="z-index-3 d-flex d-flex sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4" id="sidenav-main" data-color="dark">
   <div class="sidenav-header">
     <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-    <a class="navbar-brand m-0" href=" https://google.com " target="_blank">
+    <a class="navbar-brand m-0" href=" /">
       <img src="<?= base_url() ?>/assets/img/logo.png" style=" position: absolute; top: 5%;  left: 50%; transform: translate(-50%, -50%) scale(1.7)" />
     </a>
   </div>
@@ -64,13 +64,6 @@
               <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               </div>
               <span class="nav-link-text ms-1">PPHA</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<?= base_url() ?>BidangUPTD">
-              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              </div>
-              <span class="nav-link-text ms-1">UPTD</span>
             </a>
           </li>
 
