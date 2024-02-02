@@ -79,20 +79,8 @@ class BidangKBKS extends BaseController
         ])->first();
 
         $hasil["pagu"]      = $dataAnggaran['pagu_bidang'];
-        switch ($post['triwulan']) {
-            case 1:
-                $hasil['realisasi_triwulan'] = $dataAnggaran['realisasi_tw1'];
-                break;
-            case 2:
-                $hasil['realisasi_triwulan'] = $dataAnggaran['realisasi_tw2'];
-                break;
-            case 3:
-                $hasil['realisasi_triwulan'] = $dataAnggaran['realisasi_tw3'];
-                break;
-            case 4:
-                $hasil['realisasi_triwulan'] = $dataAnggaran['realisasi_tw4'];
-                break;
-        }
+        $hasil['realisasi_triwulan'] = $dataAnggaran['realisasi_tw1'] + $dataAnggaran['realisasi_tw2'] + $dataAnggaran['realisasi_tw3'] + $dataAnggaran['realisasi_tw4'];
+
 
         return json_encode($hasil);
     }
