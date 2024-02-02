@@ -778,7 +778,12 @@ class TabelMaster extends BaseController
         if ($post["tahun"] == NULL || $post["id_bidang"] == NULL || $post["pagu_bidang"] == NULL) {
             $res["status"]  = FALSE;
             $res["res"]     = 'Isi Kolom Kosong';
-            return json_encode($res);
+        } else if ($post["pagu_bidang"] < ($post["realisasi_tw1"] + $post["realisasi_tw2"] + $post["realisasi_tw3"] + $post["realisasi_tw4"])) {
+            $res["status"]  = FALSE;
+            $res["res"]     = 'Realisasi Melebihi Pagu Anggaran';
+        } else if ($post['pagu_bidang'] < 0 || $post['realisasi_tw1'] < 0 || $post['realisasi_tw2'] < 0 || $post['realisasi_tw3'] < 0 || $post['realisasi_tw4'] < 0) {
+            $res["status"]  = FALSE;
+            $res["res"]     = 'Pagu dan realisasi triwulan tidak boleh kurang dari 0';
         } else {
             $cekBidang = $tambahAnggaranBidang->where('id_bidang', $post["id_bidang"])->first();
             $cekTahun = $tambahAnggaranBidang->where('tahun', $post["tahun"])->first();
@@ -789,8 +794,8 @@ class TabelMaster extends BaseController
             }
             $simpan = $tambahAnggaranBidang->insert($post);
             $res["status"] = TRUE;
-            return json_encode($res);
         }
+        return json_encode($res);
     }
     public function ubah_anggaranBidang()
     {
@@ -800,9 +805,15 @@ class TabelMaster extends BaseController
             $post               = $this->request->getPost();
 
 
-            if ($post["pagu_bidang"] < $post["realisasi_tw1"] || $post["pagu_bidang"] < $post["realisasi_tw2"] || $post["pagu_bidang"] < $post["realisasi_tw3"] || $post["pagu_bidang"] < $post["realisasi_tw4"]) {
+            if ($post["pagu_bidang"] < ($post["realisasi_tw1"] + $post["realisasi_tw2"] + $post["realisasi_tw3"] + $post["realisasi_tw4"])) {
                 $res["status"]  = FALSE;
                 $res["res"]     = 'Realisasi Melebihi Pagu Anggaran';
+                return json_encode($res);
+            }
+
+            if ($post['pagu_bidang'] < 0 || $post['realisasi_tw1'] < 0 || $post['realisasi_tw2'] < 0 || $post['realisasi_tw3'] < 0 || $post['realisasi_tw4'] < 0) {
+                $res["status"]  = FALSE;
+                $res["res"]     = 'Pagu dan realisasi triwulan tidak boleh kurang dari 0';
                 return json_encode($res);
             }
 
