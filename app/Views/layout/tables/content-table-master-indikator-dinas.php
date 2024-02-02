@@ -81,35 +81,35 @@
                           <Label>
                             Target Indikator
                           </Label>
-                          <input type="text" name="target_indikator" class="form-control" placeholder="0"
+                          <input type="number" min="0" name="target_indikator" class="form-control" placeholder="0"
                             aria-label="Nama">
                         </div>
                         <div class="mb-3">
                           <Label>
                             Triwulan 1
                           </Label>
-                          <input value="0" type="text" name="triwulan_1" class="form-control" placeholder="0"
+                          <input value="0" type="number" min="0" name="triwulan_1" class="form-control" placeholder="0"
                             aria-label="Nama">
                         </div>
                         <div class="mb-3">
                           <Label>
                             Triwulan 2
                           </Label>
-                          <input value="0" type="text" name="triwulan_2" class="form-control" placeholder="0"
+                          <input value="0" type="number" min="0" name="triwulan_2" class="form-control" placeholder="0"
                             aria-label="Nama">
                         </div>
                         <div class="mb-3">
                           <Label>
                             Triwulan 3
                           </Label>
-                          <input value="0" type="text" name="triwulan_3" class="form-control" placeholder="0"
+                          <input value="0" type="number" min="0" name="triwulan_3" class="form-control" placeholder="0"
                             aria-label="Nama">
                         </div>
                         <div class="mb-3">
                           <Label>
                             Triwulan 4
                           </Label>
-                          <input value="0" type="text" name="triwulan_4" class="form-control" placeholder="0"
+                          <input value="0" type="number" min="0" name="triwulan_4" class="form-control" placeholder="0"
                             aria-label="Nama">
                         </div>
                       </form>
@@ -164,36 +164,36 @@
                           <Label>
                             Target Indikator
                           </Label>
-                          <input type="text" name="target_indikator" id="target_indikator" class="form-control"
-                            placeholder="0" aria-label="Nama">
+                          <input type="number" min="0" name="target_indikator" id="target_indikator"
+                            class="form-control" placeholder="0" aria-label="Nama">
                         </div>
                         <div class="mb-3">
                           <Label>
                             Triwulan 1
                           </Label>
-                          <input type="text" name="triwulan_1" id="triwulan_1" class="form-control" placeholder="0"
-                            aria-label="Nama">
+                          <input type="number" min="0" name="triwulan_1" id="triwulan_1" class="form-control"
+                            placeholder="0" aria-label="Nama">
                         </div>
                         <div class="mb-3">
                           <Label>
                             Triwulan 2
                           </Label>
-                          <input type="text" name="triwulan_2" id="triwulan_2" class="form-control" placeholder="0"
-                            aria-label="Nama">
+                          <input type="number" min="0" name="triwulan_2" id="triwulan_2" class="form-control"
+                            placeholder="0" aria-label="Nama">
                         </div>
                         <div class="mb-3">
                           <Label>
                             Triwulan 3
                           </Label>
-                          <input type="text" name="triwulan_3" id="triwulan_3" class="form-control" placeholder="0"
-                            aria-label="Nama">
+                          <input type="number" min="0" name="triwulan_3" id="triwulan_3" class="form-control"
+                            placeholder="0" aria-label="Nama">
                         </div>
                         <div class="mb-3">
                           <Label>
                             Triwulan 4
                           </Label>
-                          <input type="text" name="triwulan_4" id="triwulan_4" class="form-control" placeholder="0"
-                            aria-label="Nama">
+                          <input type="number" min="0" name="triwulan_4" id="triwulan_4" class="form-control"
+                            placeholder="0" aria-label="Nama">
                         </div>
                       </form>
                     </div>

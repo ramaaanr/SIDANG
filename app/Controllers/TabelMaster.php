@@ -456,12 +456,17 @@ class TabelMaster extends BaseController
         if ($post["indikator_dinas"] == NULL || $post["divisi_indikator"] == NULL || $post["target_indikator"] == NULL || $post["triwulan_1"] == NULL || $post["triwulan_2"] == NULL || $post["triwulan_3"] == NULL || $post["triwulan_4"] == NULL) {
             $res["status"]  = FALSE;
             $res["res"]     = 'Isi Kolom Kosong';
-            return json_encode($res);
+        } else if ($post["target_indikator"] < ($post["triwulan_1"] + $post["triwulan_2"] + $post["triwulan_3"] + $post["triwulan_4"])) {
+            $res["status"]  = FALSE;
+            $res["res"]     = 'Realisasi Melebihi Pagu Anggaran';
+        } else if ($post['target_indikator'] < 0 || $post['triwulan_1'] < 0 || $post['triwulan_2'] < 0 || $post['triwulan_3'] < 0 || $post['triwulan_4'] < 0) {
+            $res["status"]  = FALSE;
+            $res["res"]     = 'Pagu dan realisasi triwulan tidak boleh kurang dari 0';
         } else {
             $simpan = $tambahIndikator->insert($post);
             $res["status"] = TRUE;
-            echo json_encode($res);
         }
+        return json_encode($res);
     }
     public function hapus_Indikator()
     {
@@ -506,24 +511,32 @@ class TabelMaster extends BaseController
             $Indikator      = new TabelIndikator($request);
             $post               = $this->request->getPost();
 
-            $setUpdateIndikator = [
-                'indikator_dinas'        => $post["indikator_dinas"],
-                'divisi_indikator'     => $post["divisi_indikator"],
-                'target_indikator'         => $post["target_indikator"],
-                'triwulan_1'    => $post["triwulan_1"],
-                'triwulan_2'    => $post["triwulan_2"],
-                'triwulan_3'    => $post["triwulan_3"],
-                'triwulan_4'    => $post["triwulan_4"],
-            ];
-
-            $updateIndikator   = $Indikator->set($setUpdateIndikator)->where('indikator_dinas', $post["id"])->update();
-
-            if ($updateIndikator) {
-                $res["status"] = TRUE;
-                $res["res"]    = 'Update Data Berhasil';
+            if ($post["target_indikator"] < ($post["triwulan_1"] + $post["triwulan_2"] + $post["triwulan_3"] + $post["triwulan_4"])) {
+                $res["status"]  = FALSE;
+                $res["res"]     = 'Realisasi Melebihi Pagu Anggaran';
+            } else if ($post['target_indikator'] < 0 || $post['triwulan_1'] < 0 || $post['triwulan_2'] < 0 || $post['triwulan_3'] < 0 || $post['triwulan_4'] < 0) {
+                $res["status"]  = FALSE;
+                $res["res"]     = 'Pagu dan realisasi triwulan tidak boleh kurang dari 0';
             } else {
-                $res["status"] = FALSE;
-                $res["res"]    = 'Update Data Berhasil';
+                $setUpdateIndikator = [
+                    'indikator_dinas'        => $post["indikator_dinas"],
+                    'divisi_indikator'     => $post["divisi_indikator"],
+                    'target_indikator'         => $post["target_indikator"],
+                    'triwulan_1'    => $post["triwulan_1"],
+                    'triwulan_2'    => $post["triwulan_2"],
+                    'triwulan_3'    => $post["triwulan_3"],
+                    'triwulan_4'    => $post["triwulan_4"],
+                ];
+
+                $updateIndikator   = $Indikator->set($setUpdateIndikator)->where('indikator_dinas', $post["id"])->update();
+
+                if ($updateIndikator) {
+                    $res["status"] = TRUE;
+                    $res["res"]    = 'Update Data Berhasil';
+                } else {
+                    $res["status"] = FALSE;
+                    $res["res"]    = 'Update Data Berhasil';
+                }
             }
         } catch (\Exception $e) {
             http_response_code(400);
