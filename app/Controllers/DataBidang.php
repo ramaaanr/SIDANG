@@ -159,6 +159,9 @@ class DataBidang extends BaseController
             if ($post["desk_data"] == NULL) {
                 $res["status"]  = FALSE;
                 $res["res"]     = 'Isi Kolom Kosong';
+            } else if ($post['target_bidang'] < $post['realisasi_bidang']) {
+                $res["status"]  = FALSE;
+                $res["res"]     = 'Realisasi bidang tidak boleh lebih dari target bidang';
             } else {
                 $session = Services::session();
                 $divisiName     = $session->get('user')['divisi'];
@@ -166,8 +169,8 @@ class DataBidang extends BaseController
 
                 if ($file->isValid()) {
                     $extAllowedImages   = ['jpg', 'jpeg', 'png'];
-                    $extAllowedVideos   = ['mp4', 'mkv'];
-                    $extAllowedDocs   = ['docx', 'doc', 'pdf', 'rar', 'zip', 'txt'];
+                    $extAllowedVideos   = ['mp4', 'wav'];
+                    $extAllowedDocs   = ['docx', 'doc', 'pdf', 'xls', 'xlsx', 'ppt', 'pptx'];
 
                     $ext = $file->getClientExtension();
                     $size = $file->getSize();
@@ -179,15 +182,13 @@ class DataBidang extends BaseController
                         if ($size > $maxSize) {
                             throw new \Exception('Ukuran foto harus maksimal 2MB.');
                         }
-                    }
-                    if (in_array($ext, $extAllowedVideos)) {
+                    } else if (in_array($ext, $extAllowedVideos)) {
                         // Validasi ukuran file
                         $maxSize      = 50 * 1024 * 1024; // 2MB
                         if ($size > $maxSize) {
                             throw new \Exception('Ukuran video harus maksimal 50MB.');
                         }
-                    }
-                    if (in_array($ext, $extAllowedDocs)) {
+                    } else if (in_array($ext, $extAllowedDocs)) {
                         // Validasi ukuran file
                         $maxSize      = 50 * 1024 * 1024; // 2MB
                         if ($size > $maxSize) {
@@ -205,30 +206,28 @@ class DataBidang extends BaseController
                     // unlink(FCPATH . "assets/img/profil-bidang/" . $post['old_foto']);
                     // $file->move(FCPATH . 'assets/img/profil-bidang/', $fileName);
 
-                    // Hapus file lama
-                }
-                $hash = md5(uniqid() . time());
-                $ext = $file->getClientExtension();
-                $fileName = $hash . '_' . $divisiName . '.' . $ext;
-                $file->move(WRITEPATH . 'uploads', $fileName);
-                $data = [
-                    "nm_bidang" => $divisiName,
-                    "desk_data" => $post["desk_data"],
-                    "target_bidang" => $post["target_bidang"],
-                    "realisasi_bidang" => $post["realisasi_bidang"],
-                    "lampiran_bidang" => $fileName,
-                ];
-                $simpan = $tambahDataBidang->insert($data);
-                $response = [
-                    'msg' => 'Data berhasil disimpan',
-                    'data' => $data,
-                ];
-                if ($simpan) {
-                    $res["status"] = TRUE;
-                    $res["res"] = $response;
+                    $data = [
+                        "nm_bidang" => $divisiName,
+                        "desk_data" => $post["desk_data"],
+                        "target_bidang" => $post["target_bidang"],
+                        "realisasi_bidang" => $post["realisasi_bidang"],
+                        "lampiran_bidang" => $fileName,
+                    ];
+                    $simpan = $tambahDataBidang->insert($data);
+                    $response = [
+                        'msg' => 'Data berhasil disimpan',
+                        'data' => $data,
+                    ];
+                    if ($simpan) {
+                        $res["status"] = TRUE;
+                        $res["res"] = $response;
+                    } else {
+                        $res["status"] = FALSE;
+                        $res["res"] = 'Gagal menyimpan data';
+                    }
                 } else {
                     $res["status"] = FALSE;
-                    $res["res"] = 'Gagal menyimpan data';
+                    $res["res"] = 'Isi file terlebih dahulu';
                 }
             }
         } catch (\Exception $e) {
@@ -237,6 +236,8 @@ class DataBidang extends BaseController
         }
         echo json_encode($res);
     }
+
+
     public function ubah_dataBidang()
     {
         try {
@@ -249,6 +250,8 @@ class DataBidang extends BaseController
                 $res["status"]  = FALSE;
                 $res["res"]     = 'Isi Kolom Kosong';
                 return json_encode($res);
+            } else if ($post['target_bidang'] < $post['realisasi_bidang']) {
+                throw new \Exception('Realisasi bidang tidak boleh lebih dari target bidang');
             }
 
             $session = Services::session();
@@ -256,8 +259,8 @@ class DataBidang extends BaseController
             $file = $this->request->getFile('new_lampiran_bidang');
             if ($file->isValid()) {
                 $extAllowedImages   = ['jpg', 'jpeg', 'png'];
-                $extAllowedVideos   = ['mp4', 'mkv'];
-                $extAllowedDocs   = ['docx', 'doc', 'pdf', 'rar', 'zip', 'txt'];
+                $extAllowedVideos   = ['mp4', 'wav'];
+                $extAllowedDocs   = ['docx', 'doc', 'pdf', 'xls', 'xlsx', 'ppt', 'pptx'];
 
                 $ext = $file->getClientExtension();
                 $size = $file->getSize();
