@@ -57,7 +57,7 @@ class DashboardSidang extends BaseController
         $paguRealisasiDinas     = $anggaranDinas->where("tahun_ag_dinas", $post['tahun'])->first();
 
         $hasil["paguDinas"]          = $paguRealisasiDinas['pagu_dinas'];
-        $hasil["realisasiDinas"]     = $paguRealisasiDinas['realisasi_dinas_tw' . $post['triwulan']];
+        $hasil["realisasiDinas"]     = $paguRealisasiDinas['realisasi_dinas_tw1'] + $paguRealisasiDinas['realisasi_dinas_tw2'] + $paguRealisasiDinas['realisasi_dinas_tw3'] + $paguRealisasiDinas['realisasi_dinas_tw4'];
 
         return json_encode($hasil);
     }
@@ -84,17 +84,27 @@ class DashboardSidang extends BaseController
         $arrayPPPA              = array('tahun' => $post['tahun'], 'id_bidang' => '3');
         $paguRealisasiPPPA      = $anggaranBidang->where($arrayPPPA)->first();
 
+        $arrayPPHA              = array('tahun' => $post['tahun'], 'id_bidang' => '6');
+        $paguRealisasiPPHA      = $anggaranBidang->where($arrayPPHA)->first();
+
+        $arrayUPTD              = array('tahun' => $post['tahun'], 'id_bidang' => '7');
+        $paguRealisasiUPTD      = $anggaranBidang->where($arrayUPTD)->first();
+
         $anggaran["paguSekre"]    = $paguRealisasiSekre['pagu_bidang'];
         $anggaran["paguDalduk"]   = $paguRealisasiDalduk['pagu_bidang'];
         $anggaran["paguKBKS"]     = $paguRealisasiKBKS['pagu_bidang'];
         $anggaran["paguPM"]       = $paguRealisasiPM['pagu_bidang'];
         $anggaran["paguPPPA"]     = $paguRealisasiPPPA['pagu_bidang'];
+        $anggaran["paguPPHA"]     = $paguRealisasiPPHA['pagu_bidang'];
+        $anggaran["paguUPTD"]     = $paguRealisasiUPTD['pagu_bidang'];
 
-        $anggaran["realiSekre"]    = $paguRealisasiSekre['realisasi_tw' . $post['triwulan']];
-        $anggaran["realiDalduk"]   = $paguRealisasiDalduk['realisasi_tw' . $post['triwulan']];
-        $anggaran["realiKBKS"]     = $paguRealisasiKBKS['realisasi_tw' . $post['triwulan']];
-        $anggaran["realiPM"]       = $paguRealisasiPM['realisasi_tw' . $post['triwulan']];
-        $anggaran["realiPPPA"]     = $paguRealisasiPPPA['realisasi_tw' . $post['triwulan']];
+        $anggaran["realiSekre"]    = $paguRealisasiSekre['realisasi_tw1'] + $paguRealisasiSekre['realisasi_tw2'] + $paguRealisasiSekre['realisasi_tw3'] + $paguRealisasiSekre['realisasi_tw4'];
+        $anggaran["realiDalduk"]   = $paguRealisasiDalduk['realisasi_tw1'] + $paguRealisasiDalduk['realisasi_tw2'] + $paguRealisasiDalduk['realisasi_tw3'] + $paguRealisasiDalduk['realisasi_tw4'];
+        $anggaran["realiKBKS"]     = $paguRealisasiKBKS['realisasi_tw1'] + $paguRealisasiKBKS['realisasi_tw2'] + $paguRealisasiKBKS['realisasi_tw3'] + $paguRealisasiKBKS['realisasi_tw4'];
+        $anggaran["realiPM"]       = $paguRealisasiPM['realisasi_tw1'] + $paguRealisasiPM['realisasi_tw2'] + $paguRealisasiPM['realisasi_tw3'] + $paguRealisasiPM['realisasi_tw4'];
+        $anggaran["realiPPPA"]     = $paguRealisasiPPPA['realisasi_tw1'] + $paguRealisasiPPPA['realisasi_tw2'] + $paguRealisasiPPPA['realisasi_tw3'] + $paguRealisasiPPPA['realisasi_tw4'];
+        $anggaran["realiPPHA"]     = $paguRealisasiPPHA['realisasi_tw1'] + $paguRealisasiPPHA['realisasi_tw2'] + $paguRealisasiPPHA['realisasi_tw3'] + $paguRealisasiPPHA['realisasi_tw4'];
+        $anggaran["realiUPTD"]     = $paguRealisasiUPTD['realisasi_tw1'] + $paguRealisasiUPTD['realisasi_tw2'] + $paguRealisasiUPTD['realisasi_tw3'] + $paguRealisasiUPTD['realisasi_tw4'];
 
         return json_encode($anggaran);
     }
