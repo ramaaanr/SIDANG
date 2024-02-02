@@ -594,20 +594,25 @@ class TabelMaster extends BaseController
             if ($post["tahun_ag_dinas"] == NULL || $post["pagu_dinas"] == NULL) {
                 $res["status"]  = FALSE;
                 $res["res"]     = 'Isi Kolom Kosong';
-                return json_encode($res);
+            } else if ($post["pagu_dinas"] < ($post["realisasi_dinas_tw1"] + $post["realisasi_dinas_tw2"] + $post["realisasi_dinas_tw3"] + $post["realisasi_dinas_tw4"])) {
+                $res["status"]  = FALSE;
+                $res["res"]     = 'Realisasi Melebihi Pagu Anggaran';
+            } else if ($post['pagu_dinas'] < 0 || $post['realisasi_dinas_tw1'] < 0 || $post['realisasi_dinas_tw2'] < 0 || $post['realisasi_dinas_tw3'] < 0 || $post['realisasi_dinas_tw4'] < 0) {
+                $res["status"]  = FALSE;
+                $res["res"]     = 'Pagu dan realisasi triwulan tidak boleh kurang dari 0';
             } else {
                 $simpan = $tambahAnggaranDinas->insert($post);
                 $res["status"] = TRUE;
-                echo json_encode($res);
             }
+            return json_encode($res);
         } catch (DatabaseException $e) {
             $res["status"] = FALSE;
             $res["res"] = "Tahun Anggaran " . $post["tahun_ag_dinas"] . " Sudah Diinput";
-            echo json_encode($res);
+            return json_encode($res);
         } catch (\Throwable $th) {
             $res["status"] = FALSE;
             $res["res"] = $th->getMessage();
-            echo json_encode($res);
+            return json_encode($res);
         }
     }
 
@@ -638,9 +643,15 @@ class TabelMaster extends BaseController
 
 
 
-            if ($post["pagu_dinas"] < $post["realisasi_dinas_tw1"] || $post["pagu_dinas"] < $post["realisasi_dinas_tw2"] || $post["pagu_dinas"] < $post["realisasi_dinas_tw3"] || $post["pagu_dinas"] < $post["realisasi_dinas_tw4"]) {
+            if ($post["pagu_dinas"] < ($post["realisasi_dinas_tw1"] + $post["realisasi_dinas_tw2"] + $post["realisasi_dinas_tw3"] + $post["realisasi_dinas_tw4"])) {
                 $res["status"]  = FALSE;
                 $res["res"]     = 'Realisasi Melebihi Pagu Anggaran';
+                return json_encode($res);
+            }
+
+            if ($post['pagu_dinas'] < 0 || $post['realisasi_dinas_tw1'] < 0 || $post['realisasi_dinas_tw2'] < 0 || $post['realisasi_dinas_tw3'] < 0 || $post['realisasi_dinas_tw4'] < 0) {
+                $res["status"]  = FALSE;
+                $res["res"]     = 'Pagu dan realisasi triwulan tidak boleh kurang dari 0';
                 return json_encode($res);
             }
 
