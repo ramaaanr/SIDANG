@@ -103,7 +103,8 @@
             render: function(data, type, row) {
               // Menggunakan data dari kolom 5 untuk membuat link unduhan
               var downloadLink =
-                '<a class="link-success" href="<?= base_url(); ?>/DataBidang/unduhLampiran/' + row[5] +
+                '<a class="link-success" href="<?= base_url(); ?>/DataBidang/unduhLampiran/' + row[5] + "/" +
+                row[2] +
                 '">Unduh</a>';
               return downloadLink;
             }
