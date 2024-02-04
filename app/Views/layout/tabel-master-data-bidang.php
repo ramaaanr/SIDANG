@@ -647,6 +647,10 @@
         // json datasource
         url: "<?= base_url(); ?>/TabelMaster/dataIndikatorBidang",
         type: "POST", // method  , by default get
+        data: {
+          data_bidang: true,
+        },
+        type: "POST", // method  , by default get
         error: function() { // error handling
           $(".tabel-error").html("");
           $("#tabel").append(
