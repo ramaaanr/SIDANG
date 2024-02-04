@@ -24,23 +24,25 @@ class Login extends BaseController
 
     public function cek()
     {
-        $username   = $this->request->getPost('username');
-        $divisi     = $this->request->getPost('divisi');
-        $pass       = $this->request->getPost('password');
 
+        $post               = $this->request->getPost();
+        $username   = $post['username'];
+        $divisi     = $post['divisi'];
+        $pass       = $post['password'];
 
         $request    = Services::request();
         $user       = new TabelUser($request);
         $dataUser   = $user->find($username);
 
-
+        $hashedPass = md5($pass);
         if ($dataUser) {
-            if (!password_verify($pass, $dataUser['password']) || $divisi != $dataUser['divisi']) {
+            if ($hashedPass != $dataUser['password'] || $divisi != $dataUser['divisi']) {
                 $response['status'] = 'error';
                 $response['message'] = 'Password atau Divisi Tidak Sesuai';
                 $response['req'] = [
                     "pass" => $pass,
                     "username" => $username,
+                    'hased' => $hashedPass,
                     "divisi" => $divisi,
                 ];
                 $response['res'] = [
