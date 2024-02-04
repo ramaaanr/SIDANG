@@ -105,18 +105,15 @@ $(document).ready(function() {
   const selectTahunAnggaran = $('#select-tahun-anggaran');
   $.ajax({
     method: "POST",
-    url: "<?= base_url(); ?>/TabelMaster/dataAnggaranWithoutTable",
+    url: "<?= base_url(); ?>/DashboardSidang/dataTahunAnggaranBidang",
     dataType: "json",
     success: function(res) {
-      $.each(res, function(index, anggaranDinas) {
+      $.each(res, function(index, tahunAnggaran) {
         const option = $('<option>');
-        const {
-          tahun_ag_dinas
-        } = anggaranDinas;
-        option.val(tahun_ag_dinas);
-        option.text(tahun_ag_dinas);
-        if (tahun_ag_dinas == year) {
-          console.info(tahun_ag_dinas)
+
+        option.val(tahunAnggaran);
+        option.text(tahunAnggaran);
+        if (tahunAnggaran == year) {
           option.attr('selected', true)
         }
         selectTahunAnggaran.append(option);

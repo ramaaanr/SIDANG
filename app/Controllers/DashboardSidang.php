@@ -51,16 +51,31 @@ class DashboardSidang extends BaseController
     public function dataAnggaran()
     {
         $request                = Services::request();
-        $anggaranDinas          = new TabelAnggaranDinas($request);
-
         $post                   = $this->request->getPost();
-        // $array                  = array('tahun_ag_dinas' => $post['tahun'], 'triwulan_anggaran' => $post['triwulan']);
-        $paguRealisasiDinas     = $anggaranDinas->where("tahun_ag_dinas", $post['tahun'])->first();
+        $tahun = $post['tahun'];
+        $model = new TabelAnggaranBidang($request);
+        $dataAnggaranBidang = $model->where('tahun', $tahun)->get()->getResult();
+        $paguDinas = 0;
+        $realisasiDinas = 0;
+        foreach ($dataAnggaranBidang as $anggaranBidang) {
+            $paguDinas += $anggaranBidang->pagu_bidang;
+            $realisasiDinas += $anggaranBidang->realisasi_tw1;
+            $realisasiDinas += $anggaranBidang->realisasi_tw2;
+            $realisasiDinas += $anggaranBidang->realisasi_tw3;
+            $realisasiDinas += $anggaranBidang->realisasi_tw4;
+        }
 
-        $hasil["paguDinas"]          = $paguRealisasiDinas['pagu_dinas'];
-        $hasil["realisasiDinas"]     = $paguRealisasiDinas['realisasi_dinas_tw1'] + $paguRealisasiDinas['realisasi_dinas_tw2'] + $paguRealisasiDinas['realisasi_dinas_tw3'] + $paguRealisasiDinas['realisasi_dinas_tw4'];
+        // $anggaranDinas          = new TabelAnggaranDinas($request);
 
-        return json_encode($hasil);
+        // $post                   = $this->request->getPost();
+        // // $array                  = array('tahun_ag_dinas' => $post['tahun'], 'triwulan_anggaran' => $post['triwulan']);
+        // $paguRealisasiDinas     = $anggaranDinas->where("tahun_ag_dinas", $post['tahun'])->first();
+
+
+        return json_encode([
+            'paguDinas' => $paguDinas,
+            'realisasiDinas' => $realisasiDinas,
+        ]);
     }
 
     public function dataAnggaranBidang()
@@ -110,6 +125,22 @@ class DashboardSidang extends BaseController
         return json_encode($anggaran);
     }
 
+    public function dataTahunAnggaranBidang()
+    {
+        $request    = Services::request();
+        $datatable  = new TabelAnggaranBidang($request);
+
+        // Mendapatkan data unik dari kolom 'nama_kolom'
+        $uniqueData = $datatable->getUniqueYear();
+        $years = [];
+        foreach ($uniqueData as $data) {
+            $years[] = $data->tahun;
+        }
+
+        // Lakukan sesuatu dengan data unik
+        return json_encode($years);
+    }
+
     public function dataIndikatorBidang()
     {
         $request    = Services::request();
@@ -144,16 +175,26 @@ class DashboardSidang extends BaseController
     public function dataChartLine()
     {
         $request        = Services::request();
-        $anggaranDinas  = new TabelAnggaranDinas($request);
-
         $post                   = $this->request->getPost();
+        $tahun = $post['tahun'];
+        $model = new TabelAnggaranBidang($request);
+        $dataAnggaranBidang = $model->where('tahun', $tahun)->get()->getResult();
+        $realisasiDinasTw1 = 0;
+        $realisasiDinasTw2 = 0;
+        $realisasiDinasTw3 = 0;
+        $realisasiDinasTw4 = 0;
+        foreach ($dataAnggaranBidang as $anggaranBidang) {
+            $realisasiDinasTw1 += $anggaranBidang->realisasi_tw1;
+            $realisasiDinasTw2 += $anggaranBidang->realisasi_tw2;
+            $realisasiDinasTw3 += $anggaranBidang->realisasi_tw3;
+            $realisasiDinasTw4 += $anggaranBidang->realisasi_tw4;
+        }
 
-        $query = $anggaranDinas->where('tahun_ag_dinas', $post['tahun'])->first();
         $data = [
-            $query['realisasi_dinas_tw1'],
-            $query['realisasi_dinas_tw2'],
-            $query['realisasi_dinas_tw3'],
-            $query['realisasi_dinas_tw4'],
+            $realisasiDinasTw1,
+            $realisasiDinasTw2,
+            $realisasiDinasTw3,
+            $realisasiDinasTw4,
         ];
 
         return json_encode($data);

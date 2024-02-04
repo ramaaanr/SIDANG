@@ -25,6 +25,18 @@ class TabelAnggaranBidang extends Model
         $this->builder = $this->db->table($this->table);
     }
 
+    public function getUniqueYear()
+    {
+        // Gunakan distinct untuk mendapatkan data unik
+        $query = $this->db->table($this->table)
+            ->select('tahun')
+            ->distinct()
+            ->get();
+
+        // Mengembalikan hasil query
+        return $query->getResult();
+    }
+
     private function getDatatablesQuery()
     {
         $i = 0;
