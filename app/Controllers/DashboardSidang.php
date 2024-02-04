@@ -6,6 +6,7 @@ use App\Models\TabelKinerja;
 use App\Models\TabelIndikator;
 use App\Models\TabelAnggaranDinas;
 use App\Models\TabelAnggaranBidang;
+use App\Models\TabelProfile;
 use CodeIgniter\Database\Query;
 use Config\Services;
 
@@ -163,91 +164,128 @@ class DashboardSidang extends BaseController
         $request        = Services::request();
         $indikator      = new TabelIndikator($request);
         $nilai = [];
+        $request            = Services::request();
+        $inidkator      = new TabelProfile($request);
 
-        $query1 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '5')->findAll();
-        $query2 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '4')->findAll();
-        $query3 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '1')->findAll();
-        $query4 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '2')->findAll();
-        $query5 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '3')->findAll();
+        $profiles     = $inidkator->findAll();
 
-        $nilai1['t4B1'] = $nilai1['t3B1'] = $nilai1['t2B1'] = $nilai1['t1B1'] = 0;
-        $count1 = 0;
+        return json_encode(count($profiles));
 
-        if (count($query1) != 0) {
-            foreach ($query1 as $qr) {
-                $count1++;
-                $nilai1['t1B1'] = $nilai1['t1B1'] + (($qr['triwulan_1'] / $qr['target_indikator']) * 100);
-                $nilai1['t2B1'] = $nilai1['t2B1'] + (($qr['triwulan_2'] / $qr['target_indikator']) * 100);
-                $nilai1['t3B1'] = $nilai1['t3B1'] + (($qr['triwulan_3'] / $qr['target_indikator']) * 100);
-                $nilai1['t4B1'] = $nilai1['t4B1'] + (($qr['triwulan_4'] / $qr['target_indikator']) * 100);
-            }
-            $nilai1['t1B1'] = round(($nilai1['t1B1'] / $count1), 2);
-            $nilai1['t2B1'] = round(($nilai1['t2B1'] / $count1 + $nilai1['t1B1']), 2);
-            $nilai1['t3B1'] = round(($nilai1['t3B1'] / $count1 + $nilai1['t2B1']), 2);
-            $nilai1['t4B1'] = round(($nilai1['t4B1'] / $count1 + $nilai1['t3B1']), 2);
-        }
+        // $query1 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '5')->findAll();
+        // $query2 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '4')->findAll();
+        // $query3 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '1')->findAll();
+        // $query4 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '2')->findAll();
+        // $query5 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '3')->findAll();
+        // $query6 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '6')->findAll();
+        // $query7 = $indikator->select('target_indikator, triwulan_1, triwulan_2, triwulan_3, triwulan_4')->where('divisi_indikator', '7')->findAll();
 
-        $nilai2['t4B2'] = $nilai2['t3B2'] = $nilai2['t2B2'] = $nilai2['t1B2'] = 0;
-        $count2 = 0;
-        foreach ($query2 as $qr) {
-            $count2++;
-            $nilai2['t1B2'] = $nilai2['t1B2'] + (($qr['triwulan_1'] / $qr['target_indikator']) * 100);
-            $nilai2['t2B2'] = $nilai2['t2B2'] + (($qr['triwulan_2'] / $qr['target_indikator']) * 100);
-            $nilai2['t3B2'] = $nilai2['t3B2'] + (($qr['triwulan_3'] / $qr['target_indikator']) * 100);
-            $nilai2['t4B2'] = $nilai2['t4B2'] + (($qr['triwulan_4'] / $qr['target_indikator']) * 100);
-        }
-        $nilai2['t1B2'] = round(($nilai2['t1B2'] / $count2), 2);
-        $nilai2['t2B2'] = round(($nilai2['t2B2'] / $count2 + $nilai2['t1B2']), 2);
-        $nilai2['t3B2'] = round(($nilai2['t3B2'] / $count2 + $nilai2['t2B2']), 2);
-        $nilai2['t4B2'] = round(($nilai2['t4B2'] / $count2 + $nilai2['t3B2']), 2);
+        // $nilai1['t4B1'] = $nilai1['t3B1'] = $nilai1['t2B1'] = $nilai1['t1B1'] = 0;
+        // $count1 = 0;
 
-        $nilai3['t4B3'] = $nilai3['t3B3'] = $nilai3['t2B3'] = $nilai3['t1B3'] = 0;
-        $count3 = 0;
-        foreach ($query3 as $qr) {
-            $count3++;
-            $nilai3['t1B3'] = $nilai3['t1B3'] + (($qr['triwulan_1'] / $qr['target_indikator']) * 100);
-            $nilai3['t2B3'] = $nilai3['t2B3'] + (($qr['triwulan_2'] / $qr['target_indikator']) * 100);
-            $nilai3['t3B3'] = $nilai3['t3B3'] + (($qr['triwulan_3'] / $qr['target_indikator']) * 100);
-            $nilai3['t4B3'] = $nilai3['t4B3'] + (($qr['triwulan_4'] / $qr['target_indikator']) * 100);
-        }
-        $nilai3['t1B3'] = round(($nilai3['t1B3'] / $count3), 2);
-        $nilai3['t2B3'] = round(($nilai3['t2B3'] / $count3 + $nilai3['t1B3']), 2);
-        $nilai3['t3B3'] = round(($nilai3['t3B3'] / $count3 + $nilai3['t2B3']), 2);
-        $nilai3['t4B3'] = round(($nilai3['t4B3'] / $count3 + $nilai3['t3B3']), 2);
+        // if (count($query1) != 0) {
+        //     foreach ($query1 as $qr) {
+        //         $count1++;
+        //         $nilai1['t1B1'] = $nilai1['t1B1'] + (($qr['triwulan_1'] / $qr['target_indikator']) * 100);
+        //         $nilai1['t2B1'] = $nilai1['t2B1'] + (($qr['triwulan_2'] / $qr['target_indikator']) * 100);
+        //         $nilai1['t3B1'] = $nilai1['t3B1'] + (($qr['triwulan_3'] / $qr['target_indikator']) * 100);
+        //         $nilai1['t4B1'] = $nilai1['t4B1'] + (($qr['triwulan_4'] / $qr['target_indikator']) * 100);
+        //     }
+        //     $nilai1['t1B1'] = round(($nilai1['t1B1'] / $count1), 2);
+        //     $nilai1['t2B1'] = round(($nilai1['t2B1'] / $count1 + $nilai1['t1B1']), 2);
+        //     $nilai1['t3B1'] = round(($nilai1['t3B1'] / $count1 + $nilai1['t2B1']), 2);
+        //     $nilai1['t4B1'] = round(($nilai1['t4B1'] / $count1 + $nilai1['t3B1']), 2);
+        // }
 
-        $nilai4['t4B4'] = $nilai4['t3B4'] = $nilai4['t2B4'] = $nilai4['t1B4'] = 0;
-        $count4 = 0;
-        foreach ($query4 as $qr) {
-            $count4++;
-            $nilai4['t1B4'] = $nilai4['t1B4'] + (($qr['triwulan_1'] / $qr['target_indikator']) * 100);
-            $nilai4['t2B4'] = $nilai4['t2B4'] + (($qr['triwulan_2'] / $qr['target_indikator']) * 100);
-            $nilai4['t3B4'] = $nilai4['t3B4'] + (($qr['triwulan_3'] / $qr['target_indikator']) * 100);
-            $nilai4['t4B4'] = $nilai4['t4B4'] + (($qr['triwulan_4'] / $qr['target_indikator']) * 100);
-        }
-        $nilai4['t1B4'] = round(($nilai4['t1B4'] / $count4), 2);
-        $nilai4['t2B4'] = round(($nilai4['t2B4'] / $count4 + $nilai4['t1B4']), 2);
-        $nilai4['t3B4'] = round(($nilai4['t3B4'] / $count4 + $nilai4['t2B4']), 2);
-        $nilai4['t4B4'] = round(($nilai4['t4B4'] / $count4 + $nilai4['t3B4']), 2);
+        // $nilai2['t4B2'] = $nilai2['t3B2'] = $nilai2['t2B2'] = $nilai2['t1B2'] = 0;
+        // $count2 = 0;
+        // foreach ($query2 as $qr) {
+        //     $count2++;
+        //     $nilai2['t1B2'] = $nilai2['t1B2'] + (($qr['triwulan_1'] / $qr['target_indikator']) * 100);
+        //     $nilai2['t2B2'] = $nilai2['t2B2'] + (($qr['triwulan_2'] / $qr['target_indikator']) * 100);
+        //     $nilai2['t3B2'] = $nilai2['t3B2'] + (($qr['triwulan_3'] / $qr['target_indikator']) * 100);
+        //     $nilai2['t4B2'] = $nilai2['t4B2'] + (($qr['triwulan_4'] / $qr['target_indikator']) * 100);
+        // }
+        // $nilai2['t1B2'] = round(($nilai2['t1B2'] / $count2), 2);
+        // $nilai2['t2B2'] = round(($nilai2['t2B2'] / $count2 + $nilai2['t1B2']), 2);
+        // $nilai2['t3B2'] = round(($nilai2['t3B2'] / $count2 + $nilai2['t2B2']), 2);
+        // $nilai2['t4B2'] = round(($nilai2['t4B2'] / $count2 + $nilai2['t3B2']), 2);
 
-        $nilai5['t4B5'] = $nilai5['t3B5'] = $nilai5['t2B5'] = $nilai5['t1B5'] = 0;
-        $count5 = 0;
-        foreach ($query5 as $qr) {
-            $count5++;
-            $nilai5['t1B5'] = $nilai5['t1B5'] + (($qr['triwulan_1'] / $qr['target_indikator']) * 100);
-            $nilai5['t2B5'] = $nilai5['t2B5'] + (($qr['triwulan_2'] / $qr['target_indikator']) * 100);
-            $nilai5['t3B5'] = $nilai5['t3B5'] + (($qr['triwulan_3'] / $qr['target_indikator']) * 100);
-            $nilai5['t4B5'] = $nilai5['t4B5'] + (($qr['triwulan_4'] / $qr['target_indikator']) * 100);
-        }
-        $nilai5['t1B5'] = round(($nilai5['t1B5'] / $count5), 2);
-        $nilai5['t2B5'] = round(($nilai5['t2B5'] / $count5 + $nilai5['t1B5']), 2);
-        $nilai5['t3B5'] = round(($nilai5['t3B5'] / $count5 + $nilai5['t2B5']), 2);
-        $nilai5['t4B5'] = round(($nilai5['t4B5'] / $count5 + $nilai5['t3B5']), 2);
+        // $nilai3['t4B3'] = $nilai3['t3B3'] = $nilai3['t2B3'] = $nilai3['t1B3'] = 0;
+        // $count3 = 0;
+        // foreach ($query3 as $qr) {
+        //     $count3++;
+        //     $nilai3['t1B3'] = $nilai3['t1B3'] + (($qr['triwulan_1'] / $qr['target_indikator']) * 100);
+        //     $nilai3['t2B3'] = $nilai3['t2B3'] + (($qr['triwulan_2'] / $qr['target_indikator']) * 100);
+        //     $nilai3['t3B3'] = $nilai3['t3B3'] + (($qr['triwulan_3'] / $qr['target_indikator']) * 100);
+        //     $nilai3['t4B3'] = $nilai3['t4B3'] + (($qr['triwulan_4'] / $qr['target_indikator']) * 100);
+        // }
+        // $nilai3['t1B3'] = round(($nilai3['t1B3'] / $count3), 2);
+        // $nilai3['t2B3'] = round(($nilai3['t2B3'] / $count3 + $nilai3['t1B3']), 2);
+        // $nilai3['t3B3'] = round(($nilai3['t3B3'] / $count3 + $nilai3['t2B3']), 2);
+        // $nilai3['t4B3'] = round(($nilai3['t4B3'] / $count3 + $nilai3['t3B3']), 2);
 
-        $nilai[0] = $nilai1;
-        $nilai[1] = $nilai2;
-        $nilai[2] = $nilai3;
-        $nilai[3] = $nilai4;
-        $nilai[4] = $nilai5;
-        return json_encode($nilai);
+        // $nilai4['t4B4'] = $nilai4['t3B4'] = $nilai4['t2B4'] = $nilai4['t1B4'] = 0;
+        // $count4 = 0;
+        // foreach ($query4 as $qr) {
+        //     $count4++;
+        //     $nilai4['t1B4'] = $nilai4['t1B4'] + (($qr['triwulan_1'] / $qr['target_indikator']) * 100);
+        //     $nilai4['t2B4'] = $nilai4['t2B4'] + (($qr['triwulan_2'] / $qr['target_indikator']) * 100);
+        //     $nilai4['t3B4'] = $nilai4['t3B4'] + (($qr['triwulan_3'] / $qr['target_indikator']) * 100);
+        //     $nilai4['t4B4'] = $nilai4['t4B4'] + (($qr['triwulan_4'] / $qr['target_indikator']) * 100);
+        // }
+        // $nilai4['t1B4'] = round(($nilai4['t1B4'] / $count4), 2);
+        // $nilai4['t2B4'] = round(($nilai4['t2B4'] / $count4 + $nilai4['t1B4']), 2);
+        // $nilai4['t3B4'] = round(($nilai4['t3B4'] / $count4 + $nilai4['t2B4']), 2);
+        // $nilai4['t4B4'] = round(($nilai4['t4B4'] / $count4 + $nilai4['t3B4']), 2);
+
+        // $nilai5['t4B5'] = $nilai5['t3B5'] = $nilai5['t2B5'] = $nilai5['t1B5'] = 0;
+        // $count5 = 0;
+        // foreach ($query5 as $qr) {
+        //     $count5++;
+        //     $nilai5['t1B5'] = $nilai5['t1B5'] + (($qr['triwulan_1'] / $qr['target_indikator']) * 100);
+        //     $nilai5['t2B5'] = $nilai5['t2B5'] + (($qr['triwulan_2'] / $qr['target_indikator']) * 100);
+        //     $nilai5['t3B5'] = $nilai5['t3B5'] + (($qr['triwulan_3'] / $qr['target_indikator']) * 100);
+        //     $nilai5['t4B5'] = $nilai5['t4B5'] + (($qr['triwulan_4'] / $qr['target_indikator']) * 100);
+        // }
+        // $nilai5['t1B5'] = round(($nilai5['t1B5'] / $count5), 2);
+        // $nilai5['t2B5'] = round(($nilai5['t2B5'] / $count5 + $nilai5['t1B5']), 2);
+        // $nilai5['t3B5'] = round(($nilai5['t3B5'] / $count5 + $nilai5['t2B5']), 2);
+        // $nilai5['t4B5'] = round(($nilai5['t4B5'] / $count5 + $nilai5['t3B5']), 2);
+
+        // $nilai6['t4B6'] = $nilai6['t3B6'] = $nilai6['t2B6'] = $nilai6['t1B6'] = 0;
+        // $count6 = 0;
+        // foreach ($query6 as $qr) {
+        //     $count6++;
+        //     $nilai6['t1B6'] = $nilai6['t1B6'] + (($qr['triwulan_1'] / $qr['target_indikator']) * 100);
+        //     $nilai6['t2B6'] = $nilai6['t2B6'] + (($qr['triwulan_2'] / $qr['target_indikator']) * 100);
+        //     $nilai6['t3B6'] = $nilai6['t3B6'] + (($qr['triwulan_3'] / $qr['target_indikator']) * 100);
+        //     $nilai6['t4B6'] = $nilai6['t4B6'] + (($qr['triwulan_4'] / $qr['target_indikator']) * 100);
+        // }
+        // $nilai6['t1B6'] = round(($nilai6['t1B6'] / $count6), 2);
+        // $nilai6['t2B6'] = round(($nilai6['t2B6'] / $count6 + $nilai6['t1B6']), 2);
+        // $nilai6['t3B6'] = round(($nilai6['t3B6'] / $count6 + $nilai6['t2B6']), 2);
+        // $nilai6['t4B6'] = round(($nilai6['t4B6'] / $count6 + $nilai6['t3B6']), 2);
+
+        // $nilai7['t4B7'] = $nilai7['t3B7'] = $nilai7['t2B7'] = $nilai7['t1B7'] = 0;
+        // $count7 = 0;
+        // foreach ($query7 as $qr) {
+        //     $count7++;
+        //     $nilai7['t1B7'] = $nilai7['t1B7'] + (($qr['triwulan_1'] / $qr['target_indikator']) * 100);
+        //     $nilai7['t2B7'] = $nilai7['t2B7'] + (($qr['triwulan_2'] / $qr['target_indikator']) * 100);
+        //     $nilai7['t3B7'] = $nilai7['t3B7'] + (($qr['triwulan_3'] / $qr['target_indikator']) * 100);
+        //     $nilai7['t4B7'] = $nilai7['t4B7'] + (($qr['triwulan_4'] / $qr['target_indikator']) * 100);
+        // }
+        // $nilai7['t1B7'] = round(($nilai7['t1B7'] / $count7), 2);
+        // $nilai7['t2B7'] = round(($nilai7['t2B7'] / $count7 + $nilai7['t1B7']), 2);
+        // $nilai7['t3B7'] = round(($nilai7['t3B7'] / $count7 + $nilai7['t2B7']), 2);
+        // $nilai7['t4B7'] = round(($nilai7['t4B7'] / $count7 + $nilai7['t3B7']), 2);
+
+        // $nilai[0] = $nilai1;
+        // $nilai[1] = $nilai2;
+        // $nilai[2] = $nilai3;
+        // $nilai[3] = $nilai4;
+        // $nilai[4] = $nilai5;
+        // $nilai[5] = $nilai6;
+        // $nilai[6] = $nilai7;
     }
 }

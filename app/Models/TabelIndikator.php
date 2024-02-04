@@ -25,6 +25,17 @@ class TabelIndikator extends Model
         $this->builder = $this->db->table($this->table);
     }
 
+    public function countUniqueValues()
+    {
+        $this->db->distinct();
+        $this->db->select("divisi_indikator");
+        $this->db->from($this->table);
+
+        $query = $this->db->get();
+
+        return $query->num_rows();
+    }
+
     private function getDatatablesQuery()
     {
         $i = 0;

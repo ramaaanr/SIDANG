@@ -12,9 +12,7 @@
   <meta content="" name="keywords" />
 
   <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Roboto:100,300,400,500,700|Philosopher:400,400i,700,700i"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Roboto:100,300,400,500,700|Philosopher:400,400i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
 
@@ -60,42 +58,42 @@
   <link href="<?= base_url() ?>/assets/css/style2.css" rel="stylesheet" />
 
   <style>
-  th,
-  td {
-    font-family: sans-serif;
-  }
+    th,
+    td {
+      font-family: sans-serif;
+    }
 
-  th {
-    font-size: 15pt;
-    color: navy;
-  }
+    th {
+      font-size: 15pt;
+      color: navy;
+    }
 
-  td {
-    font-size: 10pt;
-    text-align: justify;
-  }
+    td {
+      font-size: 10pt;
+      text-align: justify;
+    }
 
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
 
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
 
-  ::-webkit-scrollbar-thumb {
-    background: rgb(24, 24, 118);
-  }
+    ::-webkit-scrollbar-thumb {
+      background: rgb(24, 24, 118);
+    }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
 
-  /* optgroup { font-size:5px; } */
+    /* optgroup { font-size:5px; } */
 
-  .box {
-    text-align: justify !important;
-  }
+    .box {
+      text-align: justify !important;
+    }
   </style>
 </head>
 
@@ -162,8 +160,7 @@
 
 
   <!-- Modal -->
-  <div class="modal fade" id="login" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="loginLabel" aria-hidden="true">
+  <div class="modal fade" id="login" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="loginLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body d-flex justify-content-between">
@@ -190,8 +187,7 @@
                 </div>
 
                 <div class="form-floating mb-4">
-                  <select class="form-select" size="1" id="divisi" aria-label="Floating label select example"
-                    required="" name="divisi">
+                  <select class="form-select" size="1" id="divisi" aria-label="Floating label select example" required="" name="divisi">
 
                   </select>
                   <label for="divisi">Pilih Bidang</label>
@@ -213,76 +209,75 @@
   </div>
 </body>
 <script>
-$(document).ready(function() {
-  $.ajax({
-    method: "GET",
-    url: "<?= base_url(); ?>/TabelMaster/getSemuaNamaBidang",
-    success: function(res) {
-      const input_divisi = $('#divisi');
-      const {
-        data: bidangs
-      } = JSON.parse(res);
-      console.info(bidangs);
-      $.each(bidangs, function(index, obj) {
-        // Buat elemen <option> dan tambahkan ke dalam elemen <select>
-        $('<option>').val(obj.id_bidang).text(obj.nama_bidang).appendTo(input_divisi);
-      });
-
-    },
-  })
-  $.ajax({
-    type: 'GET',
-    url: "<?= base_url(); ?>/TabelMaster/getProfileBidang",
-    success: function(res) {
-      const container = $('#list-bidang');
-      const profiles = JSON.parse(res);
-      $.each(profiles, function(index, profile) {
-        var html = '<div class="col mt-3">';
-        html += '<div class="box aos-init" data-aos="fade-down" data-aos-delay="200">';
-        html += '<img src="/assets/img/profil-bidang/' + profile.foto +
-          '" class="img-fluid" alt="" />';
-        html += '<h3 class="text-center">' + profile.nama_bidang + '</h3>';
-        html += '<small>' + profile.deskripsi_bidang + '</small>';
-        html += '</div></div>';
-
-        container.append(html);
-      });
-    },
-  });
-
-  $('#formLogin').submit(function(e) {
-    e.preventDefault();
+  $(document).ready(function() {
     $.ajax({
-      type: 'POST',
-      url: '<?= base_url("login/cek") ?>',
-      data: $(this).serialize(),
-      success: function(response) {
-        let responseData = JSON.parse(response)
-        if (responseData.status === 'success') {
-          // Jika sign in berhasil, tampilkan pesan sukses dengan SweetAlert
-          Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: responseData.message,
-            showConfirmButton: false,
-            timer: 2000, // Tampilkan pesan sukses selama 2 detik
-            onClose: function() {
-              window.location.href = '<?php echo base_url('DashboardSidang'); ?>';
-            }
-          });
-        } else {
-          // Jika sign in gagal, tampilkan pesan error dengan SweetAlert
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: responseData.message,
-            showConfirmButton: true
-          });
+      method: "GET",
+      url: "<?= base_url(); ?>/TabelMaster/getSemuaNamaBidang",
+      success: function(res) {
+        const input_divisi = $('#divisi');
+        const {
+          data: bidangs
+        } = JSON.parse(res);
+        console.info(bidangs);
+        $.each(bidangs, function(index, obj) {
+          // Buat elemen <option> dan tambahkan ke dalam elemen <select>
+          $('<option>').val(obj.id_bidang).text(obj.nama_bidang).appendTo(input_divisi);
+        });
+
+      },
+    })
+    $.ajax({
+      type: 'GET',
+      url: "<?= base_url(); ?>/TabelMaster/getProfileBidang",
+      success: function(res) {
+        const container = $('#list-bidang');
+        const profiles = JSON.parse(res);
+        $.each(profiles, function(index, profile) {
+          var html = '<div class="col p-4 mt-3">';
+          html += '<div class="box aos-init" data-aos="fade-down" data-aos-delay="200">';
+          html += '<img src="/assets/img/profil-bidang/' + profile.foto +
+            '" class="img-fluid" alt="" />';
+          html += '<h3 class="text-center">' + profile.nama_bidang + '</h3>';
+          html += '<small>' + profile.deskripsi_bidang + '</small>';
+          html += '</div></div>';
+          container.append(html);
+        });
+      },
+    });
+
+    $('#formLogin').submit(function(e) {
+      e.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: '<?= base_url("login/cek") ?>',
+        data: $(this).serialize(),
+        success: function(response) {
+          let responseData = JSON.parse(response)
+          if (responseData.status === 'success') {
+            // Jika sign in berhasil, tampilkan pesan sukses dengan SweetAlert
+            Swal.fire({
+              icon: 'success',
+              title: 'Success',
+              text: responseData.message,
+              showConfirmButton: false,
+              timer: 2000, // Tampilkan pesan sukses selama 2 detik
+              onClose: function() {
+                window.location.href = '<?php echo base_url('DashboardSidang'); ?>';
+              }
+            });
+          } else {
+            // Jika sign in gagal, tampilkan pesan error dengan SweetAlert
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: responseData.message,
+              showConfirmButton: true
+            });
+          }
         }
-      }
+      });
     });
   });
-});
 </script>
 
 </html>
