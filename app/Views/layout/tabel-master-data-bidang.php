@@ -183,7 +183,18 @@
 
   // simpan anggaran bidang
   function simpan_dataDataBidang() {
-
+    Swal.fire({
+      icon: 'info',
+      title: 'Sedang Memproses',
+      text: 'Mohon tunggu...',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false,
+      showConfirmButton: false,
+      onOpen: () => {
+        Swal.showLoading();
+      }
+    });
     var formData = new FormData($("#simpan_dataBidang")[0]);
     $.ajax({
       method: "POST",
@@ -193,6 +204,8 @@
       contentType: false,
       success: function(res) {
         let resJson = JSON.parse(res);
+        Swal.close();
+
         if (resJson.status) {
           Swal.fire(
             'Sukses',
@@ -281,6 +294,18 @@
   };
   // ubah data anggaran bidang
   function js_ubahDataBidang() {
+    Swal.fire({
+      icon: 'info',
+      title: 'Sedang Memproses',
+      text: 'Mohon tunggu...',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false,
+      showConfirmButton: false,
+      onOpen: () => {
+        Swal.showLoading();
+      }
+    });
     var formData = new FormData($("#ubah_dataBidang")[0]);
     $.ajax({
       method: "POST",
@@ -289,6 +314,7 @@
       processData: false,
       contentType: false,
       success: function(res) {
+        Swal.close();
         let resJson = JSON.parse(res);
         if (resJson.status) {
           Swal.fire(
@@ -701,6 +727,7 @@
   });
   // simpan indikator bidang
   function simpan_dataIndikator() {
+
     var data_post = $('#simpan_Indikator').serialize();
     $.ajax({
       method: "POST",
