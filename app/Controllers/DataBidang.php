@@ -19,7 +19,7 @@ class DataBidang extends BaseController
     }
 
     //////////////////////////////////////// Start Of Anggaran Bidang ////////////////////////////////////////
-    public function unduhLampiran($fileName)
+    public function unduhLampiran($fileName, $deskData)
     {
         // Sesuaikan dengan direktori penyimpanan file Anda
         $fileDirectory = WRITEPATH . 'uploads/';
@@ -27,7 +27,9 @@ class DataBidang extends BaseController
         // Pastikan file ada sebelum mencoba mengunduh
         if (file_exists($fileDirectory . $fileName)) {
             // Lakukan unduhan file
-            return $this->response->download($fileDirectory . $fileName, null)->setFileName($fileName);
+
+            $formatedDeskData = substr($deskData, 0, 30);
+            return $this->response->download($fileDirectory . $fileName, null)->setFileName($formatedDeskData);
         } else {
             // File tidak ditemukan
             return redirect()->to(base_url())->with('error', 'File tidak ditemukan.');
