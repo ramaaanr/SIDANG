@@ -178,7 +178,7 @@ class DataBidang extends BaseController
                 if ($file->isValid()) {
                     $extAllowedImages   = ['jpg', 'jpeg', 'png'];
                     $extAllowedVideos   = ['mp4', 'wav'];
-                    $extAllowedDocs   = ['docx', 'doc', 'pdf', 'xls', 'xlsx', 'ppt', 'pptx'];
+                    $extAllowedDocs   = ['docx', 'doc', 'pdf', 'xls', 'xlsx', 'ppt', 'pptx', 'zip', 'rar', '4z'];
 
                     $ext = $file->getClientExtension();
                     $size = $file->getSize();
@@ -270,7 +270,7 @@ class DataBidang extends BaseController
             if ($file->isValid()) {
                 $extAllowedImages   = ['jpg', 'jpeg', 'png'];
                 $extAllowedVideos   = ['mp4', 'wav'];
-                $extAllowedDocs   = ['docx', 'doc', 'pdf', 'xls', 'xlsx', 'ppt', 'pptx'];
+                $extAllowedDocs   = ['docx', 'doc', 'pdf', 'xls', 'xlsx', 'ppt', 'pptx', 'zip', 'rar', '4z'];
 
                 $ext = $file->getClientExtension();
                 $size = $file->getSize();
