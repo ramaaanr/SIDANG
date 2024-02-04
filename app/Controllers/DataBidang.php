@@ -27,9 +27,10 @@ class DataBidang extends BaseController
         // Pastikan file ada sebelum mencoba mengunduh
         if (file_exists($fileDirectory . $fileName)) {
             // Lakukan unduhan file
-
+            $structuredFileName = explode('.', $fileName);
+            $ext = $structuredFileName[1];
             $formatedDeskData = substr($deskData, 0, 30);
-            return $this->response->download($fileDirectory . $fileName, null)->setFileName($formatedDeskData);
+            return $this->response->download($fileDirectory . $fileName, null)->setFileName("$formatedDeskData.$ext");
         } else {
             // File tidak ditemukan
             return redirect()->to(base_url())->with('error', 'File tidak ditemukan.');
