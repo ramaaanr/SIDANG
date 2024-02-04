@@ -10,7 +10,7 @@ class TabelProfilePegawai extends Model
     protected $table         = 'pegawai_dinas';
     protected $primaryKey    = 'nip';
     protected $allowedFields = ['nama', 'nip', 'jabatan', 'divisi'];
-    protected $column_order  = ['nama', 'jabatan'];
+    protected $column_order  = ['nama', 'jabatan', 'nip', 'jabatan'];
     protected $column_search = ['nama', 'divisi'];
     protected $order         = ['jabatan' => 'ASC'];
     protected $returnType    = 'array';
