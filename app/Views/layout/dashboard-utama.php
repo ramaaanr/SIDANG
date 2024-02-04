@@ -45,14 +45,6 @@
   <?php include('dashs/dash-data-bagan.php') ?>
 
   <script lang="javascript" type="text/javascript">
-  let dataProfileBidang = []
-  $.ajax({
-    url: "<?= base_url(); ?>/TabelMaster/getProfileBidang",
-    type: "POST",
-    success: function(res) {
-      dataProfileBidang = JSON.parse(res);
-    },
-  });
   //variable 
   let quarterly = new Date().getMonth();
   if (quarterly >= 0 && quarterly <= 2) {
@@ -269,19 +261,31 @@
         }, {
           data: 2,
           render: function(data, type, row) {
-            let namaBidang = "";
-            dataProfileBidang.forEach((bidang) => {
-              const {
-                id_bidang,
-                nama_bidang
-              } = bidang;
-
-              if (id_bidang == data) {
-                namaBidang = nama_bidang;
-                return;
-              }
-            });
-            return namaBidang;
+            let divisi = "";
+            switch (data) {
+              case "1":
+                divisi = "K2 Keluarga"
+                break;
+              case "2":
+                divisi = "PM"
+                break;
+              case "3":
+                divisi = "PPP"
+                break;
+              case "4":
+                divisi = "Dalduk KB"
+                break;
+              case "5":
+                divisi = "Sekretariat"
+                break;
+              case "6":
+                divisi = "PPHA"
+                break;
+              case "7":
+                divisi = "UPTD"
+                break;
+            }
+            return '<div class="text-sm h6"> ' + divisi + ' </div>';
           }
         },
         {
