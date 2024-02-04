@@ -581,6 +581,27 @@ class TabelMaster extends BaseController
         return json_encode($output);
     }
 
+    public function dataAnggaranWithoutTable()
+    {
+        $request    = Services::request();
+        $datatable  = new TabelAnggaranDinas($request);
+        $lists      = $datatable->findAll();
+        $data       = [];
+
+        foreach ($lists as $list) {
+            $row    = [];
+            $row[]  = $list["tahun_ag_dinas"];
+            $row[]  = $list["pagu_dinas"];
+            $row[]  = $list["realisasi_dinas_tw1"];
+            $row[]  = $list["realisasi_dinas_tw2"];
+            $row[]  = $list["realisasi_dinas_tw3"];
+            $row[]  = $list["realisasi_dinas_tw4"];
+            $data[] = $row;
+        }
+
+        return json_encode($lists);
+    }
+
     public function hapus_anggaranDinas()
     {
         $request    = Services::request();
