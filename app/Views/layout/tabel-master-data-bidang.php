@@ -31,6 +31,7 @@
   </main>
 
   <!--   Core JS Files   -->
+
   <script src="<?= base_url() ?>/assets/js/core/popper.min.js"></script>
   <script src="<?= base_url() ?>/assets/js/core/bootstrap.min.js"></script>
   <script src="<?= base_url() ?>/assets/js/plugins/perfect-scrollbar.min.js"></script>
@@ -39,6 +40,8 @@
 
   <!-- Source Table -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+
   <script src="<?= base_url(); ?>/assets/js/jquery-3.6.1.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js" type="text/javascript" charset="utf8">
   </script>
@@ -128,6 +131,14 @@
         },
         {
           data: 4
+        },
+        {
+          data: 6,
+          render: function(data, type, row) {
+            var formattedDatetime = moment(data, "YYYY-MM-DD HH:mm:ss").format("D MMMM YYYY, HH:mm");
+
+            return formattedDatetime;
+          }
         },
         {
           data: 5,

@@ -9,9 +9,9 @@ class TabelDataBidang extends Model
 {
     protected $table         = 'data_bidang';
     protected $primaryKey    = 'id_bidang';
-    protected $allowedFields = ['id_bidang', 'nm_bidang', 'desk_data', 'target_bidang', 'realisasi_bidang', 'lampiran_bidang'];
-    protected $column_order = ['id_bidang', 'nm_bidang', 'desk_data', 'target_bidang', 'realisasi_bidang', 'lampiran_bidang', ''];
-    protected $column_search = ['id_bidang', 'nm_bidang', 'desk_data', 'target_bidang', 'realisasi_bidang', 'lampiran_bidang'];
+    protected $allowedFields = ['id_bidang', 'nm_bidang', 'desk_data', 'target_bidang', 'realisasi_bidang', 'lampiran_bidang', 'updated'];
+    protected $column_order = ['id_bidang', 'nm_bidang', 'desk_data', 'target_bidang', 'realisasi_bidang', 'lampiran_bidang', 'updated', ''];
+    protected $column_search = ['id_bidang', 'nm_bidang', 'desk_data', 'target_bidang', 'realisasi_bidang', 'lampiran_bidang', 'updated'];
     protected $order         = ['id_bidang' => 'ASC'];
     protected $request;
     protected $db;

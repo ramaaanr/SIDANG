@@ -55,6 +55,7 @@ class DataBidang extends BaseController
             $row[]  = $list->target_bidang;
             $row[]  = $list->realisasi_bidang;
             $row[]  = $list->lampiran_bidang;
+            $row[]  = $list->updated;
             $data[] = $row;
         }
 
@@ -85,6 +86,7 @@ class DataBidang extends BaseController
             $row[]  = $list->target_bidang;
             $row[]  = $list->realisasi_bidang;
             $row[]  = $list->lampiran_bidang;
+            $row[]  = $list->updated;
             $data[] = $row;
         }
 
