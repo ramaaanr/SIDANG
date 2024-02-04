@@ -1,4 +1,4 @@
-<div class="row mt-3 mb-3">
+<div class="row mt-3 mb-3 justify-content-center">
   <div class="col-xl-4 col-md-6 col-sm-12 mb-2">
     <div class="card">
       <div class="card-body p-3">
@@ -132,7 +132,7 @@
             <hr class="horizontal dark mt-0" />
           </div>
           <div class="col-3 text-end">
-            <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded">
+            <div class="icon icon-shape bg-gradient-dark shadow-dark text-center rounded">
               <i id="persenBid6" class="text-xl opacity-10" aria-hidden="true">%</i>
             </div>
           </div>
@@ -157,7 +157,7 @@
             <hr class="horizontal dark mt-0" />
           </div>
           <div class="col-3 text-end">
-            <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded">
+            <div class="icon icon-shape bg-gradient-light shadow-light text-center rounded">
               <i id="persenBid7" class="text-xl opacity-10" aria-hidden="true">%</i>
             </div>
           </div>
