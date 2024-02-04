@@ -428,6 +428,7 @@ class TabelMaster extends BaseController
             $no++;
             $row    = [];
             $row[]  = $no;
+            $row[]  = $list->id;
             $row[]  = $list->indikator_dinas;
             $row[]  = $list->divisi_indikator;
             $row[]  = $list->target_indikator;
@@ -474,7 +475,7 @@ class TabelMaster extends BaseController
         $aggDinas   = new TabelIndikator($request);
 
         $getDel     = $this->request->getPost('id');
-        $deletedata = $aggDinas->where('indikator_dinas', $getDel)->delete();
+        $deletedata = $aggDinas->where('id', $getDel)->delete();
 
         if ($deletedata) {
             $res_had["status"]  = TRUE;
@@ -491,7 +492,7 @@ class TabelMaster extends BaseController
         $inidkator      = new TabelIndikator($request);
         $post               = $this->request->getPost();
 
-        $dataUbahIndikator       = $inidkator->where('indikator_dinas', $post["id"])->first();
+        $dataUbahIndikator       = $inidkator->where('id', $post["id"])->first();
 
         $res["indikator_dinas"]      = $dataUbahIndikator['indikator_dinas'];
         $res["divisi_indikator"]   = $dataUbahIndikator['divisi_indikator'];
@@ -528,7 +529,7 @@ class TabelMaster extends BaseController
                     'triwulan_4'    => $post["triwulan_4"],
                 ];
 
-                $updateIndikator   = $Indikator->set($setUpdateIndikator)->where('indikator_dinas', $post["id"])->update();
+                $updateIndikator   = $Indikator->set($setUpdateIndikator)->where('id', $post["id"])->update();
 
                 if ($updateIndikator) {
                     $res["status"] = TRUE;

@@ -8,11 +8,11 @@ use CodeIgniter\Model;
 class TabelIndikator extends Model
 {
     protected $table         = 'indikator_dinas';
-    protected $primaryKey    = 'indikator_dinas';
-    protected $allowedFields = ['indikator_dinas', 'divisi_indikator', 'target_indikator', 'triwulan_1', 'triwulan_2', 'triwulan_3', 'triwulan_4'];
+    protected $primaryKey    = 'id';
+    protected $allowedFields = ['id', 'indikator_dinas', 'divisi_indikator', 'target_indikator', 'triwulan_1', 'triwulan_2', 'triwulan_3', 'triwulan_4'];
     protected $column_order  = ['', 'indikator_dinas', 'divisi_indikator', 'target_indikator', 'triwulan_1', 'triwulan_2', 'triwulan_3', 'triwulan_4', '',];
     protected $column_search = ['indikator_dinas', 'divisi_indikator', 'target_indikator', 'triwulan_1', 'triwulan_2', 'triwulan_3', 'triwulan_4'];
-    protected $order         = ['divisi_indikator' => 'ASC'];
+    protected $order         = ['indikator_dinas' => 'ASC'];
     protected $request;
     protected $db;
     protected $builder;
