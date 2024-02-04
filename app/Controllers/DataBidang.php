@@ -164,6 +164,9 @@ class DataBidang extends BaseController
             } else if ($post['target_bidang'] < $post['realisasi_bidang']) {
                 $res["status"]  = FALSE;
                 $res["res"]     = 'Realisasi bidang tidak boleh lebih dari target bidang';
+            } else if ($post['target_bidang'] < 0 || 0 > $post['realisasi_bidang']) {
+                $res["status"]  = FALSE;
+                $res["res"]     = 'Realisasi bidang tidak boleh kurang dari 0';
             } else {
                 $session = Services::session();
                 $divisiName     = $session->get('user')['divisi'];
@@ -254,6 +257,8 @@ class DataBidang extends BaseController
                 return json_encode($res);
             } else if ($post['target_bidang'] < $post['realisasi_bidang']) {
                 throw new \Exception('Realisasi bidang tidak boleh lebih dari target bidang');
+            } else if ($post['target_bidang'] < 0 || 0 > $post['realisasi_bidang']) {
+                throw new \Exception('Realisasi bidang tidak boleh kurang dari 0');
             }
 
             $session = Services::session();
